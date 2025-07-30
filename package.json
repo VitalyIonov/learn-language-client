@@ -3,8 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "typegen": "orval",
     "build": "react-router build",
-    "dev": "react-router dev",
+    "dev": "npm run typegen && react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
   },
@@ -25,6 +26,7 @@
     "@types/node": "^20",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "orval": "7.10.0",
     "prettier": "3.6.2",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
