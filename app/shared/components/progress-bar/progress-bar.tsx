@@ -2,8 +2,8 @@ import React from "react";
 import { clsx } from "clsx";
 
 type Props = {
-  currentLevel: string;
-  nextLevel: string;
+  currentLevel?: string;
+  nextLevel?: string | null;
   percent: number;
   segments?: number;
   className?: string;
@@ -23,17 +23,21 @@ export function ProgressBar({
     <div className={clsx("w-full", className)}>
       <div className="mb-5 flex items-end justify-between">
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center rounded-lg bg-zinc-700 px-2.5 py-1 text-sm font-semibold text-zinc-100 shadow-inner">
-            {currentLevel}
-          </span>
+          {currentLevel ? (
+            <span className="inline-flex items-center rounded-lg bg-zinc-700 px-2.5 py-1 text-sm font-semibold text-zinc-100 shadow-inner">
+              {currentLevel}
+            </span>
+          ) : null}
         </div>
         <div className="text-lg font-medium text-zinc-100 tabular-nums">
           {pct.toFixed(0)}%
         </div>
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center rounded-lg bg-zinc-700 px-2.5 py-1 text-sm font-semibold text-zinc-100 shadow-inner">
-            {nextLevel}
-          </span>
+          {nextLevel ? (
+            <span className="inline-flex items-center rounded-lg bg-zinc-700 px-2.5 py-1 text-sm font-semibold text-zinc-100 shadow-inner">
+              {nextLevel}
+            </span>
+          ) : null}
         </div>
       </div>
 

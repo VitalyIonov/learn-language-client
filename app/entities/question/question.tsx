@@ -31,7 +31,7 @@ export function Question({ categoryId }: Props) {
   const { mutateAsync: makeAnswer } =
     useUpdateQuestionEndpointQuestionsQuestionIdPatch();
 
-  const { success, error } = useNotificationStore();
+  const { levelUp } = useNotificationStore();
 
   const fetchQuestion = useCallback(async () => {
     const question = await generateQuestion({
@@ -65,10 +65,11 @@ export function Question({ categoryId }: Props) {
         data: { chosenDefinitionId: selected },
       });
 
-      if (result.isCorrect) {
-        success("Ура!", "Вот это да");
-      } else {
-        error("Блин!", "Ну и ну...");
+      if (result?.info?.type === "level_up") {
+        levelUp(
+          "Поздравляем!",
+          `Ваш новый уровень - ${result?.info?.new_level}`,
+        );
       }
 
       setLastResult(result.isCorrect);

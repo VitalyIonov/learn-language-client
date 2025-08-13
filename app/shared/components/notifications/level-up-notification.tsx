@@ -38,7 +38,7 @@ export const LevelUpNotification: React.FC<LevelUpNotificationProps> = ({
       leaveFrom="opacity-100 scale-100"
       leaveTo="opacity-0 scale-95"
     >
-      <div className="pointer-events-auto relative w-full max-w-md overflow-hidden rounded-2xl bg-gradient-to-br from-yellow-400 via-orange-400 to-red-500 shadow-2xl ring-2 ring-yellow-300/50">
+      <div className="pointer-events-auto relative w-full max-w-md overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 via-blue-500 to-purple-600 shadow-2xl ring-2 ring-emerald-400/30">
         {/* Конфетти анимация */}
         {showConfetti && (
           <div className="absolute inset-0 overflow-hidden">
@@ -66,7 +66,7 @@ export const LevelUpNotification: React.FC<LevelUpNotificationProps> = ({
               <div className="relative">
                 <TrophyIcon className="h-10 w-10 animate-bounce text-white drop-shadow-lg" />
                 <div className="absolute inset-0 animate-ping">
-                  <TrophyIcon className="h-10 w-10 text-yellow-200 opacity-75" />
+                  <TrophyIcon className="h-10 w-10 text-emerald-200 opacity-75" />
                 </div>
               </div>
             </div>

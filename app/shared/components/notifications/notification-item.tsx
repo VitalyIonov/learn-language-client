@@ -14,21 +14,23 @@ import {
   useNotificationStore,
 } from "~/shared/stores";
 
-const notificationIcons: Record<NotificationType, React.ElementType> = {
+type StandardNotificationType = Exclude<NotificationType, "level-up">;
+
+const notificationIcons: Record<StandardNotificationType, React.ElementType> = {
   success: CheckCircleIcon,
   error: XCircleIcon,
   warning: ExclamationTriangleIcon,
   info: InformationCircleIcon,
 };
 
-const notificationStyles: Record<NotificationType, string> = {
+const notificationStyles: Record<StandardNotificationType, string> = {
   success: "bg-green-50 border-green-200 text-green-800",
   error: "bg-red-50 border-red-200 text-red-800",
   warning: "bg-yellow-50 border-yellow-200 text-yellow-800",
   info: "bg-blue-50 border-blue-200 text-blue-800",
 };
 
-const iconStyles: Record<NotificationType, string> = {
+const iconStyles: Record<StandardNotificationType, string> = {
   success: "text-green-400",
   error: "text-red-400",
   warning: "text-yellow-400",
@@ -45,7 +47,7 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
   show,
 }) => {
   const { removeNotification } = useNotificationStore();
-  const Icon = notificationIcons[notification.type];
+  const Icon = notificationIcons[notification.type as StandardNotificationType];
 
   const handleClose = () => {
     removeNotification(notification.id);
@@ -65,14 +67,17 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
       <div
         className={clsx(
           "ring-opacity-5 pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg border shadow-lg ring-1 ring-black",
-          notificationStyles[notification.type],
+          notificationStyles[notification.type as StandardNotificationType],
         )}
       >
         <div className="p-4">
           <div className="flex items-start">
             <div className="flex-shrink-0">
               <Icon
-                className={clsx("h-6 w-6", iconStyles[notification.type])}
+                className={clsx(
+                  "h-6 w-6",
+                  iconStyles[notification.type as StandardNotificationType],
+                )}
                 aria-hidden="true"
               />
             </div>

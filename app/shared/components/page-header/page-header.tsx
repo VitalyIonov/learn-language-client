@@ -50,7 +50,7 @@ export function PageHeader({ userData }: Props) {
             <Link
               key={name}
               to={href}
-              className="text-sm/6 font-semibold hover:text-slate-50"
+              className="cursor-pointer text-sm/6 font-semibold hover:text-slate-50"
             >
               {name}
             </Link>

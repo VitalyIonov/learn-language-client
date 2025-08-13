@@ -10,7 +10,7 @@ export const DataSection = ({ className, children }: Props) => {
   return (
     <div
       className={cn(
-        "flex w-full flex-col gap-4 rounded-lg bg-slate-800 p-4 shadow-md",
+        "flex w-full flex-col gap-4 rounded-lg bg-slate-800 p-6 shadow-md",
         className,
       )}
     >

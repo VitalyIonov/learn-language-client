@@ -100,7 +100,7 @@ export const useNotificationStore = create<NotificationStore>((set, get) => ({
     });
   },
 
-  levelUp: (title, message, duration = 4000) => {
+  levelUp: (title, message, duration = 8000) => {
     get().addNotification({
       type: "level-up",
       title,
