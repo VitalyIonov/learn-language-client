@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Radio, RadioGroup } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Popover, Button } from "@headlessui/react";
@@ -33,7 +33,6 @@ export function Question({
   const [question, setQuestion] = useState<QuestionOut>();
   const [lastResult, setLastResult] = useState<boolean>();
   const [selected, setSelected] = useState<number>();
-  const hasInitialized = useRef(false);
 
   const { selectedText, position } = useTextSelection();
   const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
@@ -64,20 +63,21 @@ export function Question({
       debounce: 2000,
     });
 
-  useEffect(() => {
-    if (!hasInitialized.current) {
-      hasInitialized.current = true;
-      console.log("useEffect: calling fetchQuestion");
-      fetchQuestion();
-    } else {
-      console.log("useEffect: skipping duplicate call");
-    }
-  }, []);
+  const { trigger: updateLevels } = useCallbackDebounce({
+    callback: invalidateLevels,
+    debounce: 2000,
+  });
 
   useEffect(() => {
     setSelected(undefined);
     setLastResult(undefined);
   }, [question?.id]);
+
+  useEffect(() => {
+    if (levelId) {
+      fetchQuestion();
+    }
+  }, [fetchQuestion, levelId]);
 
   const handleApply = async () => {
     if (selected !== undefined && question?.id) {
@@ -94,10 +94,10 @@ export function Question({
           `Ваш новый уровень - ${result?.info?.new_level.alias}`,
         );
 
-        await invalidateLevels(result?.info?.new_level.id);
+        updateLevels(result?.info?.new_level.id);
+      } else {
+        updateQuestion();
       }
-
-      updateQuestion();
     }
   };
 
