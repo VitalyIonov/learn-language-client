@@ -51,14 +51,12 @@ export default function App() {
   const queryClient = new QueryClient({});
 
   return (
-    <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <PageLayout>
-          <Outlet />
-          <NotificationContainer />
-        </PageLayout>
-      </QueryClientProvider>
-    </React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <PageLayout>
+        <Outlet />
+        <NotificationContainer />
+      </PageLayout>
+    </QueryClientProvider>
   );
 }
 

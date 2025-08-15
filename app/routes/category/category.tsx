@@ -26,7 +26,7 @@ export default function Category() {
       <PageTitle className="mb-24" title={categoryData?.name || ""} />
       <div className="grid grid-cols-3 grid-rows-[auto_auto] gap-8">
         {categoryData ? (
-          <CurrentLevelSection level={categoryData?.currentLevel || ""} />
+          <CurrentLevelSection level={categoryData?.currentLevel.alias || ""} />
         ) : null}
         {categoryCurrentProgress ? (
           <CurrentProgressSection

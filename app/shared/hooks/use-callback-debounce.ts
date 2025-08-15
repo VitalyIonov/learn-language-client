@@ -1,45 +1,46 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
-type Params<Callback extends () => void> = {
-  callback: Callback;
-  debounce: number;
+type Params<T extends (...args: any[]) => any> = {
+  callback: T;
+  debounce?: number;
 };
 
 const DEFAULT_DEBOUNCE = 1000;
 
-export const useCallbackDebounce = <Callback extends () => void>({
+export const useCallbackDebounce = <T extends (...args: any[]) => any>({
   callback,
   debounce = DEFAULT_DEBOUNCE,
-}: Params<Callback>) => {
+}: Params<T>) => {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const cbRef = useRef<() => void>(callback);
+  const cbRef = useRef<T>(callback);
 
-  const resetTimer = () => {
+  const resetTimer = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
-  };
+  }, []);
 
   useEffect(() => {
-    cbRef.current = () => {
-      callback();
-      resetTimer();
-    };
-  }, [callback, timeoutRef]);
+    cbRef.current = callback;
+  }, [callback]);
 
-  const trigger = () => {
-    resetTimer();
-    timeoutRef.current = setTimeout(() => cbRef.current(), debounce);
-  };
+  const trigger = useCallback(
+    (...args: Parameters<T>): void => {
+      resetTimer();
+      timeoutRef.current = setTimeout(() => {
+        cbRef.current(...args);
+        resetTimer();
+      }, debounce);
+    },
+    [debounce, resetTimer],
+  );
 
   useEffect(() => {
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      resetTimer();
     };
-  }, []);
+  }, [resetTimer]);
 
   return {
     trigger,
