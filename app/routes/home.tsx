@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div>
       <PageTitle className="mb-24" title="Categories" />
-      <div className="flex">
+      <div className="grid grid-cols-3 gap-12">
         {data?.items.map((category) => (
           <CategoryCard key={category.id} category={category} />
         ))}

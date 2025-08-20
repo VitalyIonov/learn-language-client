@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { Radio, RadioGroup } from "@headlessui/react";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { RadioGroup } from "@headlessui/react";
 import { Popover, Button } from "@headlessui/react";
 import { clsx } from "clsx";
 import { useCallbackDebounce } from "~/shared/hooks/use-callback-debounce";
@@ -9,6 +8,7 @@ import {
   type CategoryOut,
   type QuestionOut,
   type LevelOut,
+  type QuestionTypeName,
 } from "~/types/client-schemas";
 import {
   useTranslateTextTranslateGet,
@@ -16,6 +16,8 @@ import {
   useUpdateQuestionEndpointQuestionsQuestionIdPatch,
 } from "~/types/client-api";
 import { useTextSelection } from "~/shared/hooks/use-text-selection";
+import { TextOption } from "./text-option";
+import { ImageOption } from "./image-option";
 
 type Props = {
   className?: string;
@@ -105,7 +107,7 @@ export function Question({
     return null;
   }
 
-  const { meaning, definitions } = question;
+  const { meaning, definitions, type } = question;
 
   return (
     <div className={clsx("w-full px-4", className)}>
@@ -142,44 +144,38 @@ export function Question({
           value={selected}
           onChange={setSelected}
           aria-label="Server size"
-          className="mb-2 space-y-2"
+          className={clsx({
+            ["mb-2 space-y-2"]: type === "text",
+            ["grid grid-cols-4 grid-rows-1 gap-12"]: type === "image",
+          })}
         >
-          {definitions?.map((definition) => (
-            <Radio
-              key={definition.id}
-              value={definition.id}
-              className={clsx(
-                "group relative flex cursor-pointer rounded-lg bg-white/5 px-8 py-6  shadow-md transition focus:not-data-focus:outline-none  data-focus:outline data-focus:outline-white",
-                {
-                  ["data-checked:bg-emerald-300 data-checked:text-slate-800"]:
-                    lastResult === true && definition.id === selected,
-                  ["data-checked:bg-red-400 data-checked:text-slate-800"]:
-                    lastResult === false && definition.id === selected,
-                  ["data-checked:bg-white/10"]:
-                    lastResult === undefined && definition.id === selected,
-                },
-              )}
-            >
-              <div className="flex w-full items-center justify-between">
-                <div className="text-m/6">
-                  <p
-                    className={clsx(
-                      lastResult === undefined || definition.id !== selected
-                        ? "text-gray-100"
-                        : "font-semibold text-gray-900",
-                    )}
-                  >
-                    {definition.text}
-                  </p>
-                </div>
-                {selected === definition.id ? (
-                  <CheckCircleIcon className="size-6 fill-white opacity-0 transition group-data-checked:opacity-100" />
-                ) : null}
-              </div>
-            </Radio>
-          ))}
+          {definitions?.map((definition) => {
+            const isSelected = definition.id === selected;
+
+            if (definition.type === "image") {
+              return (
+                <ImageOption
+                  key={definition.id}
+                  definition={definition}
+                  isSelected={isSelected}
+                  lastResult={lastResult}
+                />
+              );
+            }
+
+            if (definition.type === "text") {
+              return (
+                <TextOption
+                  key={definition.id}
+                  definition={definition}
+                  isSelected={isSelected}
+                  lastResult={lastResult}
+                />
+              );
+            }
+          })}
         </RadioGroup>
-        <div className="flex justify-end p-4">
+        <div className="mt-8 flex justify-end p-4">
           <Button
             className="inline-flex cursor-pointer items-center gap-2 rounded-md bg-indigo-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner focus:not-data-focus:outline-none data-disabled:cursor-not-allowed data-disabled:bg-slate-500 data-focus:outline data-focus:outline-white data-hover:bg-indigo-800 data-open:bg-gray-700"
             disabled={isQuestionUpdating}
