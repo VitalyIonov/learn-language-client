@@ -44,9 +44,9 @@ export const LevelTabs = ({
 
   return (
     <div className={clsx("w-full", className)}>
-      <div className="flex gap-24">
+      <div className="flex flex-col gap-8 lg:flex-row lg:gap-24">
         <TabGroup vertical selectedIndex={currentLevelIndex}>
-          <TabList className="flex w-48 flex-shrink-0 flex-col space-y-2">
+          <TabList className="flex w-full flex-shrink-0 flex-row gap-2 overflow-x-scroll pb-1 [-ms-overflow-style:none] [scrollbar-width:none] lg:w-48 lg:flex-col lg:flex-wrap lg:overflow-auto lg:pb-0 [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0">
             {levelsData?.items.map((level) => (
               <Tab
                 key={level.id}
@@ -54,7 +54,7 @@ export const LevelTabs = ({
                 onClick={() => handleLevelSelect?.(level.id)}
                 className={({ selected, disabled }) =>
                   clsx(
-                    "w-full cursor-pointer rounded-xl px-4 py-3 text-left font-medium transition-all duration-200 focus:outline-none",
+                    "cursor-pointer rounded-xl px-4 py-3 text-left font-medium transition-all duration-200 focus:outline-none lg:w-48 lg:w-full",
                     {
                       "border border-emerald-400/30 bg-gradient-to-r from-emerald-500/20 via-blue-500/20 to-purple-600/20 text-white shadow-lg":
                         selected,
@@ -82,25 +82,27 @@ export const LevelTabs = ({
                     >
                       {!level.isLocked ? level.alias : "🔒"}
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <p
-                        className={clsx("font-semibold", {
-                          "text-white": selected,
-                          "text-zinc-300": !selected && !level.isLocked,
-                          "text-zinc-600": level.isLocked,
-                        })}
-                      >
-                        {level.alias}
-                      </p>
-                      <p
-                        className={clsx("truncate text-sm", {
-                          "text-emerald-200": selected,
-                          "text-zinc-400": !selected && !level.isLocked,
-                          "text-zinc-600": level.isLocked,
-                        })}
-                      >
-                        {level.name}
-                      </p>
+                    <div className="hidden lg:block">
+                      <div className="min-w-0 flex-1">
+                        <p
+                          className={clsx("font-semibold", {
+                            "text-white": selected,
+                            "text-zinc-300": !selected && !level.isLocked,
+                            "text-zinc-600": level.isLocked,
+                          })}
+                        >
+                          {level.alias}
+                        </p>
+                        <p
+                          className={clsx("truncate text-sm", {
+                            "text-emerald-200": selected,
+                            "text-zinc-400": !selected && !level.isLocked,
+                            "text-zinc-600": level.isLocked,
+                          })}
+                        >
+                          {level.name}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -110,7 +112,7 @@ export const LevelTabs = ({
         </TabGroup>
         <div className="flex min-w-0 flex-1 items-center">
           <Question
-            className="pr-24"
+            className="lg:pr-24"
             categoryId={categoryId}
             levelId={currentLevel}
             invalidateLevels={updateLevels}

@@ -39,7 +39,6 @@ export const LevelUpNotification: React.FC<LevelUpNotificationProps> = ({
       leaveTo="opacity-0 scale-95"
     >
       <div className="pointer-events-auto relative w-full max-w-md overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 via-blue-500 to-purple-600 shadow-2xl ring-2 ring-emerald-400/30">
-        {/* Конфетти анимация */}
         {showConfetti && (
           <div className="absolute inset-0 overflow-hidden">
             {Array.from({ length: 20 }).map((_, i) => (
@@ -56,10 +55,8 @@ export const LevelUpNotification: React.FC<LevelUpNotificationProps> = ({
           </div>
         )}
 
-        {/* Сияющий фон */}
         <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-yellow-200/20 to-orange-200/20" />
 
-        {/* Основной контент */}
         <div className="relative p-6">
           <div className="flex items-start">
             <div className="flex-shrink-0">
@@ -97,7 +94,6 @@ export const LevelUpNotification: React.FC<LevelUpNotificationProps> = ({
           </div>
         </div>
 
-        {/* Декоративные элементы */}
         <div className="absolute top-2 left-2 h-3 w-3 animate-ping rounded-full bg-white/30" />
         <div className="absolute right-4 bottom-3 h-2 w-2 animate-pulse rounded-full bg-white/40" />
         <div className="absolute top-4 right-8 h-1 w-1 animate-bounce rounded-full bg-white/50" />

@@ -11,9 +11,9 @@ export const CategoryCard = ({ category }: Props) => {
 
   return (
     <Link to={`category/${id}`}>
-      <div className="flex cursor-pointer items-start justify-between gap-24 rounded-[16px] bg-gray-800 p-4 transition-shadow duration-300 ease-in-out hover:shadow-[0_0_4px_rgba(255,255,255,0.3)]">
+      <div className="flex cursor-pointer items-start justify-between gap-6 rounded-[16px] bg-gray-800 p-4 transition-shadow duration-300 ease-in-out hover:shadow-[0_0_4px_rgba(255,255,255,0.3)] lg:gap-24">
         <p>{name}</p>
-        <div className="flex h-[120px] w-[120px] items-center justify-center overflow-hidden rounded-[50%]">
+        <div className="flex h-[120px] w-[120px] shrink-0 items-center justify-center overflow-hidden rounded-[50%]">
           {image?.imageUrl ? (
             <img className="max-h-max" src={image?.imageUrl} alt={name} />
           ) : null}

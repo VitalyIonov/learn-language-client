@@ -46,7 +46,7 @@ export function Question({
   const { mutateAsync: makeAnswer } =
     useUpdateQuestionEndpointQuestionsQuestionIdPatch();
 
-  const { levelUp } = useNotificationStore();
+  const { custom: customNotification } = useNotificationStore();
 
   const fetchQuestion = useCallback(async () => {
     const question = await generateQuestion({
@@ -91,12 +91,19 @@ export function Question({
       setLastResult(result.isCorrect);
 
       if (result?.info?.type === "level_up") {
-        levelUp(
+        customNotification(
+          "level-up",
           "Поздравляем!",
           `Ваш новый уровень - ${result?.info?.new_level.alias}`,
         );
 
         updateLevels(result?.info?.new_level.id);
+      } else if (result?.info?.type === "category_finish") {
+        customNotification(
+          "category-finished",
+          "Поздравляем!",
+          `Вы полностью завершили текущую категорию`,
+        );
       } else {
         updateQuestion();
       }
@@ -110,7 +117,7 @@ export function Question({
   const { meaning, definitions, type } = question;
 
   return (
-    <div className={clsx("w-full px-4", className)}>
+    <div className={clsx("w-full lg:px-4", className)}>
       {selectedText ? (
         <Popover
           className="absolute z-50 min-w-[120px]"
@@ -146,7 +153,8 @@ export function Question({
           aria-label="Server size"
           className={clsx({
             ["mb-2 space-y-2"]: type === "text",
-            ["grid grid-cols-4 grid-rows-1 gap-12"]: type === "image",
+            ["grid grid-cols-2 gap-6 sm:grid-cols-4 lg:gap-12"]:
+              type === "image",
           })}
         >
           {definitions?.map((definition) => {
@@ -177,7 +185,7 @@ export function Question({
         </RadioGroup>
         <div className="mt-8 flex justify-end p-4">
           <Button
-            className="inline-flex cursor-pointer items-center gap-2 rounded-md bg-indigo-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner focus:not-data-focus:outline-none data-disabled:cursor-not-allowed data-disabled:bg-slate-500 data-focus:outline data-focus:outline-white data-hover:bg-indigo-800 data-open:bg-gray-700"
+            className="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-indigo-700 px-3 py-1.5 text-base font-semibold text-white shadow-inner focus:not-data-focus:outline-none data-disabled:cursor-not-allowed data-disabled:bg-slate-500 data-focus:outline data-focus:outline-white data-hover:bg-indigo-800 data-open:bg-gray-700 md:w-32 lg:h-auto lg:w-24 lg:text-sm/6"
             disabled={isQuestionUpdating}
             onClick={handleApply}
           >

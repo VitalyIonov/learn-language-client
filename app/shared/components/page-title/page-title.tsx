@@ -9,7 +9,7 @@ export const PageTitle = ({ title, className }: Props) => {
   return (
     <h1
       className={clsx(
-        "mb-6 text-3xl font-bold tracking-tight text-slate-200",
+        "mb-12 text-lg font-bold tracking-tight text-slate-200 lg:mb-24 lg:text-3xl",
         className,
       )}
     >

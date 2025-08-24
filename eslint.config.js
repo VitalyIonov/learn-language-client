@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import globals from "globals";
 import tsParser from "@typescript-eslint/parser";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
+import twClassnameGroup from "./eslint-plugin-tailwind-classname-group";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 
@@ -22,6 +23,7 @@ export default [
       globals: { ...globals.browser, ...globals.node },
     },
     plugins: {
+      "tw-classname-group": twClassnameGroup,
       "@typescript-eslint": tsPlugin,
       react,
       "react-hooks": reactHooks,

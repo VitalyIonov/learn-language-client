@@ -10,15 +10,15 @@ type Props = {
 export const CurrentLevelSection = ({ className, level }: Props) => {
   return (
     <DataSection className={clsx(className, "p-0")}>
-      <div className="relative overflow-hidden">
+      <div className="relative h-full overflow-hidden">
         <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-emerald-500/10 via-blue-500/5 to-purple-600/10" />
 
-        <div className="relative flex flex-col justify-between gap-8 p-6">
+        <div className="relative flex flex-col justify-between gap-4 p-4 md:gap-6 lg:gap-8 lg:p-6">
           <div className="flex items-center gap-3">
             <div className="flex-shrink-0">
               <AcademicCapIcon className="h-6 w-6 text-emerald-400" />
             </div>
-            <h2 className="text-lg font-semibold text-zinc-100">
+            <h2 className="text-sm font-semibold text-zinc-100 md:text-base lg:text-lg">
               Текущий уровень
             </h2>
           </div>

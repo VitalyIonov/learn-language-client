@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { PageTitle } from "~/shared/components/page-title/page-title";
+import { PageContent, PageTitle } from "~/shared/components";
 import { useReadCategoriesCategoriesGet } from "~/types/client-api";
 import { CategoryCard } from "~/entities/category-card/category-card";
 
@@ -15,12 +15,14 @@ export default function Home() {
 
   return (
     <div>
-      <PageTitle className="mb-24" title="Categories" />
-      <div className="grid grid-cols-3 gap-12">
-        {data?.items.map((category) => (
-          <CategoryCard key={category.id} category={category} />
-        ))}
-      </div>
+      <PageContent>
+        <PageTitle title="Categories" />
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+          {data?.items.map((category) => (
+            <CategoryCard key={category.id} category={category} />
+          ))}
+        </div>
+      </PageContent>
     </div>
   );
 }

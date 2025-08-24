@@ -13,7 +13,7 @@ export const PageLayout = ({ children }: Props) => {
   return (
     <div>
       <PageHeader userData={data} />
-      <div className="mx-auto max-w-7xl py-12">{children}</div>
+      <div className="mx-auto max-w-7xl py-4 lg:py-12">{children}</div>
     </div>
   );
 };

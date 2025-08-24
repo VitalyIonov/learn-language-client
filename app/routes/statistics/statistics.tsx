@@ -2,7 +2,7 @@ import { CommonStatisticsSection } from "~/routes/statistics/components/common-s
 import { TodayStatisticsSection } from "~/entities/today-statistics-section/today-statistics-section";
 import { WordStatistics } from "~/features/word-statistics/word-statistics";
 
-import { PageTitle } from "~/shared/components/page-title/page-title";
+import { PageTitle, PageContent } from "~/shared/components";
 import {
   useGetProgressByUser,
   useGetTodayProgressByUser,
@@ -13,13 +13,13 @@ export default function Statistics() {
   const { data: todayProgressData } = useGetTodayProgressByUser();
 
   return (
-    <div>
-      <PageTitle className="mb-24" title="Statistics" />
-      <div className="grid grid-cols-3 grid-rows-[auto_auto] gap-8">
+    <PageContent>
+      <PageTitle title="Statistics" />
+      <div className="grid grid-cols-1 grid-rows-[auto_auto] gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         <CommonStatisticsSection progress={allProgressData?.progress} />
         <TodayStatisticsSection progress={todayProgressData?.progress} />
-        <WordStatistics className="col-span-3 p-0" />
+        {/* <WordStatistics className="col-span-3 p-0" /> */}
       </div>
-    </div>
+    </PageContent>
   );
 }

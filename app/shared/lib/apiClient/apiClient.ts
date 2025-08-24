@@ -3,6 +3,7 @@ import type { AxiosRequestConfig, AxiosResponse } from "axios";
 
 import { getHeaders } from "~/shared/lib/apiClient/helpers/getHeaders";
 import { type ApiClientConfig } from "~/shared/lib/apiClient/types/ApiClient";
+import { logout } from "~/shared/lib/auth";
 
 const axiosClient = axios.create({
   baseURL: process.env.VITE_API_URL,
@@ -19,6 +20,16 @@ axiosClient.interceptors.request.use((config) => {
   return config;
 });
 
+axiosClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      logout();
+    }
+    return Promise.reject(error);
+  },
+);
+
 let defaultApiClientConfig: ApiClientConfig = {
   customOptions: {},
 };
@@ -28,16 +39,12 @@ export async function request<ResponseData, RequestData = never>(
 ) {
   const preparedAxiosConfig = { ...axiosConfig };
 
-  try {
-    const response = await axiosClient.request<
-      ResponseData,
-      AxiosResponse<ResponseData>
-    >(preparedAxiosConfig);
+  const response = await axiosClient.request<
+    ResponseData,
+    AxiosResponse<ResponseData>
+  >(preparedAxiosConfig);
 
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  return response.data;
 }
 
 async function get<ResponseData>(url: string, params?: URLSearchParams) {

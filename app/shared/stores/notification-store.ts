@@ -5,7 +5,8 @@ export type NotificationType =
   | "error"
   | "warning"
   | "info"
-  | "level-up";
+  | "level-up"
+  | "category-finished";
 
 export interface Notification {
   id: string;
@@ -27,7 +28,12 @@ interface NotificationStore {
   error: (title: string, message?: string, duration?: number) => void;
   warning: (title: string, message?: string, duration?: number) => void;
   info: (title: string, message?: string, duration?: number) => void;
-  levelUp: (title: string, message?: string, duration?: number) => void;
+  custom: (
+    type: NotificationType,
+    title: string,
+    message?: string,
+    duration?: number,
+  ) => void;
 }
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -100,9 +106,9 @@ export const useNotificationStore = create<NotificationStore>((set, get) => ({
     });
   },
 
-  levelUp: (title, message, duration = 8000) => {
+  custom: (type, title, message, duration = 8000) => {
     get().addNotification({
-      type: "level-up",
+      type,
       title,
       message,
       duration,

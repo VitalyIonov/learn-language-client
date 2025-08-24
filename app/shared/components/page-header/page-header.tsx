@@ -19,11 +19,15 @@ const pages = [
 export function PageHeader({ userData }: Props) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const handleItemClick = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className="bg-slate-800">
       <nav
         aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:p-6 lg:px-8"
       >
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
@@ -92,13 +96,14 @@ export function PageHeader({ userData }: Props) {
                   <Link
                     key={name}
                     to={href}
-                    className="hover:bg-stale-300 -mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold"
+                    className="hover:bg-stale-300 block rounded-lg px-3 py-2 text-base/7 font-semibold"
+                    onClick={handleItemClick}
                   >
                     {name}
                   </Link>
                 ))}
               </div>
-              <div className="hidden py-6 lg:flex lg:flex-1 lg:justify-end">
+              <div className="py-6 lg:flex lg:flex-1 lg:justify-end">
                 <UserLogo userData={userData} />
               </div>
             </div>

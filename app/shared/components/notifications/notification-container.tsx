@@ -27,6 +27,16 @@ export const NotificationContainer: React.FC = () => {
             );
           }
 
+          if (notification.type === "category-finished") {
+            return (
+              <LevelUpNotification
+                key={notification.id}
+                notification={notification}
+                show={true}
+              />
+            );
+          }
+
           return (
             <NotificationItem
               key={notification.id}
