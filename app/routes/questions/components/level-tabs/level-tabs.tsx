@@ -46,7 +46,16 @@ export const LevelTabs = ({
     <div className={clsx("w-full", className)}>
       <div className="flex flex-col gap-8 lg:flex-row lg:gap-24">
         <TabGroup vertical selectedIndex={currentLevelIndex}>
-          <TabList className="flex w-full flex-shrink-0 flex-row gap-2 overflow-x-scroll pb-1 [-ms-overflow-style:none] [scrollbar-width:none] lg:w-48 lg:flex-col lg:flex-wrap lg:overflow-auto lg:pb-0 [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0">
+          <TabList
+            className={clsx(
+              "overflow-x-scroll",
+              "flex flex-shrink-0 flex-row gap-2",
+              "pb-1",
+              "w-full [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0",
+              "[-ms-overflow-style:none] [scrollbar-width:none]",
+              "lg:w-48 lg:flex-col lg:flex-wrap lg:overflow-auto lg:pb-0",
+            )}
+          >
             {levelsData?.items.map((level) => (
               <Tab
                 key={level.id}
@@ -54,7 +63,7 @@ export const LevelTabs = ({
                 onClick={() => handleLevelSelect?.(level.id)}
                 className={({ selected, disabled }) =>
                   clsx(
-                    "cursor-pointer rounded-xl px-4 py-3 text-left font-medium transition-all duration-200 focus:outline-none lg:w-48 lg:w-full",
+                    "cursor-pointer rounded-xl px-4 py-3 text-left font-medium transition-all duration-200 focus:outline-none lg:w-48",
                     {
                       "border border-emerald-400/30 bg-gradient-to-r from-emerald-500/20 via-blue-500/20 to-purple-600/20 text-white shadow-lg":
                         selected,
@@ -70,7 +79,10 @@ export const LevelTabs = ({
                   <div className="flex items-center gap-3">
                     <div
                       className={clsx(
-                        "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl text-lg font-bold",
+                        "flex flex-shrink-0 items-center justify-center",
+                        "h-10 w-10",
+                        "text-lg font-bold",
+                        "rounded-xl",
                         {
                           "bg-gradient-to-br from-emerald-400 via-blue-400 to-purple-500 text-white shadow-lg":
                             selected,

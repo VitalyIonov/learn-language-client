@@ -2,23 +2,26 @@
 "use strict";
 
 /**
- * Группирует className в cn("…", "…", …) по тем же крупным разделам,
- * которые использует prettier-plugin-tailwindcss (mental model):
- * Positioning → Layout → Flex/Grid/Box Alignment → Spacing → Sizing →
- * Typography → Backgrounds → Borders → Effects → Filters → Tables →
- * Transforms → Transitions & Animation → Interactivity → SVG → Accessibility
+ * Группирует классы Tailwind по mental model (как у prettier-plugin-tailwindcss)
+ * в аргументы вызова cn()/clsx(), и следит, чтобы классы не «забредали»
+ * в чужие группы. Поддерживает:
+ *  - Преобразование длинной строки в cn("…","…",…)
+ *  - Реформатирование уже существующих cn(...)/clsx(...) (перекладывает классы)
  *
- * Затем отдельные корзины:
- * - variants (hover:/focus:/active:/disabled:/dark:/aria:/data:/group-/peer-…)
- * - responsive (sm:/md:/lg:/xl:/2xl:) — в порядке от меньшего к большему.
- *
- * Дальше Prettier (с плагином) отсортирует КАЖДЫЙ аргумент cn() внутри.
+ * Опции:
+ * {
+ *   functionName: "cn",              // во что конвертировать строковые className
+ *   importSource: "@/lib/cn",        // откуда импортировать functionName при конверсии
+ *   minClasses: 8,                   // с какого количества классов запускать группировку
+ *   tailwindFunctions: ["cn","clsx"] // функции, внутри которых следует проверять/править
+ * }
  */
 
 const DEFAULTS = {
   functionName: "cn",
   importSource: "@/lib/cn",
   minClasses: 8,
+  tailwindFunctions: ["cn", "clsx"],
 };
 
 // Детектор модификаторов и брейкпоинтов
@@ -28,7 +31,7 @@ const RX = {
     /^(hover|focus|focus-visible|active|visited|disabled|checked|open|closed|first|last|only|odd|even|first-of-type|last-of-type|placeholder-shown|autofill|required|invalid|in-range|out-of-range|read-only|empty|enabled|loading|current|motion-safe|motion-reduce|portrait|landscape|rtl|ltr|dark|aria-[^:]+|data-[^:]+|group(-[^:]+)?:|peer(-[^:]+)?:)/,
 };
 
-// Порядок групп (соответствует «высокоуровневым» разделам Tailwind/Prettier)
+// Порядок групп (укрупнённые разделы Tailwind/Prettier)
 const GROUPS = [
   {
     key: "positioning",
@@ -46,7 +49,7 @@ const GROUPS = [
   {
     key: "flexGridAlign",
     tests: [
-      /^(flex$|grid$)/,
+      /^(flex$|inline-flex$|grid$|inline-grid$)/,
       /^(flex-|grid-|col-|row-|place-|content-|items-|justify-|gap-|order-)/,
     ],
   },
@@ -89,12 +92,13 @@ const GROUPS = [
   { key: "accessibility", tests: [/^(sr-only|not-sr-only|aria-)/] },
 ];
 
-// вспомогательное — «базовая часть» после последнего :
+// базовая часть класса после последнего ':'
 const base = (cls) => {
   const i = cls.lastIndexOf(":");
   return i >= 0 ? cls.slice(i + 1) : cls;
 };
 
+// распределяем классы по корзинам и формируем строки-аргументы
 function bucketize(all) {
   const plain = [];
   const variants = [];
@@ -102,8 +106,8 @@ function bucketize(all) {
 
   for (const c of all) {
     if (RX.responsive.test(c)) {
-      const bp = c.split(":")[0]; // sm/md/…
-      responsive[bp]?.push(c);
+      const bp = c.split(":")[0];
+      (responsive[bp] || (responsive[bp] = [])).push(c);
     } else if (RX.variant.test(c)) {
       variants.push(c);
     } else {
@@ -111,7 +115,6 @@ function bucketize(all) {
     }
   }
 
-  // сначала раскладываем plain по «точным» группам в нужном порядке
   const gmap = new Map(GROUPS.map((g) => [g.key, []]));
   const misc = [];
   for (const c of plain) {
@@ -119,45 +122,32 @@ function bucketize(all) {
     const g = GROUPS.find((G) => G.tests.some((rx) => rx.test(b)));
     (g ? gmap.get(g.key) : misc).push(c);
   }
-  const orderedPlain = [
-    ...GROUPS.flatMap((g) => gmap.get(g.key) || []),
-    ...misc,
-  ];
 
-  // затем просто добавляем корзину variants и потом responsive (по порядку bp)
-  const ordered = [
-    ...orderedPlain,
-    ...variants,
-    ...responsive.sm,
-    ...responsive.md,
-    ...responsive.lg,
-    ...responsive.xl,
-    ...responsive["2xl"],
-  ];
-
-  // теперь порежем на строки: одна строка = одна «верхнеуровневая» группа/корзина
   const lines = [];
-  // 1) plain-группы
   for (const g of GROUPS) {
     const items = gmap.get(g.key) || [];
     if (items.length) lines.push(items.join(" "));
   }
   if (misc.length) lines.push(misc.join(" "));
-  // 2) variants одной строкой
   if (variants.length) lines.push(variants.join(" "));
-  // 3) responsive — одна строка на каждый bp, если есть
   for (const bp of ["sm", "md", "lg", "xl", "2xl"]) {
     if (responsive[bp].length) lines.push(responsive[bp].join(" "));
   }
 
-  return { lines, ordered }; // ordered не используется для вывода, но оставлено на будущее
+  return lines;
 }
 
-function getClassText(attr) {
+// --- утилиты AST/текста ---
+
+function getClassTextFromAttribute(attr) {
   const v = attr.value;
   if (!v) return null;
   if (v.type === "Literal" && typeof v.value === "string") return v.value;
-  if (v.type === "JSXExpressionContainer" && v.expression.type === "Literal")
+  if (
+    v.type === "JSXExpressionContainer" &&
+    v.expression.type === "Literal" &&
+    typeof v.expression.value === "string"
+  )
     return v.expression.value;
   if (
     v.type === "JSXExpressionContainer" &&
@@ -169,17 +159,33 @@ function getClassText(attr) {
   return null;
 }
 
-function isAlreadyCn(attr, fn) {
+function isCallToAllowedFn(expr, fns) {
   return (
-    attr.value &&
-    attr.value.type === "JSXExpressionContainer" &&
-    attr.value.expression.type === "CallExpression" &&
-    attr.value.expression.callee.type === "Identifier" &&
-    attr.value.expression.callee.name === fn
+    expr &&
+    expr.type === "CallExpression" &&
+    expr.callee.type === "Identifier" &&
+    fns.includes(expr.callee.name)
   );
 }
 
-function hasCnImport(sourceCode, fn, from) {
+function extractFromCall(expr, sourceCode) {
+  // Собираем все строковые аргументы (Literal, TemplateLiteral без выражений)
+  const stringParts = [];
+  const otherArgs = [];
+  for (const a of expr.arguments) {
+    if (a.type === "Literal" && typeof a.value === "string") {
+      stringParts.push(a.value);
+    } else if (a.type === "TemplateLiteral" && a.expressions.length === 0) {
+      stringParts.push(a.quasis.map((q) => q.value.cooked).join(""));
+    } else {
+      otherArgs.push(sourceCode.getText(a));
+    }
+  }
+  const classes = stringParts.join(" ").trim().split(/\s+/).filter(Boolean);
+  return { classes, otherArgs, callee: expr.callee.name };
+}
+
+function hasImport(sourceCode, fn, from) {
   const body = sourceCode.ast.body || [];
   return body.some(
     (n) =>
@@ -196,14 +202,14 @@ function firstNode(sourceCode) {
   return b[0] || null;
 }
 
-module.exports = {
+export default {
   rules: {
     "prefer-cn": {
       meta: {
         type: "suggestion",
         docs: {
           description:
-            "Group Tailwind classes into cn(...) by Tailwind/Prettier mental model",
+            "Group Tailwind classes into cn(...)/clsx(...) by Tailwind/Prettier mental model and fix misplaced classes",
         },
         fixable: "code",
         schema: [
@@ -213,42 +219,89 @@ module.exports = {
               functionName: { type: "string" },
               importSource: { type: "string" },
               minClasses: { type: "number" },
+              tailwindFunctions: {
+                type: "array",
+                items: { type: "string" },
+                uniqueItems: true,
+              },
             },
             additionalProperties: false,
           },
         ],
-        messages: { toCn: "Convert long className into grouped cn(...)." },
+        messages: {
+          toCn: "Convert long className into grouped cn(...).",
+          regroup: "Regroup Tailwind classes to the correct groups.",
+        },
       },
+
       create(context) {
         const opts = { ...DEFAULTS, ...(context.options?.[0] || {}) };
+
         return {
           JSXAttribute(node) {
-            if (
-              node.name?.name !== "className" ||
-              isAlreadyCn(node, opts.functionName)
-            )
-              return;
+            if (node.name?.name !== "className") return;
 
-            const txt = getClassText(node);
+            const source = context.getSourceCode();
+
+            // a) Уже вызов cn/clsx — валидируем и фиксируем
+            if (
+              node.value?.type === "JSXExpressionContainer" &&
+              isCallToAllowedFn(node.value.expression, opts.tailwindFunctions)
+            ) {
+              const expr = node.value.expression;
+              const { classes, otherArgs, callee } = extractFromCall(
+                expr,
+                source,
+              );
+              if (classes.length < opts.minClasses) return;
+
+              const desiredLines = bucketize(classes);
+              const desiredStrings = desiredLines; // массив строк "… …"
+
+              // Текущие строковые аргументы из AST
+              const currentStrings = expr.arguments
+                .filter(
+                  (a) => a.type === "Literal" && typeof a.value === "string",
+                )
+                .map((a) => a.value.trim());
+
+              const needFix =
+                desiredStrings.length !== currentStrings.length ||
+                desiredStrings.some((s, i) => s !== currentStrings[i]);
+
+              if (needFix) {
+                const stringArgs = desiredStrings.map((s) => `"${s}"`);
+                const newArgs = [...stringArgs, ...otherArgs].join(", ");
+                const newCall = `${callee}(${newArgs})`;
+
+                context.report({
+                  node: node.value, // подсветим всё значение
+                  messageId: "regroup",
+                  fix: (fixer) => fixer.replaceText(node.value, `{${newCall}}`),
+                });
+              }
+
+              return;
+            }
+
+            // b) Простая строка — конвертируем в cn(...)
+            const txt = getClassTextFromAttribute(node);
             if (!txt) return;
 
             const list = txt.trim().split(/\s+/).filter(Boolean);
             if (list.length < opts.minClasses) return;
 
+            const lines = bucketize(list);
+            const args = lines.map((s) => `"${s}"`).join(", ");
+            const replacement = `{${opts.functionName}(${args})}`;
+
             context.report({
               node,
               messageId: "toCn",
               fix: (fixer) => {
-                const { lines } = bucketize(list);
-                const args = lines.map((s) => `"${s}"`).join(", ");
-                const replacement = `{${opts.functionName}(${args})}`;
-
-                const source = context.getSourceCode();
                 const fixes = [fixer.replaceText(node.value, replacement)];
 
-                if (
-                  !hasCnImport(source, opts.functionName, opts.importSource)
-                ) {
+                if (!hasImport(source, opts.functionName, opts.importSource)) {
                   const importLine = `import { ${opts.functionName} } from "${opts.importSource}";\n`;
                   const first = firstNode(source);
                   fixes.push(

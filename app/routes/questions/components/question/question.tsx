@@ -124,7 +124,13 @@ export function Question({
           style={{ top: position?.y, left: position?.x }}
         >
           <Popover.Panel
-            className="flex flex-col rounded-lg border-1 border-gray-800 bg-slate-300 text-sm text-white shadow-lg"
+            className={clsx(
+              "flex flex-col",
+              "text-sm text-white",
+              "bg-slate-300",
+              "rounded-lg border-1 border-gray-800",
+              "shadow-lg",
+            )}
             static
           >
             <div className="border-b-1 border-gray-600 px-4 pt-4 pb-4 ">
@@ -185,7 +191,20 @@ export function Question({
         </RadioGroup>
         <div className="mt-8 flex justify-end p-4">
           <Button
-            className="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-indigo-700 px-3 py-1.5 text-base font-semibold text-white shadow-inner focus:not-data-focus:outline-none data-disabled:cursor-not-allowed data-disabled:bg-slate-500 data-focus:outline data-focus:outline-white data-hover:bg-indigo-800 data-open:bg-gray-700 md:w-32 lg:h-auto lg:w-24 lg:text-sm/6"
+            className={clsx(
+              "inline-flex",
+              "items-center justify-center gap-2",
+              "px-3 py-1.5",
+              "h-12 w-full",
+              "text-base font-semibold text-white",
+              "bg-indigo-700",
+              "rounded-md",
+              "shadow-inner",
+              "cursor-pointer",
+              "focus:not-data-focus:outline-none data-disabled:cursor-not-allowed data-disabled:bg-slate-500 data-focus:outline data-focus:outline-white data-hover:bg-indigo-800 data-open:bg-gray-700",
+              "md:w-32",
+              "lg:h-auto lg:w-24 lg:text-sm/6",
+            )}
             disabled={isQuestionUpdating}
             onClick={handleApply}
           >

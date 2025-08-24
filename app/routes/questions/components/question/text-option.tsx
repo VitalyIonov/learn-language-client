@@ -15,7 +15,16 @@ export function TextOption({ definition, isSelected, lastResult }: Props) {
       key={definition.id}
       value={definition.id}
       className={clsx(
-        "group relative flex cursor-pointer rounded-lg bg-white/5 px-8 py-6  shadow-md transition focus:not-data-focus:outline-none  data-focus:outline data-focus:outline-white",
+        "relative",
+        "flex",
+        "px-8 py-6",
+        "bg-white/5",
+        "rounded-lg",
+        "shadow-md",
+        "transition",
+        "cursor-pointer",
+        "group",
+        "focus:not-data-focus:outline-none data-focus:outline data-focus:outline-white",
         {
           ["data-checked:bg-emerald-300 data-checked:text-slate-800"]:
             lastResult === true && isSelected,
@@ -26,7 +35,7 @@ export function TextOption({ definition, isSelected, lastResult }: Props) {
       )}
     >
       <div className="flex w-full items-center justify-between">
-        <div className="text-m/6">
+        <div className="text-lg/8">
           <p
             className={clsx(
               lastResult === undefined || !isSelected

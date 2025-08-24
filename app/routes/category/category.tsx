@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { Button } from "@headlessui/react";
 import { useParams, Link } from "react-router";
 
@@ -37,7 +38,19 @@ export default function Category() {
           />
         ) : null}
       </div>
-      <Button className="inline-flex cursor-pointer items-center gap-2 rounded-md bg-indigo-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner focus:not-data-focus:outline-none data-disabled:cursor-not-allowed data-disabled:bg-slate-500 data-focus:outline data-focus:outline-white data-hover:bg-indigo-800 data-open:bg-gray-700">
+      <Button
+        className={clsx(
+          "inline-flex",
+          "flex items-center gap-2",
+          "px-3 py-1.5",
+          "text-sm/6 font-semibold text-white",
+          "bg-indigo-700",
+          "rounded-md",
+          "shadow-inner",
+          "cursor-pointer",
+          "focus:not-data-focus:outline-none data-disabled:cursor-not-allowed data-disabled:bg-slate-500 data-focus:outline data-focus:outline-white data-hover:bg-indigo-800 data-open:bg-gray-700",
+        )}
+      >
         <Link to="questions">Перейти к изучению</Link>
       </Button>
     </PageContent>

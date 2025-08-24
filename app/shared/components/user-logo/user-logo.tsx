@@ -42,7 +42,11 @@ export const UserLogo = ({ userData, className }: Props) => {
         <div className="flex gap-4">
           <div
             className={clsx(
-              "flex h-[40px] w-[40px] items-center justify-center rounded-[16px] bg-slate-800 text-gray-200",
+              "flex items-center justify-center",
+              "h-[40px] w-[40px]",
+              "text-gray-200",
+              "bg-slate-800",
+              "rounded-[16px]",
               className,
             )}
           >
@@ -60,10 +64,21 @@ export const UserLogo = ({ userData, className }: Props) => {
   return (
     <>
       <Popover className="hidden lg:block">
-        <PopoverButton className="block cursor-pointer text-sm/6 font-semibold focus:outline-none data-active:text-white data-focus:outline data-focus:outline-white data-hover:text-white">
+        <PopoverButton
+          className={clsx(
+            "block",
+            "text-sm/6 font-semibold",
+            "cursor-pointer",
+            "focus:outline-none data-active:text-white data-focus:outline data-focus:outline-white data-hover:text-white",
+          )}
+        >
           <div
             className={clsx(
-              "flex h-[40px] w-[40px] items-center justify-center rounded-[16px] bg-slate-900 text-gray-200",
+              "flex items-center justify-center",
+              "h-[40px] w-[40px]",
+              "text-gray-200",
+              "bg-slate-900",
+              "rounded-[16px]",
               className,
             )}
           >
@@ -73,7 +88,15 @@ export const UserLogo = ({ userData, className }: Props) => {
         <PopoverPanel
           transition
           anchor="bottom end"
-          className="divide-y divide-white/5 rounded-xl border-1 border-slate-700 bg-slate-900 text-sm/6 transition duration-200 ease-in-out [--anchor-gap:--spacing(5)] data-closed:-translate-y-1 data-closed:opacity-0"
+          className={clsx(
+            "flex",
+            "text-sm/6",
+            "bg-slate-900",
+            "divide-y divide-white/5 rounded-xl border-1 border-slate-700",
+            "transition duration-200 ease-in-out",
+            "[--anchor-gap:--spacing(5)]",
+            "data-closed:-translate-y-1 data-closed:opacity-0",
+          )}
         >
           {content}
         </PopoverPanel>

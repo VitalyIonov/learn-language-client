@@ -22,7 +22,7 @@ export const CurrentProgressSection = ({
           <div className="flex-shrink-0">
             <BeakerIcon className="h-6 w-6 text-emerald-400" />
           </div>
-          <h2 className="text-lg font-semibold text-zinc-100">
+          <h2 className="text-base font-semibold text-zinc-100 md:text-lg">
             Текущий прогресс
           </h2>
         </div>
