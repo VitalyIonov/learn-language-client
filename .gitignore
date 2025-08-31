@@ -5,3 +5,6 @@
 /.react-router/
 /build/
 /dist
+
+.env
+.env.*

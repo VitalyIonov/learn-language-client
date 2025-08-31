@@ -1,22 +1,24 @@
-FROM node:20-alpine AS development-dependencies-env
-COPY . /app
+FROM node:20-alpine AS build
 WORKDIR /app
-RUN npm ci
 
-FROM node:20-alpine AS production-dependencies-env
-COPY ./package.json package-lock.json /app/
+COPY package*.json ./
+RUN npm ci
+COPY . .
+
+ARG VITE_API_URL=/api/v1/client
+ENV VITE_API_URL=${VITE_API_URL}
+
+RUN npx react-router build
+
+FROM node:20-alpine AS prod
 WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=8080
+
+COPY package*.json ./
 RUN npm ci --omit=dev
 
-FROM node:20-alpine AS build-env
-COPY . /app/
-COPY --from=development-dependencies-env /app/node_modules /app/node_modules
-WORKDIR /app
-RUN npm run build
+COPY --from=build /app/build ./build
 
-FROM node:20-alpine
-COPY ./package.json package-lock.json /app/
-COPY --from=production-dependencies-env /app/node_modules /app/node_modules
-COPY --from=build-env /app/build /app/build
-WORKDIR /app
+EXPOSE 8080
 CMD ["npm", "run", "start"]
