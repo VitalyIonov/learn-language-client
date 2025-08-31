@@ -58,16 +58,16 @@ export default function Category() {
         <Button
           className={clsx(
             "inline-flex",
-            "flex items-center gap-2",
+            "flex items-center justify-center gap-2",
             "px-3 py-1.5",
             "h-16 w-full",
-            "text-sm/6 font-semibold text-white",
+            "text-base font-semibold text-white",
             "bg-indigo-700",
             "rounded-md",
             "shadow-inner",
             "cursor-pointer",
             "focus:not-data-focus:outline-none data-disabled:cursor-not-allowed data-disabled:bg-slate-500 data-focus:outline data-focus:outline-white data-hover:bg-indigo-800 data-open:bg-gray-700",
-            "lg:h-auto lg:w-auto",
+            "lg:h-auto lg:w-auto lg:text-sm/6",
           )}
         >
           <Link to="questions">Перейти к изучению</Link>

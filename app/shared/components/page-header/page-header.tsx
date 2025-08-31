@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { useState } from "react";
 import { Link } from "react-router";
 import { Dialog, DialogPanel } from "@headlessui/react";
@@ -27,7 +28,11 @@ export function PageHeader({ userData }: Props) {
     <header className="bg-slate-800">
       <nav
         aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:p-6 lg:px-8"
+        className={clsx(
+          "flex items-center justify-between",
+          "mx-auto max-w-7xl p-4",
+          "lg:p-6 lg:px-8",
+        )}
       >
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
@@ -70,7 +75,16 @@ export function PageHeader({ userData }: Props) {
         className="lg:hidden"
       >
         <div className="fixed inset-0 z-50" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-slate-950/95 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <DialogPanel
+          className={clsx(
+            "fixed inset-y-0 right-0 z-50",
+            "overflow-y-auto",
+            "p-6",
+            "w-full",
+            "bg-slate-950/99",
+            "sm:max-w-sm sm:ring-1 sm:ring-gray-900/10",
+          )}
+        >
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
@@ -96,7 +110,14 @@ export function PageHeader({ userData }: Props) {
                   <Link
                     key={name}
                     to={href}
-                    className="hover:bg-stale-300 block rounded-lg px-3 py-2 text-base/7 font-semibold"
+                    className={clsx(
+                      "block",
+                      "px-3 py-4",
+                      "text-lg font-semibold",
+                      "rounded-lg",
+                      "hover:bg-stale-300",
+                      "lg:py-2 lg:text-base/7",
+                    )}
                     onClick={handleItemClick}
                   >
                     {name}

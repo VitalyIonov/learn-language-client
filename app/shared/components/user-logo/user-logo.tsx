@@ -22,17 +22,34 @@ export const UserLogo = ({ userData, className }: Props) => {
 
   const content = (
     <>
-      <div className="lg:p-4">
+      <div className="flex flex-col lg:p-4">
         {isAdmin ? (
           <a
-            className="mb-2 block rounded-lg px-3 py-2 transition hover:bg-white/5"
+            className={clsx(
+              "block",
+              "mb-2 px-3 py-4",
+              "text-lg",
+              "rounded-lg",
+              "transition",
+              "hover:bg-white/5",
+              "lg:py-2 lg:text-base/7",
+            )}
             href="/admin"
           >
             <p>Dashboard</p>
           </a>
         ) : null}
         <a
-          className="block cursor-pointer rounded-lg px-3  py-2 transition hover:bg-white/5"
+          className={clsx(
+            "block",
+            "px-3 py-4",
+            "text-lg",
+            "rounded-lg",
+            "transition",
+            "cursor-pointer",
+            "hover:bg-white/5",
+            "lg:py-2 lg:text-base/7",
+          )}
           onClick={handleLogOutClick}
         >
           <p>Log out</p>
