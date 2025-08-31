@@ -8,7 +8,6 @@ import {
   type CategoryOut,
   type QuestionOut,
   type LevelOut,
-  type QuestionTypeName,
 } from "~/types/client-schemas";
 import {
   useTranslateTextTranslateGet,
@@ -62,7 +61,7 @@ export function Question({
   const { trigger: updateQuestion, isTriggered: isQuestionUpdating } =
     useCallbackDebounce({
       callback: fetchQuestion,
-      debounce: 2000,
+      debounce: 1600,
     });
 
   const { trigger: updateLevels } = useCallbackDebounce({
@@ -157,7 +156,7 @@ export function Question({
           value={selected}
           onChange={setSelected}
           aria-label="Server size"
-          className={clsx({
+          className={clsx("mb-24 sm:mb-0", {
             ["mb-2 space-y-2"]: type === "text",
             ["grid grid-cols-2 gap-6 sm:grid-cols-4 lg:gap-12"]:
               type === "image",
@@ -189,13 +188,21 @@ export function Question({
             }
           })}
         </RadioGroup>
-        <div className="mt-8 flex justify-end p-4">
+        <div
+          className={clsx(
+            "fixed right-0 bottom-0 left-0",
+            "flex justify-end",
+            "mt-8 p-4",
+            "bg-slate-900",
+            "sm:static",
+          )}
+        >
           <Button
             className={clsx(
               "inline-flex",
               "items-center justify-center gap-2",
               "px-3 py-1.5",
-              "h-12 w-full",
+              "h-16 w-full",
               "text-base font-semibold text-white",
               "bg-indigo-700",
               "rounded-md",
