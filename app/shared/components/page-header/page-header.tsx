@@ -13,7 +13,7 @@ type Props = {
 };
 
 const pages = [
-  { name: "Home", href: "/" },
+  { name: "Categories", href: "/" },
   { name: "Statistics", href: "/statistics" },
 ];
 
