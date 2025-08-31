@@ -1,4 +1,10 @@
-.react-router
-build
+.git
+.github
+.idea
 node_modules
-README.md
+build
+dist
+Dockerfile
+docker-compose*.yml
+.vscode
+*.log
