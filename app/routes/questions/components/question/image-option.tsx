@@ -21,7 +21,14 @@ export function ImageOption({ definition, isSelected, lastResult }: Props) {
         <img
           src={definition.image.imageUrl}
           alt="Вариант ответа"
-          className="h-max w-full scale-70 bg-gray-200 object-cover transition-transform duration-200 group-hover:scale-75"
+          className={clsx(
+            "object-cover",
+            "h-full w-full",
+            "bg-gray-200",
+            "scale-70",
+            "transition-transform duration-200",
+            "group-hover:scale-75",
+          )}
         />
 
         <div className="absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />

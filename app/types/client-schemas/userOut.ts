@@ -5,10 +5,11 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { UserOutName } from './userOutName';
+import type { UserRole } from './userRole';
 
 export interface UserOut {
   id: number;
   email: string;
   name?: UserOutName;
-  role: string;
+  role: UserRole;
 }

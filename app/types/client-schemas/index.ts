@@ -48,5 +48,6 @@ export * from './readLevelsLevelsGetParams';
 export * from './textDefinitionOut';
 export * from './translateOut';
 export * from './translateTextTranslateGetParams';
+export * from './userRole';
 export * from './validationError';
 export * from './validationErrorLocItem';
