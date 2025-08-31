@@ -50,9 +50,8 @@ jobs:
           script: |
             cd /opt/learn-language
             echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u vitalyionov --password-stdin
-            echo "CLIENT_IMAGE_TAG=${{ github.sha }}" > .env.ci
-            CLIENT_IMAGE_TAG=${{ github.sha }} docker compose -f docker-compose.yml -f docker-compose.prod.yml pull client
-            CLIENT_IMAGE_TAG=${{ github.sha }} docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d client --no-deps --force-recreate
+            CLIENT_IMAGE_TAG=${{ github.sha }} docker compose pull client
+            CLIENT_IMAGE_TAG=${{ github.sha }} docker compose up -d client --no-deps --force-recreate
             docker system prune -f
 
       - name: Telegram notify
