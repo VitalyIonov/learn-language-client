@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Radio } from "@headlessui/react";
 import { clsx } from "clsx";
 import type { ImageDefinitionOut } from "~/types/client-schemas";
@@ -9,15 +10,18 @@ type Props = {
 };
 
 export function ImageOption({ definition, isSelected, lastResult }: Props) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <Radio
       key={definition.id}
       value={definition.id}
       className={clsx(
         "group relative cursor-pointer transition-all duration-200 focus:not-data-focus:outline-none",
+        { "animate-pulse": !isLoaded },
       )}
     >
-      <div className="relative overflow-hidden rounded-xl bg-gray-200">
+      <div className="relative h-full w-full overflow-hidden rounded-xl bg-gray-200">
         <img
           src={definition.image.imageUrl}
           alt="Вариант ответа"
@@ -29,6 +33,7 @@ export function ImageOption({ definition, isSelected, lastResult }: Props) {
             "transition-transform duration-200",
             "group-hover:scale-75",
           )}
+          onLoad={() => setIsLoaded(true)}
         />
 
         <div className="absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
