@@ -106,12 +106,12 @@ export const UserLogo = ({ userData, className }: Props) => {
           transition
           anchor="bottom end"
           className={clsx(
-            "flex, flex-col",
+            "flex-col",
             "text-sm/6",
             "bg-slate-900",
             "divide-y divide-white/5 rounded-xl border-1 border-slate-700",
             "transition duration-200 ease-in-out",
-            "[--anchor-gap:--spacing(5)]",
+            "flex, [--anchor-gap:--spacing(5)]",
             "data-closed:-translate-y-1 data-closed:opacity-0",
           )}
         >
