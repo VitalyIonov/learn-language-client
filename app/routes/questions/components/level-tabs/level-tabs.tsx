@@ -48,7 +48,7 @@ export const LevelTabs = ({
         <TabGroup
           vertical
           selectedIndex={currentLevelIndex}
-          className="max-h-[600px] overflow-y-scroll"
+          className="max-h-[600px] overflow-y-scroll [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0"
         >
           <TabList
             className={clsx(
@@ -57,7 +57,7 @@ export const LevelTabs = ({
               "pb-1",
               "w-full [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0",
               "[-ms-overflow-style:none] [scrollbar-width:none]",
-              "lg:w-48 lg:flex-col lg:flex-wrap lg:overflow-auto lg:pb-0",
+              "lg:w-48 lg:flex-col lg:flex-wrap lg:overflow-auto lg:pr-1 lg:pb-0",
             )}
           >
             {levelsData?.items.map((level) => (
