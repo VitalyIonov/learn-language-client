@@ -45,7 +45,11 @@ export const LevelTabs = ({
   return (
     <div className={clsx("w-full", className)}>
       <div className="flex flex-col gap-8 lg:flex-row lg:gap-24">
-        <TabGroup vertical selectedIndex={currentLevelIndex}>
+        <TabGroup
+          vertical
+          selectedIndex={currentLevelIndex}
+          className="max-h-[600px] overflow-y-scroll"
+        >
           <TabList
             className={clsx(
               "overflow-x-scroll",
