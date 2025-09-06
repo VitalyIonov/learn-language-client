@@ -1,8 +1,7 @@
-import { useState, useRef } from "react";
-
 import { Radio } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { clsx } from "clsx";
+import { useFlipAnimation } from "~/shared/hooks/useFlipAnimation";
 import { useTranslateTextTranslateGet } from "~/types/client-api";
 import type { TextDefinitionOut } from "~/types/client-schemas";
 
@@ -13,68 +12,13 @@ type Props = {
 };
 
 export function TextOption({ definition, isSelected, lastResult }: Props) {
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const lastTouchRef = useRef<number>(0);
+  const { isFlipped, handleDoubleClick, handleClick, handleTouchStart } =
+    useFlipAnimation();
 
   const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
     { text: definition.text },
     { query: { enabled: isFlipped } },
   );
-
-  const toggleFlipped = () => {
-    if (isAnimating) return;
-
-    setIsFlipped((state) => !state);
-    setIsAnimating(true);
-
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
-
-    timerRef.current = setTimeout(() => {
-      setIsAnimating(false);
-    }, 500);
-  };
-
-  const resetFlipped = () => {
-    if (isAnimating) return;
-
-    if (isFlipped) {
-      setIsFlipped(false);
-      setIsAnimating(true);
-
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-
-      timerRef.current = setTimeout(() => {
-        setIsAnimating(false);
-      }, 500);
-    }
-  };
-
-  const handleDoubleClick = () => {
-    toggleFlipped();
-  };
-
-  const handleClick = () => {
-    resetFlipped();
-  };
-
-  const handleTouchStart = () => {
-    const now = Date.now();
-    const timeDiff = now - lastTouchRef.current;
-
-    if (timeDiff < 300 && timeDiff > 0) {
-      toggleFlipped();
-    } else if (isFlipped) {
-      resetFlipped();
-    }
-
-    lastTouchRef.current = now;
-  };
 
   return (
     <Radio
