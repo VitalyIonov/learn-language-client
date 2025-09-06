@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { RadioGroup } from "@headlessui/react";
-import { Popover, Button } from "@headlessui/react";
+import { Button } from "@headlessui/react";
 import { clsx } from "clsx";
 import { useCallbackDebounce } from "~/shared/hooks/use-callback-debounce";
+import { useFlipAnimation } from "~/shared/hooks/useFlipAnimation";
 import { useNotificationStore } from "~/shared/stores";
 import {
   type CategoryOut,
@@ -14,7 +15,6 @@ import {
   useGenerateQuestionQuestionsGeneratePost,
   useUpdateQuestionEndpointQuestionsQuestionIdPatch,
 } from "~/types/client-api";
-import { useTextSelection } from "~/shared/hooks/use-text-selection";
 import { TextOption } from "./text-option";
 import { ImageOption } from "./image-option";
 
@@ -35,11 +35,18 @@ export function Question({
   const [lastResult, setLastResult] = useState<boolean>();
   const [selected, setSelected] = useState<number>();
 
-  const { selectedText, position } = useTextSelection();
-  const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
-    { text: selectedText },
-    { query: { enabled: !!selectedText } },
-  );
+  const {
+    isFlipped: isMeaningFlipped,
+    handleDoubleClick: handleMeaningDoubleClick,
+    handleClick: handleMeaningClick,
+    handleTouchStart: handleMeaningTouchStart,
+  } = useFlipAnimation();
+
+  const { data: translatedMeaning, isLoading: isMeaningLoading } =
+    useTranslateTextTranslateGet(
+      { text: question?.meaning?.name || "" },
+      { query: { enabled: isMeaningFlipped && !!question?.meaning?.name } },
+    );
   const { mutateAsync: generateQuestion } =
     useGenerateQuestionQuestionsGeneratePost();
   const { mutateAsync: makeAnswer } =
@@ -117,38 +124,35 @@ export function Question({
 
   return (
     <div className={clsx("w-full lg:px-4", className)}>
-      {selectedText ? (
-        <Popover
-          className="absolute z-50 min-w-[120px]"
-          style={{ top: position?.y, left: position?.x }}
-        >
-          <Popover.Panel
-            className={clsx(
-              "flex flex-col",
-              "text-sm text-white",
-              "bg-slate-300",
-              "rounded-lg border-1 border-gray-800",
-              "shadow-lg",
-            )}
-            static
-          >
-            <div className="border-b-1 border-gray-600 px-4 pt-4 pb-4 ">
-              <div className="text-xs font-semibold text-gray-950">
-                Перевод:
-              </div>
-            </div>
-            <div className="px-4 py-4">
-              <p className="text-gray-900">
-                {isLoading ? "..." : translatedText?.translation}
-              </p>
-            </div>
-          </Popover.Panel>
-        </Popover>
-      ) : null}
       <div className="mx-auto">
         <div className="mb-12 space-y-6">
-          <h1 className="text-2xl leading-none font-bold text-gray-100 lg:text-3xl">
-            {meaning?.name}...
+          <h1
+            className={clsx(
+              "relative",
+              "text-2xl leading-none font-bold text-gray-100",
+              "cursor-pointer select-none",
+              "lg:text-3xl",
+            )}
+            onDoubleClick={handleMeaningDoubleClick}
+            onClick={handleMeaningClick}
+            onTouchStart={handleMeaningTouchStart}
+          >
+            <span
+              className={clsx("absolute", {
+                "opacity-100": isMeaningFlipped,
+                "pointer-events-none opacity-0": !isMeaningFlipped,
+              })}
+            >
+              {isMeaningLoading ? "" : translatedMeaning?.translation}...
+            </span>
+            <span
+              className={clsx({
+                "opacity-100": !isMeaningFlipped,
+                "pointer-events-none opacity-0": isMeaningFlipped,
+              })}
+            >
+              {meaning?.name}...
+            </span>
           </h1>
         </div>
         <RadioGroup
