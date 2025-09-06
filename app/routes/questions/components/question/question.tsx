@@ -190,7 +190,7 @@ export function Question({
         </RadioGroup>
         <div
           className={clsx(
-            "fixed right-0 bottom-0 left-0",
+            "fixed right-0 bottom-0 left-0 z-50",
             "flex justify-end",
             "mt-8 p-4",
             "bg-slate-900",
