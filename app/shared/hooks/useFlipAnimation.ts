@@ -4,21 +4,38 @@ export function useFlipAnimation() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const autoFlipTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastTouchRef = useRef<number>(0);
 
   const toggleFlipped = () => {
     if (isAnimating) return;
 
-    setIsFlipped((state) => !state);
+    const newFlippedState = !isFlipped;
+    setIsFlipped(newFlippedState);
     setIsAnimating(true);
 
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
 
+    if (autoFlipTimerRef.current) {
+      clearTimeout(autoFlipTimerRef.current);
+    }
+
     timerRef.current = setTimeout(() => {
       setIsAnimating(false);
     }, 500);
+
+    if (newFlippedState) {
+      autoFlipTimerRef.current = setTimeout(() => {
+        setIsFlipped(false);
+        setIsAnimating(true);
+
+        timerRef.current = setTimeout(() => {
+          setIsAnimating(false);
+        }, 500);
+      }, 3000);
+    }
   };
 
   const resetFlipped = () => {
@@ -30,6 +47,10 @@ export function useFlipAnimation() {
 
       if (timerRef.current) {
         clearTimeout(timerRef.current);
+      }
+
+      if (autoFlipTimerRef.current) {
+        clearTimeout(autoFlipTimerRef.current);
       }
 
       timerRef.current = setTimeout(() => {
