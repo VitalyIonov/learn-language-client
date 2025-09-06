@@ -13,6 +13,7 @@ export interface AssetOut {
   status: AssetStatus;
   mimeType: string;
   sizeBytes: number;
+  alt: string;
   width?: AssetOutWidth;
   height?: AssetOutHeight;
   fileKey: string;

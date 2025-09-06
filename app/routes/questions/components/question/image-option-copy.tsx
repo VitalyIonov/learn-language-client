@@ -2,7 +2,6 @@ import { useState, useRef } from "react";
 import { Radio } from "@headlessui/react";
 import { clsx } from "clsx";
 import type { ImageDefinitionOut } from "~/types/client-schemas";
-import { useTranslateTextTranslateGet } from "~/types/client-api";
 
 type Props = {
   definition: ImageDefinitionOut;
@@ -12,67 +11,45 @@ type Props = {
 
 export function ImageOption({ definition, isSelected, lastResult }: Props) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const lastTouchRef = useRef<number>(0);
+  const [showTranslation, setShowTranslation] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
-    { text: definition.image.alt },
-    { query: { enabled: isFlipped } },
-  );
+  const handlePressStart = () => {
+    timerRef.current = setTimeout(() => {
+      setShowTranslation(true);
+    }, 1000);
+  };
 
-  const toggleFlipped = () => {
-    if (isAnimating) return;
-
-    setIsFlipped((state) => !state);
-    setIsAnimating(true);
-
+  const handlePressEnd = () => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
+      timerRef.current = null;
     }
-
-    timerRef.current = setTimeout(() => {
-      setIsAnimating(false);
-    }, 500);
+    setShowTranslation(false);
   };
 
-  const resetFlipped = () => {
-    if (isAnimating) return;
-
-    if (isFlipped) {
-      setIsFlipped(false);
-      setIsAnimating(true);
-
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-
-      timerRef.current = setTimeout(() => {
-        setIsAnimating(false);
-      }, 500);
-    }
+  const handleMouseDown = () => {
+    handlePressStart();
   };
 
-  const handleDoubleClick = () => {
-    toggleFlipped();
+  const handleMouseUp = () => {
+    handlePressEnd();
   };
 
-  const handleClick = () => {
-    resetFlipped();
+  const handleMouseLeave = () => {
+    handlePressEnd();
   };
 
   const handleTouchStart = () => {
-    const now = Date.now();
-    const timeDiff = now - lastTouchRef.current;
+    handlePressStart();
+  };
 
-    if (timeDiff < 300 && timeDiff > 0) {
-      toggleFlipped();
-    } else if (isFlipped) {
-      resetFlipped();
-    }
+  const handleTouchEnd = () => {
+    handlePressEnd();
+  };
 
-    lastTouchRef.current = now;
+  const handleTouchCancel = () => {
+    handlePressEnd();
   };
 
   return (
@@ -83,28 +60,33 @@ export function ImageOption({ definition, isSelected, lastResult }: Props) {
         "group relative cursor-pointer transition-all duration-200 focus:not-data-focus:outline-none",
         { "animate-pulse": !isLoaded },
       )}
-      onDoubleClick={handleDoubleClick}
-      onClick={handleClick}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchCancel}
     >
+      {/* Текст перевода */}
       <div
         className={clsx(
           "absolute top-0 right-0 bottom-0 left-0 z-20",
           "flex items-center justify-center",
           "p-4",
           "text-lg font-semibold text-white",
-          "bg-black/85",
+          "bg-black/80",
           "rounded-xl",
           "transition-opacity duration-300",
           "select-none",
           {
-            "opacity-100": isFlipped,
-            "pointer-events-none opacity-0": !isFlipped,
+            "opacity-100": showTranslation,
+            "pointer-events-none opacity-0": !showTranslation,
           },
         )}
       >
-        {isLoading ? "..." : translatedText?.translation}
+        traduccion
       </div>
+
       <div className="relative h-full w-full overflow-hidden rounded-xl bg-gray-200">
         <img
           src={definition.image.imageUrl}
@@ -114,17 +96,29 @@ export function ImageOption({ definition, isSelected, lastResult }: Props) {
             "h-full w-full",
             "bg-gray-200",
             "scale-70",
-            "transition-transform duration-200",
+            "transition-all duration-300",
             "group-hover:scale-75",
+            {
+              "opacity-0": showTranslation,
+              "opacity-100": !showTranslation,
+            },
           )}
           onLoad={() => setIsLoaded(true)}
         />
 
-        <div className="absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+        <div
+          className={clsx(
+            "absolute inset-0 bg-black/20 transition-opacity duration-200",
+            {
+              "opacity-100": !showTranslation && "group-hover:opacity-100",
+              "opacity-0": showTranslation,
+            },
+          )}
+        />
 
         <div
           className={clsx(
-            "absolute inset-0 z-20 rounded-xl border-4 transition-all duration-200",
+            "absolute inset-0 rounded-xl border-4 transition-all duration-200",
             {
               "border-emerald-400 shadow-lg shadow-emerald-400/25":
                 lastResult === true && isSelected,
@@ -139,7 +133,7 @@ export function ImageOption({ definition, isSelected, lastResult }: Props) {
 
         {/* Индикатор выбора */}
         {isSelected && (
-          <div className="absolute top-2 right-2 z-20">
+          <div className="absolute top-2 right-2">
             <div
               className={clsx("h-3 w-3 rounded-full", {
                 "bg-emerald-400": lastResult === true,

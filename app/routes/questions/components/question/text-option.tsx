@@ -38,7 +38,6 @@ export function TextOption({ definition, isSelected, lastResult }: Props) {
         <div className="text-lg/8">
           <p
             className={clsx(
-              "[-webkit-touch-callout:none]",
               lastResult === undefined || !isSelected
                 ? "text-gray-100"
                 : "font-semibold text-gray-900",
