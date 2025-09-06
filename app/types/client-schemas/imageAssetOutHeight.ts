@@ -4,6 +4,5 @@
  * client API
  * OpenAPI spec version: 0.1.0
  */
-import type { ImageAssetOut } from './imageAssetOut';
 
-export type CategoryOutBaseImage = ImageAssetOut | null;
+export type ImageAssetOutHeight = number | null;

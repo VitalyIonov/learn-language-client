@@ -53,7 +53,7 @@ export function ImageOption({ definition, isSelected, lastResult }: Props) {
       </div>
       <div className="relative h-full w-full overflow-hidden rounded-xl bg-gray-200">
         <img
-          src={definition.image.imageUrl}
+          src={definition.image.url}
           alt="Вариант ответа"
           className={clsx(
             "object-cover",

@@ -12,4 +12,5 @@ export type AssetStatus = typeof AssetStatus[keyof typeof AssetStatus];
 export const AssetStatus = {
   pending: 'pending',
   ready: 'ready',
+  failed: 'failed',
 } as const;

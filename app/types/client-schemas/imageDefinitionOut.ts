@@ -4,11 +4,11 @@
  * client API
  * OpenAPI spec version: 0.1.0
  */
-import type { AssetOut } from './assetOut';
+import type { ImageAssetOut } from './imageAssetOut';
 
 export interface ImageDefinitionOut {
   id: number;
   type?: 'image';
   imageId: number;
-  image: AssetOut;
+  image: ImageAssetOut;
 }
