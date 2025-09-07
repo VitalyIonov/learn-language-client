@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Radio } from "@headlessui/react";
 import { clsx } from "clsx";
-import { useFlipAnimation } from "~/shared/hooks/useFlipAnimation";
+import { useFlipAnimation } from "~/shared/hooks/use-flip-animation";
 import type { ImageDefinitionOut } from "~/types/client-schemas";
 import { useTranslateTextTranslateGet } from "~/types/client-api";
 

@@ -3,7 +3,7 @@ import { RadioGroup } from "@headlessui/react";
 import { Button } from "@headlessui/react";
 import { clsx } from "clsx";
 import { useCallbackDebounce } from "~/shared/hooks/use-callback-debounce";
-import { useFlipAnimation } from "~/shared/hooks/useFlipAnimation";
+import { useFlipAnimation } from "~/shared/hooks/use-flip-animation";
 import { useNotificationStore } from "~/shared/stores";
 import {
   type CategoryOut,

@@ -1,7 +1,8 @@
 import { Radio } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { clsx } from "clsx";
-import { useFlipAnimation } from "~/shared/hooks/useFlipAnimation";
+import { useFlipAnimation } from "~/shared/hooks/use-flip-animation";
+import { usePlayAudio } from "~/shared/hooks/use-play-audio";
 import { useTranslateTextTranslateGet } from "~/types/client-api";
 import type { TextDefinitionOut } from "~/types/client-schemas";
 
@@ -14,6 +15,8 @@ type Props = {
 export function TextOption({ definition, isSelected, lastResult }: Props) {
   const { isFlipped, handleDoubleClick, handleClick, handleTouchStart } =
     useFlipAnimation();
+  const { onPointerCancel, onPointerUp, onPointerDown, onPointerLeave } =
+    usePlayAudio(definition?.audio?.url);
 
   const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
     { text: definition.text },
@@ -43,6 +46,10 @@ export function TextOption({ definition, isSelected, lastResult }: Props) {
       onDoubleClick={handleDoubleClick}
       onClick={handleClick}
       onTouchStart={handleTouchStart}
+      onPointerCancel={onPointerCancel}
+      onPointerUp={onPointerUp}
+      onPointerDown={onPointerDown}
+      onPointerLeave={onPointerLeave}
     >
       <div
         className={clsx(
