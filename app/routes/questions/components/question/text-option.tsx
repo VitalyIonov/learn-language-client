@@ -5,6 +5,7 @@ import { useFlipAnimation } from "~/shared/hooks/use-flip-animation";
 import { usePlayAudio } from "~/shared/hooks/use-play-audio";
 import { useTranslateTextTranslateGet } from "~/types/client-api";
 import type { TextDefinitionOut } from "~/types/client-schemas";
+import { SoundWaves } from "~/shared/components/sound-waves/sound-waves";
 
 type Props = {
   definition: TextDefinitionOut;
@@ -18,8 +19,11 @@ export function TextOption({ definition, isSelected, lastResult }: Props) {
     onTouchStart: onFlipAnimationTouchStart,
     ...restFlipEvents
   } = useFlipAnimation();
-  const { onTouchStart: onPlayAudioTouchStart, ...restAudioEvents } =
-    usePlayAudio(definition?.audio?.url);
+  const {
+    isPlaying,
+    onTouchStart: onPlayAudioTouchStart,
+    ...restAudioEvents
+  } = usePlayAudio(definition?.audio?.url);
 
   const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
     { text: definition.text },
@@ -55,34 +59,36 @@ export function TextOption({ definition, isSelected, lastResult }: Props) {
       {...restFlipEvents}
       {...restAudioEvents}
     >
-      <div
-        className={clsx(
-          "flex w-full items-center justify-between px-8 py-6 text-lg/8",
-          lastResult === undefined || !isSelected
-            ? "text-gray-100"
-            : "font-semibold text-gray-900",
-        )}
-      >
-        <p
-          className={clsx("absolute text-inherit", {
-            "opacity-100": isFlipped,
-            "pointer-events-none opacity-0": !isFlipped,
-          })}
+      <SoundWaves active={isPlaying}>
+        <div
+          className={clsx(
+            "flex w-full items-center justify-between px-8 py-6 text-lg/8",
+            lastResult === undefined || !isSelected
+              ? "text-gray-100"
+              : "font-semibold text-gray-900",
+          )}
         >
-          {isLoading ? "..." : translatedText?.translation}
-        </p>
-        <p
-          className={clsx("text-inherit", {
-            "opacity-100": !isFlipped,
-            "pointer-events-none opacity-0": isFlipped,
-          })}
-        >
-          {definition.text}
-        </p>
-        {isSelected ? (
-          <CheckCircleIcon className="size-6 fill-white opacity-0 transition group-data-checked:opacity-100" />
-        ) : null}
-      </div>
+          <p
+            className={clsx("absolute text-inherit", {
+              "opacity-100": isFlipped,
+              "pointer-events-none opacity-0": !isFlipped,
+            })}
+          >
+            {isLoading ? "..." : translatedText?.translation}
+          </p>
+          <p
+            className={clsx("text-inherit", {
+              "opacity-100": !isFlipped,
+              "pointer-events-none opacity-0": isFlipped,
+            })}
+          >
+            {definition.text}
+          </p>
+          {isSelected ? (
+            <CheckCircleIcon className="size-6 fill-white opacity-0 transition group-data-checked:opacity-100" />
+          ) : null}
+        </div>
+      </SoundWaves>
     </Radio>
   );
 }

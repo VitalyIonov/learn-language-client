@@ -1,10 +1,11 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState } from "react";
 
 const THRESHOLD = 500;
 
 export function usePlayAudio(url?: string) {
   const timerRef = useRef<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const clearTimer = () => {
     if (timerRef.current) {
@@ -17,6 +18,7 @@ export function usePlayAudio(url?: string) {
     if (!url) return;
 
     clearTimer();
+    setIsPlaying(false);
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -34,14 +36,21 @@ export function usePlayAudio(url?: string) {
       }
       audioRef.current.src = url;
       try {
+        setIsPlaying(true);
         await audioRef.current.play();
+
+        audioRef.current.onended = () => {
+          setIsPlaying(false);
+        };
       } catch (e) {
+        setIsPlaying(false);
         console.warn("Autoplay blocked or play failed:", e);
       }
     }, THRESHOLD);
   }, [url]);
 
   return {
+    isPlaying,
     // Pointer events для десктопа
     onPointerDown: start,
     onPointerUp: stop,
