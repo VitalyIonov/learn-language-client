@@ -4,9 +4,11 @@
  * client API
  * OpenAPI spec version: 0.1.0
  */
+import type { TextDefinitionOutAudio } from './textDefinitionOutAudio';
 
 export interface TextDefinitionOut {
   id: number;
   type?: 'text';
   text: string;
+  audio?: TextDefinitionOutAudio;
 }
