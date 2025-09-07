@@ -54,6 +54,6 @@ export function usePlayAudio(url?: string) {
     // Mouse events как fallback
     onMouseDown: start,
     onMouseUp: stop,
-    onMouseLeave: stop,
+    // onMouseLeave: stop,
   };
 }
