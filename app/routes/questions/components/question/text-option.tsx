@@ -13,15 +13,23 @@ type Props = {
 };
 
 export function TextOption({ definition, isSelected, lastResult }: Props) {
-  const { isFlipped, handleDoubleClick, handleClick, handleTouchStart } =
-    useFlipAnimation();
-  const { onPointerCancel, onPointerUp, onPointerDown, onPointerLeave } =
+  const {
+    isFlipped,
+    onTouchStart: onFlipAnimationTouchStart,
+    ...restFlipEvents
+  } = useFlipAnimation();
+  const { onTouchStart: onPlayAudioTouchStart, ...restAudioEvents } =
     usePlayAudio(definition?.audio?.url);
 
   const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
     { text: definition.text },
     { query: { enabled: isFlipped } },
   );
+
+  const handleTouchStart = () => {
+    onFlipAnimationTouchStart();
+    onPlayAudioTouchStart();
+  };
 
   return (
     <Radio
@@ -43,13 +51,9 @@ export function TextOption({ definition, isSelected, lastResult }: Props) {
           ["bg-white/10"]: lastResult === undefined && isSelected,
         },
       )}
-      onDoubleClick={handleDoubleClick}
-      onClick={handleClick}
       onTouchStart={handleTouchStart}
-      onPointerCancel={onPointerCancel}
-      onPointerUp={onPointerUp}
-      onPointerDown={onPointerDown}
-      onPointerLeave={onPointerLeave}
+      {...restFlipEvents}
+      {...restAudioEvents}
     >
       <div
         className={clsx(

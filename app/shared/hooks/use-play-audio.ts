@@ -42,9 +42,18 @@ export function usePlayAudio(url?: string) {
   }, [url]);
 
   return {
+    // Pointer events для десктопа
     onPointerDown: start,
     onPointerUp: stop,
     onPointerLeave: stop,
     onPointerCancel: stop,
+    // Touch events для мобильных устройств
+    onTouchStart: start,
+    onTouchEnd: stop,
+    onTouchCancel: stop,
+    // Mouse events как fallback
+    onMouseDown: start,
+    onMouseUp: stop,
+    onMouseLeave: stop,
   };
 }

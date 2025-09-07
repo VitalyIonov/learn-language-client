@@ -83,8 +83,8 @@ export function useFlipAnimation() {
   return {
     isFlipped,
     isAnimating,
-    handleDoubleClick,
-    handleClick,
-    handleTouchStart,
+    onDoubleClick: handleDoubleClick,
+    onClick: handleClick,
+    onTouchStart: handleTouchStart,
   };
 }

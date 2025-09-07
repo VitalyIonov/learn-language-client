@@ -13,7 +13,7 @@ type Props = {
 
 export function ImageOption({ definition, isSelected, lastResult }: Props) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const { isFlipped, handleDoubleClick, handleClick, handleTouchStart } =
+  const { isFlipped, onDoubleClick, onClick, onTouchStart } =
     useFlipAnimation();
 
   const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
@@ -29,9 +29,9 @@ export function ImageOption({ definition, isSelected, lastResult }: Props) {
         "group relative cursor-pointer transition-all duration-200 focus:not-data-focus:outline-none",
         { "animate-pulse": !isLoaded },
       )}
-      onDoubleClick={handleDoubleClick}
-      onClick={handleClick}
-      onTouchStart={handleTouchStart}
+      onDoubleClick={onDoubleClick}
+      onClick={onClick}
+      onTouchStart={onTouchStart}
     >
       <div
         className={clsx(

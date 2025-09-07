@@ -37,9 +37,9 @@ export function Question({
 
   const {
     isFlipped: isMeaningFlipped,
-    handleDoubleClick: handleMeaningDoubleClick,
-    handleClick: handleMeaningClick,
-    handleTouchStart: handleMeaningTouchStart,
+    onDoubleClick: onMeaningDoubleClick,
+    onClick: onMeaningClick,
+    onTouchStart: onMeaningTouchStart,
   } = useFlipAnimation();
 
   const { data: translatedMeaning, isLoading: isMeaningLoading } =
@@ -133,9 +133,9 @@ export function Question({
               "cursor-pointer select-none",
               "lg:text-3xl",
             )}
-            onDoubleClick={handleMeaningDoubleClick}
-            onClick={handleMeaningClick}
-            onTouchStart={handleMeaningTouchStart}
+            onDoubleClick={onMeaningDoubleClick}
+            onClick={onMeaningClick}
+            onTouchStart={onMeaningTouchStart}
           >
             <span
               className={clsx("absolute", {
