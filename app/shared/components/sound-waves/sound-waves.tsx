@@ -21,8 +21,8 @@ export function SoundWaves({
   color2 = "#06B6D4",
   strokeWidth = 1,
   rings = 3,
-  duration = 2,
-  spreadPx = 16,
+  duration = 2.5,
+  spreadPx = 8,
   padding = 0,
   radius = 10,
   behind = true,
@@ -86,22 +86,39 @@ export function SoundWaves({
             <stop offset="100%" stopColor={color2} />
           </linearGradient>
 
-          <style>{`
-            @keyframes aura-wave {
-              0%   { transform: scale(1,1); opacity: 0; }
-              18%  { opacity: .32; }
-              70%  { opacity: .12; }
-              100% { transform: scale(var(--sx,1), var(--sy,1)); opacity: 0; }
-            }
-            @media (prefers-reduced-motion: reduce) {
-              .aura-ring { animation: none !important; opacity: .15; }
-            }
-          `}</style>
+          {/* ✅ мягкое свечение, совместимо с Safari */}
+          <filter
+            id="wave-soft-blur"
+            x="-20%"
+            y="-20%"
+            width="140%"
+            height="140%"
+          >
+            <feGaussianBlur stdDeviation="2" result="blur" />
+            {/* смешиваем размытый слой с оригиналом, чтобы линия не «терялась» */}
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+
+          <style>
+            {`
+              @keyframes aura-wave {
+                0%   { transform: scale(1,1); opacity: 0; }
+                18%  { opacity: .32; }
+                70%  { opacity: .12; }
+                100% { transform: scale(var(--sx,1), var(--sy,1)); opacity: 0; }
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .aura-ring { animation: none !important; opacity: .15; }
+              }
+            `}
+          </style>
         </defs>
 
         {active &&
           ringArr.map((_, i) => {
-            const delay = (duration / rings) * i;
             return (
               <g
                 key={i}
@@ -112,13 +129,12 @@ export function SoundWaves({
                   transformOrigin: "50% 50%",
                   animationName: "aura-wave",
                   animationDuration: `${duration}s`,
-                  animationDelay: `${delay}s`,
+                  animationDelay: `${(duration / rings) * i}s`, // по очереди
                   animationIterationCount: "infinite",
                   animationTimingFunction: "cubic-bezier(.4,0,.2,1)",
                   animationFillMode: "both",
                   opacity: 0,
-                  filter: "blur(2px)",
-                  willChange: "transform, opacity",
+                  // filter: "blur(2px)",  // ⛔️ убрать
                 }}
               >
                 <rect
@@ -131,6 +147,9 @@ export function SoundWaves({
                   fill="none"
                   stroke="url(#wave-gradient)"
                   strokeWidth={strokeWidth}
+                  filter="url(#wave-soft-blur)" // ✅ SVG-фильтр — работает в Safari
+                  strokeLinecap="round" // чуть мягче края
+                  strokeLinejoin="round"
                 />
               </g>
             );
