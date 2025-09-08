@@ -8,12 +8,13 @@ import type { TextDefinitionOut } from "~/types/client-schemas";
 import { SoundWaves } from "~/shared/components/sound-waves/sound-waves";
 
 type Props = {
+  key: number;
   definition: TextDefinitionOut;
   isSelected: boolean;
   lastResult?: boolean;
 };
 
-export function TextOption({ definition, isSelected, lastResult }: Props) {
+export function TextOption({ key, definition, isSelected, lastResult }: Props) {
   const {
     isFlipped,
     onTouchStart: onFlipAnimationTouchStart,
@@ -37,7 +38,7 @@ export function TextOption({ definition, isSelected, lastResult }: Props) {
 
   return (
     <Radio
-      key={definition.id}
+      key={key}
       value={definition.id}
       className={clsx(
         "relative",

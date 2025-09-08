@@ -51,7 +51,6 @@ export function usePlayAudio(url?: string) {
 
   return {
     isPlaying,
-    // Pointer events для десктопа
     onPointerDown: start,
     onPointerUp: stop,
     onPointerLeave: stop,

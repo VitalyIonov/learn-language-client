@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 type WaveAuraProps = {
   children: React.ReactNode;
@@ -27,30 +27,47 @@ export function SoundWaves({
   radius = 10,
   behind = true,
 }: WaveAuraProps) {
-  const wrapRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [box, setBox] = useState({ w: 0, h: 0, r: 0 });
 
-  useLayoutEffect(() => {
-    const wrap = contentRef.current;
-    if (!wrap) return;
-    const measure = () => {
-      const rect = wrap.getBoundingClientRect();
-      let r = 0;
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+
+    const readRadius = () => {
       if (radius === "auto") {
-        const cs = getComputedStyle(
-          (wrap.firstElementChild as Element) || wrap,
-        );
-        const tl = parseFloat(cs.borderTopLeftRadius || "0");
-        r = Number.isFinite(tl) ? tl : 0;
-      } else if (typeof radius === "number") {
-        r = radius;
+        const cs = getComputedStyle((el.firstElementChild as Element) || el);
+        const v = parseFloat(cs.borderTopLeftRadius || "0");
+        return Number.isFinite(v) ? v : 0;
       }
-      setBox({ w: Math.ceil(rect.width), h: Math.ceil(rect.height), r });
+      return typeof radius === "number" ? radius : 0;
     };
-    const ro = new ResizeObserver(measure);
-    ro.observe(wrap);
-    measure();
+
+    const ro = new ResizeObserver((entries) => {
+      const e = entries[0];
+
+      let w = 0,
+        h = 0;
+      if ("borderBoxSize" in e && e.borderBoxSize) {
+        const size = Array.isArray(e.borderBoxSize)
+          ? e.borderBoxSize[0]
+          : e.borderBoxSize;
+        w = Math.ceil(size.inlineSize);
+        h = Math.ceil(size.blockSize);
+      } else {
+        w = Math.ceil(e.contentRect.width);
+        h = Math.ceil(e.contentRect.height);
+      }
+
+      const r = readRadius();
+
+      setBox((prev) =>
+        prev.w === w && prev.h === h && prev.r === r ? prev : { w, h, r },
+      );
+    });
+
+    ro.observe(el, { box: "border-box" });
+
     return () => ro.disconnect();
   }, [radius]);
 
@@ -63,7 +80,6 @@ export function SoundWaves({
 
   return (
     <div
-      ref={wrapRef}
       style={{ width: "100%", position: "relative", display: "inline-block" }}
     >
       <svg
@@ -134,7 +150,6 @@ export function SoundWaves({
                   animationTimingFunction: "cubic-bezier(.4,0,.2,1)",
                   animationFillMode: "both",
                   opacity: 0,
-                  // filter: "blur(2px)",  // ⛔️ убрать
                 }}
               >
                 <rect
