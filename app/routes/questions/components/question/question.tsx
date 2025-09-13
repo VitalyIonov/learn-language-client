@@ -142,6 +142,7 @@ export function Question({
           <h1
             className={clsx(
               "relative",
+              "mb-0",
               "text-2xl leading-none font-bold text-gray-100",
               "cursor-pointer select-none",
               "lg:text-3xl",
