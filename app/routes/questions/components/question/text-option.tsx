@@ -63,7 +63,11 @@ export function TextOption({ key, definition, isSelected, lastResult }: Props) {
       <SoundWaves className="w-full" active={isPlaying}>
         <div
           className={clsx(
-            "flex w-full items-center justify-between px-8 py-6 text-lg/8",
+            "flex items-center justify-between",
+            "px-6 py-6",
+            "w-full",
+            "text-lg/8",
+            "lg:px-8",
             lastResult === undefined || !isSelected
               ? "text-gray-100"
               : "font-semibold text-gray-900",
