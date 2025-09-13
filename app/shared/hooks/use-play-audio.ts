@@ -22,10 +22,6 @@ export function usePlayAudio(url?: string) {
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
-      audioRef.current.src = "";
-      audioRef.current.removeAttribute("src");
-      audioRef.current.load();
-      audioRef.current.onended = null;
       audioRef.current = null;
     }
   }, [url]);
