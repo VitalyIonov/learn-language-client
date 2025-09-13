@@ -60,7 +60,7 @@ export function TextOption({ key, definition, isSelected, lastResult }: Props) {
       {...restFlipEvents}
       {...restAudioEvents}
     >
-      <SoundWaves active={isPlaying}>
+      <SoundWaves className="w-full" active={isPlaying}>
         <div
           className={clsx(
             "flex w-full items-center justify-between px-8 py-6 text-lg/8",

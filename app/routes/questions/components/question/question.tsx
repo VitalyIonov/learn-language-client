@@ -3,6 +3,7 @@ import { RadioGroup } from "@headlessui/react";
 import { Button } from "@headlessui/react";
 import { clsx } from "clsx";
 import { useCallbackDebounce } from "~/shared/hooks/use-callback-debounce";
+import { usePlayAudio } from "~/shared/hooks/use-play-audio";
 import { useFlipAnimation } from "~/shared/hooks/use-flip-animation";
 import { useNotificationStore } from "~/shared/stores";
 import {
@@ -17,6 +18,7 @@ import {
 } from "~/types/client-api";
 import { TextOption } from "./text-option";
 import { ImageOption } from "./image-option";
+import { SoundWaves } from "~/shared/components/sound-waves/sound-waves";
 
 type Props = {
   className?: string;
@@ -42,6 +44,12 @@ export function Question({
     onTouchStart: onMeaningTouchStart,
   } = useFlipAnimation();
 
+  const {
+    isPlaying,
+    onTouchStart: onMeaningPlayAudioTouchStart,
+    ...restAudioEvents
+  } = usePlayAudio(question?.meaning?.audio?.url);
+
   const { data: translatedMeaning, isLoading: isMeaningLoading } =
     useTranslateTextTranslateGet(
       { text: question?.meaning?.name || "" },
@@ -53,6 +61,11 @@ export function Question({
     useUpdateQuestionEndpointQuestionsQuestionIdPatch();
 
   const { custom: customNotification } = useNotificationStore();
+
+  const handleTouchStart = () => {
+    onMeaningTouchStart();
+    onMeaningPlayAudioTouchStart();
+  };
 
   const fetchQuestion = useCallback(async () => {
     const question = await generateQuestion({
@@ -125,7 +138,7 @@ export function Question({
   return (
     <div className={clsx("w-full lg:px-4", className)}>
       <div className="mx-auto">
-        <div className="mb-12 space-y-6">
+        <div className="mr-4 mb-12 ml-4 flex items-center justify-between space-y-6">
           <h1
             className={clsx(
               "relative",
@@ -135,7 +148,8 @@ export function Question({
             )}
             onDoubleClick={onMeaningDoubleClick}
             onClick={onMeaningClick}
-            onTouchStart={onMeaningTouchStart}
+            onTouchStart={handleTouchStart}
+            {...restAudioEvents}
           >
             <span
               className={clsx("absolute", {
@@ -154,6 +168,9 @@ export function Question({
               {meaning?.name}...
             </span>
           </h1>
+          <SoundWaves active={isPlaying}>
+            <div className="h-4 w-4"></div>
+          </SoundWaves>
         </div>
         <RadioGroup
           key={question.id}

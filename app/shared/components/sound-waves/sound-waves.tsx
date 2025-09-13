@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 type WaveAuraProps = {
   children: React.ReactNode;
+  className?: string;
   active?: boolean;
   color1?: string;
   color2?: string;
@@ -16,6 +17,7 @@ type WaveAuraProps = {
 
 export function SoundWaves({
   children,
+  className,
   active = true,
   color1 = "#6366F1",
   color2 = "#06B6D4",
@@ -80,7 +82,8 @@ export function SoundWaves({
 
   return (
     <div
-      style={{ width: "100%", position: "relative", display: "inline-block" }}
+      className={className}
+      style={{ position: "relative", display: "inline-block" }}
     >
       <svg
         width={W}
@@ -102,7 +105,6 @@ export function SoundWaves({
             <stop offset="100%" stopColor={color2} />
           </linearGradient>
 
-          {/* ✅ мягкое свечение, совместимо с Safari */}
           <filter
             id="wave-soft-blur"
             x="-20%"
@@ -111,7 +113,6 @@ export function SoundWaves({
             height="140%"
           >
             <feGaussianBlur stdDeviation="2" result="blur" />
-            {/* смешиваем размытый слой с оригиналом, чтобы линия не «терялась» */}
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
