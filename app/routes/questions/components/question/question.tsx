@@ -24,7 +24,7 @@ type Props = {
   className?: string;
   categoryId?: CategoryOut["id"];
   levelId?: LevelOut["id"];
-  invalidateLevels: (newLevelId: number) => Promise<void>;
+  invalidateLevels: (newLevel: LevelOut) => Promise<void>;
 };
 
 export function Question({
@@ -116,7 +116,7 @@ export function Question({
           `Ваш новый уровень - ${result?.info?.new_level.alias}`,
         );
 
-        updateLevels(result?.info?.new_level.id);
+        updateLevels(result?.info?.new_level);
       } else if (result?.info?.type === "category_finish") {
         customNotification(
           "category-finished",

@@ -9,14 +9,15 @@ import {
   useReadCategoryCategoriesCategoryIdGet,
   useReadLevelsLevelsGet,
 } from "~/types/client-api";
+import type { LevelOut } from "~/types/client-schemas";
 
 export default function Questions() {
   const { id } = useParams();
   const categoryId = Number(id);
   const { data } = useReadCategoryCategoriesCategoryIdGet(categoryId);
-  const initialLevel = data?.currentLevel.id;
+  const initialLevel = data?.currentLevel;
 
-  const [currentLevel, setCurrentLevel] = useState<number | undefined>(
+  const [currentLevel, setCurrentLevel] = useState<LevelOut | undefined>(
     initialLevel,
   );
   const { data: levelsData, refetch: invalidateLevels } =
@@ -24,9 +25,9 @@ export default function Questions() {
       category_id: categoryId,
     });
 
-  const updateLevels = async (newLevelId: number) => {
+  const updateLevels = async (newLevel: LevelOut) => {
     await invalidateLevels().then(() => {
-      setCurrentLevel(newLevelId);
+      setCurrentLevel(newLevel);
     });
   };
 
@@ -38,12 +39,16 @@ export default function Questions() {
     <PageContent>
       <div className={clsx("w-full")}>
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-24">
-          <LevelTabs initialLevel={initialLevel} levelsData={levelsData} />
+          <LevelTabs
+            currentLevel={currentLevel}
+            levelsData={levelsData}
+            onCurrentLevelChange={setCurrentLevel}
+          />
           <div className="flex min-w-0 flex-1 items-center">
             <Question
               className="lg:pr-24"
               categoryId={categoryId}
-              levelId={currentLevel}
+              levelId={currentLevel?.id}
               invalidateLevels={updateLevels}
             />
           </div>
