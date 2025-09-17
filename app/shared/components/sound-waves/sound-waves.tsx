@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useId } from "react";
 
 type WaveAuraProps = {
   children: React.ReactNode;
@@ -31,6 +31,9 @@ export function SoundWaves({
 }: WaveAuraProps) {
   const contentRef = useRef<HTMLDivElement>(null);
   const [box, setBox] = useState({ w: 0, h: 0, r: 0 });
+  const uid = useId();
+  const gradId = `wave-gradient-${uid}`;
+  const filterId = `wave-soft-blur-${uid}`;
 
   useEffect(() => {
     const el = contentRef.current;
@@ -100,18 +103,12 @@ export function SoundWaves({
         }}
       >
         <defs>
-          <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor={color1} />
             <stop offset="100%" stopColor={color2} />
           </linearGradient>
 
-          <filter
-            id="wave-soft-blur"
-            x="-20%"
-            y="-20%"
-            width="140%"
-            height="140%"
-          >
+          <filter id={filterId} x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="2" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
@@ -161,9 +158,9 @@ export function SoundWaves({
                   rx={Math.max(0, box.r)}
                   ry={Math.max(0, box.r)}
                   fill="none"
-                  stroke="url(#wave-gradient)"
+                  stroke={`url(#${gradId})`}
                   strokeWidth={strokeWidth}
-                  filter="url(#wave-soft-blur)" // ✅ SVG-фильтр — работает в Safari
+                  filter={`url(#${filterId})`} // ✅ SVG-фильтр — работает в Safari
                   strokeLinecap="round" // чуть мягче края
                   strokeLinejoin="round"
                 />
