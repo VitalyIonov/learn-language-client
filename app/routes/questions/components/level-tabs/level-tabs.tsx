@@ -39,7 +39,11 @@ export const LevelTabs = ({
         "lg:flex-col",
       )}
     >
-      <Accordion.Root type="single" collapsible>
+      <Accordion.Root
+        type="single"
+        collapsible
+        className="[&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0"
+      >
         <Accordion.Item
           className="group flex flex-row gap-2 lg:flex-col"
           value="currentLevel"
