@@ -170,46 +170,46 @@ export function Question({
             </span>
           </h1>
           <SoundWaves active={isPlaying}>
-            <div className="h-4 w-4"></div>
+            <div className="h-4 w-4" />
           </SoundWaves>
         </div>
-        <RadioGroup
-          key={question.id}
-          value={selected}
-          onChange={setSelected}
-          aria-label="Server size"
-          className={clsx("mb-24 sm:mb-0", {
-            ["mb-2 space-y-2"]: type === "text",
-            ["grid grid-cols-2 gap-6 sm:grid-cols-4 lg:gap-12"]:
-              type === "image",
-          })}
-        >
-          {definitions?.map((definition) => {
-            const isSelected = definition.id === selected;
+        {/* <RadioGroup */}
+        {/*   key={question.id} */}
+        {/*   value={selected} */}
+        {/*   onChange={setSelected} */}
+        {/*   aria-label="Server size" */}
+        {/*   className={clsx("mb-24 sm:mb-0", { */}
+        {/*     ["mb-2 space-y-2"]: type === "text", */}
+        {/*     ["grid grid-cols-2 gap-6 sm:grid-cols-4 lg:gap-12"]: */}
+        {/*       type === "image", */}
+        {/*   })} */}
+        {/* > */}
+        {/*   {definitions?.map((definition) => { */}
+        {/*     const isSelected = definition.id === selected; */}
 
-            if (definition.type === "image") {
-              return (
-                <ImageOption
-                  key={definition.id}
-                  definition={definition}
-                  isSelected={isSelected}
-                  lastResult={lastResult}
-                />
-              );
-            }
+        {/*     if (definition.type === "image") { */}
+        {/*       return ( */}
+        {/*         <ImageOption */}
+        {/*           key={definition.id} */}
+        {/*           definition={definition} */}
+        {/*           isSelected={isSelected} */}
+        {/*           lastResult={lastResult} */}
+        {/*         /> */}
+        {/*       ); */}
+        {/*     } */}
 
-            if (definition.type === "text") {
-              return (
-                <TextOption
-                  key={definition.id}
-                  definition={definition}
-                  isSelected={isSelected}
-                  lastResult={lastResult}
-                />
-              );
-            }
-          })}
-        </RadioGroup>
+        {/*     if (definition.type === "text") { */}
+        {/*       return ( */}
+        {/*         <TextOption */}
+        {/*           key={definition.id} */}
+        {/*           definition={definition} */}
+        {/*           isSelected={isSelected} */}
+        {/*           lastResult={lastResult} */}
+        {/*         /> */}
+        {/*       ); */}
+        {/*     } */}
+        {/*   })} */}
+        {/* </RadioGroup> */}
         <div
           className={clsx(
             "fixed right-0 bottom-0 left-0 z-50",
