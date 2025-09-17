@@ -36,6 +36,7 @@ export const LevelTabs = ({
         "overflow-x-scroll",
         "flex flex-row items-start gap-2",
         "[&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0",
+        "[-ms-overflow-style:none] [scrollbar-width:none]",
         "lg:flex-col",
       )}
     >
