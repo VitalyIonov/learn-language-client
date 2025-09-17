@@ -40,7 +40,7 @@ export const NextTab = ({ isActive = true, isLocked, name, alias }: Props) => {
         >
           {!isLocked ? alias : "🔒"}
         </div>
-        <div className="hidden lg:block">
+        <div className="block">
           <div className="min-w-0 flex-1">
             <p
               className={clsx("text-sm font-semibold", {

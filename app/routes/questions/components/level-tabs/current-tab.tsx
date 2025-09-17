@@ -48,7 +48,7 @@ export const CurrentTab = ({
         >
           {!isLocked ? alias : "🔒"}
         </div>
-        <div className="hidden lg:block">
+        <div className="block">
           <div className="min-w-0 flex-1">
             <p
               className={clsx("font-semibold", {
@@ -75,9 +75,9 @@ export const CurrentTab = ({
         className={clsx(
           "ml-4",
           "h-5 w-5",
+          "max-lg:group-data-[state=closed]:rotate-270 max-lg:group-data-[state=open]:rotate-90",
           "transition-transform duration-200",
           "shrink-0",
-          "group-data-[state=closed]:rotate-270 group-data-[state=open]:rotate-90",
           "lg:ml-auto lg:group-data-[state=open]:rotate-180",
         )}
         aria-hidden="true"

@@ -31,7 +31,14 @@ export const LevelTabs = ({
   const { unlockedLevels, nextLevel } = prepareLevels(levelsData?.items);
 
   return (
-    <div className="flex flex-row items-start gap-2 lg:flex-col">
+    <div
+      className={clsx(
+        "overflow-x-scroll",
+        "flex flex-row items-start gap-2",
+        "[&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0",
+        "lg:flex-col",
+      )}
+    >
       <Accordion.Root type="single" collapsible>
         <Accordion.Item
           className="group flex flex-row gap-2 lg:flex-col"
@@ -44,7 +51,7 @@ export const LevelTabs = ({
               alias={currentLevel?.alias}
             />
           </Accordion.Trigger>
-          <Accordion.Content className="accordion-slide-right lg:accordion-slide-down">
+          <Accordion.Content className="accordion-slide-right accordion-slide-down">
             <TabGroup
               vertical
               selectedIndex={currentLevelIndex}
