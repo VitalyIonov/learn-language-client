@@ -38,7 +38,7 @@ export default function Questions() {
   return (
     <PageContent>
       <div className={clsx("w-full")}>
-        <div className="flex flex-col gap-8 lg:flex-row lg:gap-24">
+        <div className="flex flex-col gap-12 lg:flex-row lg:gap-24">
           <LevelTabs
             currentLevel={currentLevel}
             levelsData={levelsData}

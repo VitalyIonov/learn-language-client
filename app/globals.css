@@ -87,11 +87,11 @@
 
 @media (max-width: 1023px) {
   .accordion-slide-right {
-    overflow: hidden;                 /* или overflow: clip; если поддерживается */
-    will-change: width;               /* хинт движку, иногда помогает на iOS */
+    overflow: hidden;
+    will-change: width;
     backface-visibility: hidden;
-    transform: translateZ(0);         /* отдельный слой под отрисовку */
-    isolation: isolate;               /* новый stacking context */
+    transform: translateZ(0);
+    isolation: isolate;
   }
   .accordion-slide-right[data-state="open"]   { animation: accordionSlideRight 300ms ease-out; }
   .accordion-slide-right[data-state="closed"] { animation: accordionSlideLeft  300ms ease-out; }
