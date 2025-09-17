@@ -26,6 +26,42 @@
   }
 }
 
+@keyframes accordionSlideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordionSlideUp {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes accordionSlideRight {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--radix-accordion-content-width);
+  }
+}
+
+@keyframes accordionSlideLeft {
+  from {
+    width: var(--radix-accordion-content-width);
+  }
+  to {
+    width: 0;
+  }
+}
+
 .animate-confetti {
   animation: confetti-fall 3s ease-out forwards;
 }
@@ -47,4 +83,30 @@
   height: 4px;
   background: linear-gradient(45deg, #ffffff, #e5e7eb);
   clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.accordion-slide-down {
+  overflow: hidden;
+  will-change: height;
+}
+
+.accordion-slide-down[data-state="open"] {
+  animation: accordionSlideDown 300ms ease-out;
+}
+
+.accordion-slide-down[data-state="closed"] {
+  animation: accordionSlideUp 300ms ease-out;
+}
+
+.accordion-slide-right {
+  overflow: hidden;
+  will-change: width;
+}
+
+.accordion-slide-right[data-state="open"] {
+  animation: accordionSlideRight 300ms ease-out;
+}
+
+.accordion-slide-right[data-state="closed"] {
+  animation: accordionSlideLeft 300ms ease-out;
 }

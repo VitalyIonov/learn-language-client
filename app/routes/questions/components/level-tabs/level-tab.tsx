@@ -4,20 +4,24 @@ import { clsx } from "clsx";
 import type { LevelOut } from "~/types/client-schemas";
 
 type Props = {
-  key: number;
-  level: LevelOut;
-  onClick: (newLevel: LevelOut) => void;
+  level?: LevelOut;
+  onClick?: (newLevel: LevelOut) => void;
 };
 
-export const LevelTab = ({ key, level, onClick }: Props) => {
+export const LevelTab = ({ level, onClick }: Props) => {
+  if (!level) {
+    return null;
+  }
+
+  const { name, alias } = level;
+
   return (
     <Tab
-      key={key}
       disabled={Boolean(level.isLocked)}
       onClick={() => onClick?.(level)}
       className={({ selected, disabled }) =>
         clsx(
-          "cursor-pointer rounded-xl px-4 py-3 text-left font-medium transition-all duration-200 focus:outline-none lg:w-48",
+          "cursor-pointer rounded-xl px-3 py-2 text-left font-medium transition-all duration-200 focus:outline-none lg:w-36",
           {
             "border border-emerald-400/30 bg-gradient-to-r from-emerald-500/20 via-blue-500/20 to-purple-600/20 text-white shadow-lg":
               selected,
@@ -29,43 +33,43 @@ export const LevelTab = ({ key, level, onClick }: Props) => {
         )
       }
     >
-      {({ selected }) => (
-        <div className="flex items-center gap-3">
+      {({ selected, disabled }) => (
+        <div className="flex items-center gap-3 overflow-x-scroll [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0">
           <div
             className={clsx(
               "flex flex-shrink-0 items-center justify-center",
               "h-10 w-10",
-              "text-lg font-bold",
+              "text-sm font-bold",
               "rounded-xl",
               {
                 "bg-gradient-to-br from-emerald-400 via-blue-400 to-purple-500 text-white shadow-lg":
                   selected,
-                "bg-zinc-700 text-zinc-300": !selected && !level.isLocked,
-                "bg-zinc-800 text-zinc-600": level.isLocked,
+                "bg-zinc-700 text-zinc-300": !selected && !disabled,
+                "bg-zinc-800 text-zinc-600": disabled,
               },
             )}
           >
-            {!level.isLocked ? level.alias : "🔒"}
+            {!disabled ? alias : "🔒"}
           </div>
           <div className="hidden lg:block">
             <div className="min-w-0 flex-1">
               <p
-                className={clsx("font-semibold", {
+                className={clsx("text-sm font-semibold", {
                   "text-white": selected,
-                  "text-zinc-300": !selected && !level.isLocked,
-                  "text-zinc-600": level.isLocked,
+                  "text-zinc-300": !selected && !disabled,
+                  "text-zinc-600": disabled,
                 })}
               >
-                {level.alias}
+                {alias}
               </p>
               <p
-                className={clsx("truncate text-sm", {
+                className={clsx("truncate text-xs", {
                   "text-emerald-200": selected,
-                  "text-zinc-400": !selected && !level.isLocked,
-                  "text-zinc-600": level.isLocked,
+                  "text-zinc-400": !selected && !disabled,
+                  "text-zinc-600": disabled,
                 })}
               >
-                {level.name}
+                {name}
               </p>
             </div>
           </div>

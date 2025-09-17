@@ -1,15 +1,13 @@
-import { useState, useEffect } from "react";
-import { Tab, TabGroup, TabList } from "@headlessui/react";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@radix-ui/react-accordion";
+import { TabGroup, TabList } from "@headlessui/react";
+import * as Accordion from "@radix-ui/react-accordion";
 import { clsx } from "clsx";
 
-import { LevelTab } from "~/routes/questions/components/level-tab/level-tab";
+import { LevelTab } from "~/routes/questions/components/level-tabs/level-tab";
+import { CurrentTab } from "~/routes/questions/components/level-tabs/current-tab";
+import { NextTab } from "~/routes/questions/components/level-tabs/next-tab";
 import { type LevelsListResponse, type LevelOut } from "~/types/client-schemas";
+
+import { prepareLevels } from "~/routes/questions/utils/levels";
 
 interface LevelTabsProps {
   levelsData?: LevelsListResponse;
@@ -30,41 +28,58 @@ export const LevelTabs = ({
     onCurrentLevelChange(newLevel);
   };
 
+  const { unlockedLevels, nextLevel } = prepareLevels(levelsData?.items);
+
   return (
-    <Accordion type="single" collapsible>
-      <AccordionItem value="test">
-        <AccordionTrigger className="justify-between">
-          <span className="flex items-center gap-2">
-            <span className="font-semibold">test</span>
-          </span>
-        </AccordionTrigger>
-        <AccordionContent>
-          <TabGroup
-            vertical
-            selectedIndex={currentLevelIndex}
-            className="max-h-[600px] overflow-y-scroll [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0"
-          >
-            <TabList
-              className={clsx(
-                "overflow-x-scroll",
-                "flex flex-shrink-0 flex-row gap-2",
-                "pb-1",
-                "w-full [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0",
-                "[-ms-overflow-style:none] [scrollbar-width:none]",
-                "lg:w-48 lg:flex-col lg:flex-wrap lg:overflow-auto lg:pr-1 lg:pb-0",
-              )}
+    <div className="flex flex-row items-start gap-2 lg:flex-col">
+      <Accordion.Root type="single" collapsible>
+        <Accordion.Item
+          className="group flex flex-row gap-2 lg:flex-col"
+          value="currentLevel"
+        >
+          <Accordion.Trigger className="justify-between">
+            <CurrentTab
+              isLocked={currentLevel?.isLocked}
+              name={currentLevel?.name}
+              alias={currentLevel?.alias}
+            />
+          </Accordion.Trigger>
+          <Accordion.Content className="accordion-slide-right lg:accordion-slide-down">
+            <TabGroup
+              vertical
+              selectedIndex={currentLevelIndex}
+              className="max-h-[600px] overflow-y-scroll [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0"
             >
-              {levelsData?.items.map((level) => (
-                <LevelTab
-                  key={level.id}
-                  level={level}
-                  onClick={handleLevelSelect}
-                />
-              ))}
-            </TabList>
-          </TabGroup>
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
+              <TabList
+                className={clsx(
+                  "overflow-x-scroll",
+                  "flex flex-shrink-0 flex-row gap-2",
+                  "pb-1",
+                  "w-full [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0",
+                  "[-ms-overflow-style:none] [scrollbar-width:none]",
+                  "lg:w-48 lg:flex-col lg:flex-wrap lg:overflow-auto lg:pr-1 lg:pb-0",
+                )}
+              >
+                {unlockedLevels.map((level) => (
+                  <LevelTab
+                    key={level.id}
+                    level={level}
+                    onClick={handleLevelSelect}
+                  />
+                ))}
+              </TabList>
+            </TabGroup>
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>
+      {nextLevel ? (
+        <NextTab
+          isLocked
+          isActive={false}
+          name={nextLevel.name}
+          alias={nextLevel.alias}
+        />
+      ) : null}
+    </div>
   );
 };
