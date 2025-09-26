@@ -4,7 +4,6 @@ import { clsx } from "clsx";
 
 import { LevelTab } from "~/routes/questions/components/level-tabs/level-tab";
 import { CurrentTab } from "~/routes/questions/components/level-tabs/current-tab";
-import { NextTab } from "~/routes/questions/components/level-tabs/next-tab";
 import { type LevelsListResponse, type LevelOut } from "~/types/client-schemas";
 
 import { prepareLevels } from "~/routes/questions/utils/levels";
@@ -12,7 +11,7 @@ import { prepareLevels } from "~/routes/questions/utils/levels";
 interface LevelTabsProps {
   levelsData?: LevelsListResponse;
   currentLevel?: LevelOut;
-  onCurrentLevelChange: (newLevel: LevelOut) => void;
+  onCurrentLevelChange: (newLevelId: LevelOut["id"]) => void;
 }
 
 export const LevelTabs = ({
@@ -25,7 +24,7 @@ export const LevelTabs = ({
   );
 
   const handleLevelSelect = (newLevel: LevelOut) => {
-    onCurrentLevelChange(newLevel);
+    onCurrentLevelChange(newLevel.id);
   };
 
   const { unlockedLevels, nextLevel } = prepareLevels(levelsData?.items);
@@ -56,42 +55,43 @@ export const LevelTabs = ({
               alias={currentLevel?.alias}
             />
           </Accordion.Trigger>
-          <Accordion.Content className="accordion-slide-right accordion-slide-down">
-            <TabGroup
-              vertical
-              selectedIndex={currentLevelIndex}
-              className="max-h-[600px] overflow-y-scroll [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0"
+          <TabGroup
+            vertical
+            selectedIndex={currentLevelIndex}
+            className="max-h-[600px] overflow-y-scroll [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0"
+          >
+            <TabList
+              className={clsx(
+                "overflow-x-scroll",
+                "flex flex-shrink-0 flex-row gap-2",
+                "pb-1",
+                "w-full [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0",
+                "[-ms-overflow-style:none] [scrollbar-width:none]",
+                "lg:w-48 lg:flex-col lg:flex-wrap lg:overflow-auto lg:pr-1 lg:pb-0",
+              )}
             >
-              <TabList
-                className={clsx(
-                  "overflow-x-scroll",
-                  "flex flex-shrink-0 flex-row gap-2",
-                  "pb-1",
-                  "w-full [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0",
-                  "[-ms-overflow-style:none] [scrollbar-width:none]",
-                  "lg:w-48 lg:flex-col lg:flex-wrap lg:overflow-auto lg:pr-1 lg:pb-0",
-                )}
-              >
+              <Accordion.Content className="accordion-slide-right accordion-slide-down flex flex-shrink-0 flex-row gap-2 lg:flex-col">
                 {unlockedLevels.map((level) => (
                   <LevelTab
                     key={level.id}
+                    isSelected={level.id === currentLevel?.id}
                     level={level}
                     onClick={handleLevelSelect}
                   />
                 ))}
-              </TabList>
-            </TabGroup>
-          </Accordion.Content>
+              </Accordion.Content>
+              {nextLevel ? (
+                <LevelTab
+                  key={nextLevel.id}
+                  level={nextLevel}
+                  isSelected={nextLevel.id === currentLevel?.id}
+                  onClick={handleLevelSelect}
+                />
+              ) : null}
+            </TabList>
+          </TabGroup>
         </Accordion.Item>
       </Accordion.Root>
-      {nextLevel ? (
-        <NextTab
-          isLocked
-          isActive={false}
-          name={nextLevel.name}
-          alias={nextLevel.alias}
-        />
-      ) : null}
     </div>
   );
 };

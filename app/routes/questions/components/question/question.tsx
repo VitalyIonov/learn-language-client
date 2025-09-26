@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { RadioGroup } from "@headlessui/react";
-import { Button } from "@headlessui/react";
 import { clsx } from "clsx";
+import { Button } from "~/shared/components";
 import { useCallbackDebounce } from "~/shared/hooks/use-callback-debounce";
 import { usePlayAudio } from "~/shared/hooks/use-play-audio";
 import { useFlipAnimation } from "~/shared/hooks/use-flip-animation";
@@ -213,30 +213,13 @@ export function Question({
         <div
           className={clsx(
             "fixed right-0 bottom-0 left-0 z-50",
-            "flex justify-end",
+            "flex flex-col items-stretch justify-end",
             "mt-8 p-4",
             "bg-slate-900",
-            "sm:static",
+            "sm:static sm:items-end",
           )}
         >
-          <Button
-            className={clsx(
-              "inline-flex",
-              "items-center justify-center gap-2",
-              "px-3 py-1.5",
-              "h-16 w-full",
-              "text-base font-semibold text-white",
-              "bg-indigo-700",
-              "rounded-md",
-              "shadow-inner",
-              "cursor-pointer",
-              "focus:not-data-focus:outline-none data-disabled:cursor-not-allowed data-disabled:bg-slate-500 data-focus:outline data-focus:outline-white data-hover:bg-indigo-800 data-open:bg-gray-700",
-              "md:w-32",
-              "lg:h-auto lg:w-24 lg:text-sm/6",
-            )}
-            disabled={isQuestionUpdating}
-            onClick={handleApply}
-          >
+          <Button disabled={isQuestionUpdating} onClick={handleApply}>
             Ответить
           </Button>
         </div>

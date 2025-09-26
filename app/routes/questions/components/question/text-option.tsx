@@ -8,13 +8,12 @@ import type { TextDefinitionOut } from "~/types/client-schemas";
 import { SoundWaves } from "~/shared/components/sound-waves/sound-waves";
 
 type Props = {
-  key: number;
   definition: TextDefinitionOut;
   isSelected: boolean;
   lastResult?: boolean;
 };
 
-export function TextOption({ key, definition, isSelected, lastResult }: Props) {
+export function TextOption({ definition, isSelected, lastResult }: Props) {
   const {
     isFlipped,
     onTouchStart: onFlipAnimationTouchStart,
@@ -36,9 +35,10 @@ export function TextOption({ key, definition, isSelected, lastResult }: Props) {
     onPlayAudioTouchStart();
   };
 
+  const translationText = isLoading ? "..." : translatedText?.translation;
+
   return (
     <Radio
-      key={key}
       value={definition.id}
       className={clsx(
         "relative",
@@ -73,21 +73,8 @@ export function TextOption({ key, definition, isSelected, lastResult }: Props) {
               : "font-semibold text-gray-900",
           )}
         >
-          <p
-            className={clsx("absolute text-inherit", {
-              "opacity-100": isFlipped,
-              "pointer-events-none opacity-0": !isFlipped,
-            })}
-          >
-            {isLoading ? "..." : translatedText?.translation}
-          </p>
-          <p
-            className={clsx("text-inherit", {
-              "opacity-100": !isFlipped,
-              "pointer-events-none opacity-0": isFlipped,
-            })}
-          >
-            {definition.text}
+          <p className={clsx("text-inherit")}>
+            {isFlipped ? translationText : definition.text}
           </p>
           {isSelected ? (
             <CheckCircleIcon className="size-6 fill-white opacity-0 transition group-data-checked:opacity-100" />

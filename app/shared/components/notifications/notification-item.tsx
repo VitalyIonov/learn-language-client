@@ -14,7 +14,10 @@ import {
   useNotificationStore,
 } from "~/shared/stores";
 
-type StandardNotificationType = Exclude<NotificationType, "level-up">;
+type StandardNotificationType = Exclude<
+  NotificationType,
+  "level-up" | "category-finished"
+>;
 
 const notificationIcons: Record<StandardNotificationType, React.ElementType> = {
   success: CheckCircleIcon,
@@ -66,7 +69,12 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
     >
       <div
         className={clsx(
-          "ring-opacity-5 pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg border shadow-lg ring-1 ring-black",
+          "overflow-hidden",
+          "pointer-events-auto max-w-sm",
+          "w-full",
+          "ring-opacity-5 rounded-lg ring-1 ring-black",
+          "shadow-lg",
+          "border",
           notificationStyles[notification.type as StandardNotificationType],
         )}
       >
@@ -82,9 +90,11 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
               />
             </div>
             <div className="ml-3 w-0 flex-1 pt-0.5">
-              <p className="text-sm font-medium">{notification.title}</p>
+              <p className="text-sm font-medium text-slate-800">
+                {notification.title}
+              </p>
               {notification.message && (
-                <p className="mt-1 text-sm opacity-90">
+                <p className="mt-1 text-sm text-slate-800 opacity-90">
                   {notification.message}
                 </p>
               )}
@@ -92,7 +102,13 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
             <div className="ml-4 flex flex-shrink-0">
               <button
                 type="button"
-                className="inline-flex rounded-md opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+                className={clsx(
+                  "inline-flex",
+                  "rounded-md",
+                  "opacity-70",
+                  "transition-opacity",
+                  "hover:opacity-100 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none",
+                )}
                 onClick={handleClose}
               >
                 <span className="sr-only">Закрыть</span>

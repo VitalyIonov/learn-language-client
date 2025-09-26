@@ -1,7 +1,8 @@
+import { clsx } from "clsx";
 import React from "react";
 import { useNotificationStore } from "~/shared/stores";
 import { NotificationItem } from "./notification-item";
-import { LevelUpNotification } from "./level-up-notification";
+import { LevelUpNotification } from "~/shared/components";
 
 export const NotificationContainer: React.FC = () => {
   const { notifications } = useNotificationStore();
@@ -13,7 +14,12 @@ export const NotificationContainer: React.FC = () => {
   return (
     <div
       aria-live="assertive"
-      className="pointer-events-none fixed inset-0 z-50 flex items-end px-4 py-6 sm:items-start sm:p-6"
+      className={clsx(
+        "fixed inset-0 z-50",
+        "flex items-end",
+        "pointer-events-none px-4 py-6",
+        "sm:items-start sm:p-6",
+      )}
     >
       <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
         {notifications.map((notification) => {

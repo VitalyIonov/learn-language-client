@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import React, { useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
 import { XMarkIcon, TrophyIcon } from "@heroicons/react/24/outline";
@@ -38,7 +39,17 @@ export const LevelUpNotification: React.FC<LevelUpNotificationProps> = ({
       leaveFrom="opacity-100 scale-100"
       leaveTo="opacity-0 scale-95"
     >
-      <div className="pointer-events-auto relative w-full max-w-md overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 via-blue-500 to-purple-600 shadow-2xl ring-2 ring-emerald-400/30">
+      <div
+        className={clsx(
+          "relative",
+          "overflow-hidden",
+          "pointer-events-auto max-w-md",
+          "w-full",
+          "bg-gradient-to-br from-emerald-500 via-blue-500 to-purple-600",
+          "rounded-2xl ring-2 ring-emerald-400/30",
+          "shadow-2xl",
+        )}
+      >
         {showConfetti && (
           <div className="absolute inset-0 overflow-hidden">
             {Array.from({ length: 20 }).map((_, i) => (
@@ -84,7 +95,15 @@ export const LevelUpNotification: React.FC<LevelUpNotificationProps> = ({
             <div className="ml-4 flex flex-shrink-0">
               <button
                 type="button"
-                className="inline-flex rounded-full bg-white/20 p-1.5 text-white transition-all hover:bg-white/30 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-orange-500 focus:outline-none"
+                className={clsx(
+                  "inline-flex",
+                  "p-1.5",
+                  "text-white",
+                  "bg-white/20",
+                  "rounded-full",
+                  "transition-all",
+                  "hover:bg-white/30 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-orange-500 focus:outline-none",
+                )}
                 onClick={handleClose}
               >
                 <span className="sr-only">Закрыть</span>
@@ -94,9 +113,33 @@ export const LevelUpNotification: React.FC<LevelUpNotificationProps> = ({
           </div>
         </div>
 
-        <div className="absolute top-2 left-2 h-3 w-3 animate-ping rounded-full bg-white/30" />
-        <div className="absolute right-4 bottom-3 h-2 w-2 animate-pulse rounded-full bg-white/40" />
-        <div className="absolute top-4 right-8 h-1 w-1 animate-bounce rounded-full bg-white/50" />
+        <div
+          className={clsx(
+            "absolute top-2 left-2",
+            "h-3 w-3",
+            "bg-white/30",
+            "rounded-full",
+            "animate-ping",
+          )}
+        />
+        <div
+          className={clsx(
+            "absolute right-4 bottom-3",
+            "h-2 w-2",
+            "bg-white/40",
+            "rounded-full",
+            "animate-pulse",
+          )}
+        />
+        <div
+          className={clsx(
+            "absolute top-4 right-8",
+            "h-1 w-1",
+            "bg-white/50",
+            "rounded-full",
+            "animate-bounce",
+          )}
+        />
       </div>
     </Transition>
   );

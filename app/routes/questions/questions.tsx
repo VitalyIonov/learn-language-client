@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 
 import { LevelTabs } from "~/routes/questions/components/level-tabs";
 import { Question } from "~/routes/questions/components/question/question";
+import { UnlockSection } from "~/routes/questions/components/unlock-section/unlock-section";
 import { PageContent } from "~/shared/components";
 import {
   useReadCategoryCategoriesCategoryIdGet,
@@ -17,9 +18,10 @@ export default function Questions() {
   const { data } = useReadCategoryCategoriesCategoryIdGet(categoryId);
   const initialLevel = data?.currentLevel;
 
-  const [currentLevel, setCurrentLevel] = useState<LevelOut | undefined>(
-    initialLevel,
-  );
+  const [currentLevelId, setCurrentLevelId] = useState<
+    LevelOut["id"] | undefined
+  >(initialLevel?.id);
+
   const { data: levelsData, refetch: invalidateLevels } =
     useReadLevelsLevelsGet({
       category_id: categoryId,
@@ -27,13 +29,17 @@ export default function Questions() {
 
   const updateLevels = async (newLevel: LevelOut) => {
     await invalidateLevels().then(() => {
-      setCurrentLevel(newLevel);
+      setCurrentLevelId(newLevel.id);
     });
   };
 
   useEffect(() => {
-    setCurrentLevel(initialLevel);
+    setCurrentLevelId(initialLevel?.id);
   }, [initialLevel]);
+
+  const currentLevel = levelsData?.items.find(
+    ({ id }) => id === currentLevelId,
+  );
 
   return (
     <PageContent>
@@ -42,15 +48,23 @@ export default function Questions() {
           <LevelTabs
             currentLevel={currentLevel}
             levelsData={levelsData}
-            onCurrentLevelChange={setCurrentLevel}
+            onCurrentLevelChange={setCurrentLevelId}
           />
           <div className="flex min-w-0 flex-1 items-center">
-            <Question
-              className="lg:pr-24"
-              categoryId={categoryId}
-              levelId={currentLevel?.id}
-              invalidateLevels={updateLevels}
-            />
+            {currentLevel?.isLocked ? (
+              <UnlockSection
+                level={currentLevel}
+                categoryId={categoryId}
+                onUnlockSuccess={invalidateLevels}
+              />
+            ) : (
+              <Question
+                className="lg:pr-24"
+                categoryId={categoryId}
+                levelId={currentLevel?.id}
+                invalidateLevels={updateLevels}
+              />
+            )}
           </div>
         </div>
       </div>

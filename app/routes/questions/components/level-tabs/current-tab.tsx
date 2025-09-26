@@ -18,7 +18,7 @@ export const CurrentTab = ({
   return (
     <div
       className={clsx(
-        "flex items-center",
+        "flex items-center gap-4",
         "px-4 py-3",
         "text-left font-medium text-white",
         "bg-gradient-to-r from-emerald-500/20 via-blue-500/20 to-purple-600/20",
@@ -31,7 +31,7 @@ export const CurrentTab = ({
         "lg:w-48",
       )}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 overflow-x-scroll [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0">
         <div
           className={clsx(
             "flex flex-shrink-0 items-center justify-center",

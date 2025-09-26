@@ -26,6 +26,7 @@ import type {
 import type {
   CategoriesListResponse,
   CategoryOut,
+  CategoryProgressInfoOut,
   HTTPValidationError,
   LevelProgressByCategoryStatistic,
   LevelsListResponse,
@@ -37,6 +38,7 @@ import type {
   ReadLevelsLevelsGetParams,
   TranslateOut,
   TranslateTextTranslateGetParams,
+  UnlockLevelLevelsUnlockPostParams,
   UserOut
 } from './client-schemas';
 
@@ -394,6 +396,70 @@ export function useReadLevelsLevelsGet<TData = Awaited<ReturnType<typeof readLev
 
 
 
+/**
+ * @summary Unlock Level
+ */
+export const unlockLevelLevelsUnlockPost = (
+    params: UnlockLevelLevelsUnlockPostParams,
+ signal?: AbortSignal
+) => {
+      
+      
+      return request<CategoryProgressInfoOut>(
+      {url: `/levels/unlock`, method: 'POST',
+        params, signal
+    },
+      );
+    }
+  
+
+
+export const getUnlockLevelLevelsUnlockPostMutationOptions = <TError = HTTPValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof unlockLevelLevelsUnlockPost>>, TError,{params: UnlockLevelLevelsUnlockPostParams}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof unlockLevelLevelsUnlockPost>>, TError,{params: UnlockLevelLevelsUnlockPostParams}, TContext> => {
+
+const mutationKey = ['unlockLevelLevelsUnlockPost'];
+const {mutation: mutationOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof unlockLevelLevelsUnlockPost>>, {params: UnlockLevelLevelsUnlockPostParams}> = (props) => {
+          const {params} = props ?? {};
+
+          return  unlockLevelLevelsUnlockPost(params,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UnlockLevelLevelsUnlockPostMutationResult = NonNullable<Awaited<ReturnType<typeof unlockLevelLevelsUnlockPost>>>
+    
+    export type UnlockLevelLevelsUnlockPostMutationError = HTTPValidationError
+
+    /**
+ * @summary Unlock Level
+ */
+export const useUnlockLevelLevelsUnlockPost = <TError = HTTPValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof unlockLevelLevelsUnlockPost>>, TError,{params: UnlockLevelLevelsUnlockPostParams}, TContext>, }
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof unlockLevelLevelsUnlockPost>>,
+        TError,
+        {params: UnlockLevelLevelsUnlockPostParams},
+        TContext
+      > => {
+
+      const mutationOptions = getUnlockLevelLevelsUnlockPostMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    
 /**
  * @summary Translate Text
  */
