@@ -5,8 +5,30 @@ import { CategoryCard } from "~/entities/category-card/category-card";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Learn Language – Изучай языки легко" },
+    {
+      name: "description",
+      content: "Платформа для изучения иностранных языков. Учись эффективно!",
+    },
+
+    // Open Graph
+    { property: "og:title", content: "Learn Language – Изучай языки легко" },
+    {
+      property: "og:description",
+      content: "Сервис для изучения иностранных языков.",
+    },
+    { property: "og:image", content: "https://learn-language.es/preview.png" },
+    { property: "og:url", content: "https://learn-language.es/" },
+    { property: "og:type", content: "website" },
+
+    // Twitter Cards
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: "Learn Language – Изучай языки легко" },
+    {
+      name: "twitter:description",
+      content: "Онлайн-платформа для изучения языков.",
+    },
+    { name: "twitter:image", content: "https://learn-language.es/preview.png" },
   ];
 }
 
