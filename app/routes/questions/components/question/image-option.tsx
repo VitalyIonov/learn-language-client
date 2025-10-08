@@ -9,15 +9,21 @@ type Props = {
   definition: ImageDefinitionOut;
   isSelected: boolean;
   lastResult?: boolean;
+  context?: string;
 };
 
-export function ImageOption({ definition, isSelected, lastResult }: Props) {
+export function ImageOption({
+  definition,
+  isSelected,
+  lastResult,
+  context,
+}: Props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const { isFlipped, onDoubleClick, onClick, onTouchStart } =
     useFlipAnimation();
 
   const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
-    { text: definition.image.alt },
+    { text: definition.image.alt, context },
     { query: { enabled: isFlipped } },
   );
 

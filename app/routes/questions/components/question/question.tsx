@@ -196,6 +196,7 @@ export function Question({
                   definition={definition}
                   isSelected={isSelected}
                   lastResult={lastResult}
+                  context={`${meaning?.name}, ${currentCategoryName}`}
                 />
               );
             }
@@ -207,7 +208,7 @@ export function Question({
                   definition={definition}
                   isSelected={isSelected}
                   lastResult={lastResult}
-                  context={meaning?.name}
+                  context={`${meaning?.name}, ${currentCategoryName}`}
                 />
               );
             }
