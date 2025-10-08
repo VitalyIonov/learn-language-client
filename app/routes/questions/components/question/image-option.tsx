@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Radio } from "@headlessui/react";
 import { clsx } from "clsx";
 import { useFlipAnimation } from "~/shared/hooks/use-flip-animation";
@@ -19,13 +19,19 @@ export function ImageOption({
   context,
 }: Props) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const { isFlipped, onDoubleClick, onClick, onTouchStart } =
-    useFlipAnimation();
+  const [translation, setTranslation] = useState<string | undefined>(undefined);
+  const { isFlipped, onDoubleClick, onClick, onTouchStart } = useFlipAnimation(
+    Boolean(translation),
+  );
 
   const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
     { text: definition.image.alt, context },
     { query: { enabled: isFlipped } },
   );
+
+  useEffect(() => {
+    setTranslation(translatedText?.translation);
+  }, [translatedText]);
 
   return (
     <Radio

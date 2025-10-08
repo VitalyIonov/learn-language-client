@@ -1,6 +1,7 @@
 import { Radio } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { clsx } from "clsx";
+import { useState, useEffect } from "react";
 import { useFlipAnimation } from "~/shared/hooks/use-flip-animation";
 import { usePlayAudio } from "~/shared/hooks/use-play-audio";
 import { useTranslateTextTranslateGet } from "~/types/client-api";
@@ -20,11 +21,13 @@ export function TextOption({
   lastResult,
   context,
 }: Props) {
+  const [translation, setTranslation] = useState<string | undefined>(undefined);
+
   const {
     isFlipped,
     onTouchStart: onFlipAnimationTouchStart,
     ...restFlipEvents
-  } = useFlipAnimation();
+  } = useFlipAnimation(Boolean(translation));
   const {
     isPlaying,
     onTouchStart: onPlayAudioTouchStart,
@@ -35,6 +38,10 @@ export function TextOption({
     { text: definition.text, context },
     { query: { enabled: isFlipped } },
   );
+
+  useEffect(() => {
+    setTranslation(translatedText?.translation);
+  }, [translatedText]);
 
   const handleTouchStart = () => {
     onFlipAnimationTouchStart();

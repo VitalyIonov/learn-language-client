@@ -1,82 +1,62 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
-export function useFlipAnimation() {
+export function useFlipAnimation(timerTrigger: boolean) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const animEndTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const autoFlipTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastTouchRef = useRef<number>(0);
 
-  const toggleFlipped = () => {
-    if (isAnimating) return;
+  useEffect(() => {
+    if (!timerTrigger || !isFlipped) return;
 
-    const newFlippedState = !isFlipped;
-    setIsFlipped(newFlippedState);
-    setIsAnimating(true);
+    if (autoFlipTimerRef.current) clearTimeout(autoFlipTimerRef.current);
+    autoFlipTimerRef.current = setTimeout(() => {
+      setIsFlipped(false);
+      setIsAnimating(true); // старт анимации скрытия
+    }, 3000);
 
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
+    return () => {
+      if (autoFlipTimerRef.current) clearTimeout(autoFlipTimerRef.current);
+    };
+  }, [timerTrigger, isFlipped]);
 
-    if (autoFlipTimerRef.current) {
-      clearTimeout(autoFlipTimerRef.current);
-    }
-
-    timerRef.current = setTimeout(() => {
+  useEffect(() => {
+    if (!isAnimating) return;
+    if (animEndTimerRef.current) clearTimeout(animEndTimerRef.current);
+    animEndTimerRef.current = setTimeout(() => {
       setIsAnimating(false);
     }, 500);
+    return () => {
+      if (animEndTimerRef.current) clearTimeout(animEndTimerRef.current);
+    };
+  }, [isAnimating]);
 
-    if (newFlippedState) {
-      autoFlipTimerRef.current = setTimeout(() => {
-        setIsFlipped(false);
-        setIsAnimating(true);
-
-        timerRef.current = setTimeout(() => {
-          setIsAnimating(false);
-        }, 500);
-      }, 3000);
-    }
+  const toggleFlipped = () => {
+    if (isAnimating) return;
+    setIsFlipped((v) => !v);
+    setIsAnimating(true);
+    if (autoFlipTimerRef.current) clearTimeout(autoFlipTimerRef.current);
   };
 
   const resetFlipped = () => {
-    if (isAnimating) return;
-
-    if (isFlipped) {
-      setIsFlipped(false);
-      setIsAnimating(true);
-
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-
-      if (autoFlipTimerRef.current) {
-        clearTimeout(autoFlipTimerRef.current);
-      }
-
-      timerRef.current = setTimeout(() => {
-        setIsAnimating(false);
-      }, 500);
-    }
+    if (isAnimating || !isFlipped) return;
+    setIsFlipped(false);
+    setIsAnimating(true);
+    if (autoFlipTimerRef.current) clearTimeout(autoFlipTimerRef.current);
   };
 
-  const handleDoubleClick = () => {
-    toggleFlipped();
-  };
-
-  const handleClick = () => {
-    resetFlipped();
-  };
+  const handleDoubleClick = () => toggleFlipped();
+  const handleClick = () => resetFlipped();
 
   const handleTouchStart = () => {
     const now = Date.now();
-    const timeDiff = now - lastTouchRef.current;
-
-    if (timeDiff < 300 && timeDiff > 0) {
+    const diff = now - lastTouchRef.current;
+    if (diff > 0 && diff < 300) {
       toggleFlipped();
     } else if (isFlipped) {
       resetFlipped();
     }
-
     lastTouchRef.current = now;
   };
 
