@@ -11,9 +11,15 @@ type Props = {
   definition: TextDefinitionOut;
   isSelected: boolean;
   lastResult?: boolean;
+  context?: string;
 };
 
-export function TextOption({ definition, isSelected, lastResult }: Props) {
+export function TextOption({
+  definition,
+  isSelected,
+  lastResult,
+  context,
+}: Props) {
   const {
     isFlipped,
     onTouchStart: onFlipAnimationTouchStart,
@@ -26,7 +32,7 @@ export function TextOption({ definition, isSelected, lastResult }: Props) {
   } = usePlayAudio(definition?.audio?.url);
 
   const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
-    { text: definition.text },
+    { text: definition.text, context },
     { query: { enabled: isFlipped } },
   );
 

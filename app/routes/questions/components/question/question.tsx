@@ -205,6 +205,7 @@ export function Question({
                   definition={definition}
                   isSelected={isSelected}
                   lastResult={lastResult}
+                  context={meaning?.name}
                 />
               );
             }

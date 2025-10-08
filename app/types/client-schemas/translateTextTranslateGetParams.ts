@@ -10,4 +10,5 @@ export type TranslateTextTranslateGetParams = {
  * text to translate
  */
 text: string;
+context?: string | null;
 };
