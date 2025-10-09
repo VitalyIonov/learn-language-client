@@ -35,6 +35,9 @@ export function Question({
   currentCategoryName,
   invalidateLevels,
 }: Props) {
+  const [meaningTranslation, setMeaningTranslation] = useState<
+    string | undefined
+  >(undefined);
   const [question, setQuestion] = useState<QuestionOut>();
   const [lastResult, setLastResult] = useState<boolean>();
   const [selected, setSelected] = useState<number>();
@@ -44,7 +47,7 @@ export function Question({
     onDoubleClick: onMeaningDoubleClick,
     onClick: onMeaningClick,
     onTouchStart: onMeaningTouchStart,
-  } = useFlipAnimation();
+  } = useFlipAnimation(Boolean(meaningTranslation));
 
   const {
     isPlaying,
@@ -61,6 +64,10 @@ export function Question({
     useGenerateQuestionQuestionsGeneratePost();
   const { mutateAsync: makeAnswer } =
     useUpdateQuestionEndpointQuestionsQuestionIdPatch();
+
+  useEffect(() => {
+    setMeaningTranslation(translatedMeaning?.translation);
+  }, [translatedMeaning]);
 
   const { custom: customNotification } = useNotificationStore();
 
