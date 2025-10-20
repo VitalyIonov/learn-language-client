@@ -28,6 +28,10 @@ import type {
   CategoryOut,
   CategoryProgressInfoOut,
   HTTPValidationError,
+  IssueCreate,
+  IssueOut,
+  IssueTypeListResponse,
+  IssuesListResponse,
   LevelProgressByCategoryStatistic,
   LevelsListResponse,
   ProgressByUserStatistic,
@@ -932,6 +936,247 @@ export function useGetTodayProgressByUser<TData = Awaited<ReturnType<typeof getT
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getGetTodayProgressByUserQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Get Issue
+ */
+export const getIssueIssuesGet = (
+    
+ signal?: AbortSignal
+) => {
+      
+      
+      return request<IssuesListResponse>(
+      {url: `/issues`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getGetIssueIssuesGetQueryKey = () => {
+    return [`/issues`] as const;
+    }
+
+    
+export const getGetIssueIssuesGetQueryOptions = <TData = Awaited<ReturnType<typeof getIssueIssuesGet>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getIssueIssuesGet>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetIssueIssuesGetQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getIssueIssuesGet>>> = ({ signal }) => getIssueIssuesGet(signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getIssueIssuesGet>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetIssueIssuesGetQueryResult = NonNullable<Awaited<ReturnType<typeof getIssueIssuesGet>>>
+export type GetIssueIssuesGetQueryError = unknown
+
+
+export function useGetIssueIssuesGet<TData = Awaited<ReturnType<typeof getIssueIssuesGet>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getIssueIssuesGet>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getIssueIssuesGet>>,
+          TError,
+          Awaited<ReturnType<typeof getIssueIssuesGet>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetIssueIssuesGet<TData = Awaited<ReturnType<typeof getIssueIssuesGet>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getIssueIssuesGet>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getIssueIssuesGet>>,
+          TError,
+          Awaited<ReturnType<typeof getIssueIssuesGet>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetIssueIssuesGet<TData = Awaited<ReturnType<typeof getIssueIssuesGet>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getIssueIssuesGet>>, TError, TData>>, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get Issue
+ */
+
+export function useGetIssueIssuesGet<TData = Awaited<ReturnType<typeof getIssueIssuesGet>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getIssueIssuesGet>>, TError, TData>>, }
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetIssueIssuesGetQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Add Issue
+ */
+export const addIssueIssuesPost = (
+    issueCreate: IssueCreate,
+ signal?: AbortSignal
+) => {
+      
+      
+      return request<IssueOut>(
+      {url: `/issues`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: issueCreate, signal
+    },
+      );
+    }
+  
+
+
+export const getAddIssueIssuesPostMutationOptions = <TError = HTTPValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof addIssueIssuesPost>>, TError,{data: IssueCreate}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof addIssueIssuesPost>>, TError,{data: IssueCreate}, TContext> => {
+
+const mutationKey = ['addIssueIssuesPost'];
+const {mutation: mutationOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof addIssueIssuesPost>>, {data: IssueCreate}> = (props) => {
+          const {data} = props ?? {};
+
+          return  addIssueIssuesPost(data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AddIssueIssuesPostMutationResult = NonNullable<Awaited<ReturnType<typeof addIssueIssuesPost>>>
+    export type AddIssueIssuesPostMutationBody = IssueCreate
+    export type AddIssueIssuesPostMutationError = HTTPValidationError
+
+    /**
+ * @summary Add Issue
+ */
+export const useAddIssueIssuesPost = <TError = HTTPValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof addIssueIssuesPost>>, TError,{data: IssueCreate}, TContext>, }
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof addIssueIssuesPost>>,
+        TError,
+        {data: IssueCreate},
+        TContext
+      > => {
+
+      const mutationOptions = getAddIssueIssuesPostMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    
+/**
+ * @summary Get Issue Types
+ */
+export const getIssueTypesIssueTypesGet = (
+    
+ signal?: AbortSignal
+) => {
+      
+      
+      return request<IssueTypeListResponse>(
+      {url: `/issue_types`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getGetIssueTypesIssueTypesGetQueryKey = () => {
+    return [`/issue_types`] as const;
+    }
+
+    
+export const getGetIssueTypesIssueTypesGetQueryOptions = <TData = Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetIssueTypesIssueTypesGetQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>> = ({ signal }) => getIssueTypesIssueTypesGet(signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetIssueTypesIssueTypesGetQueryResult = NonNullable<Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>>
+export type GetIssueTypesIssueTypesGetQueryError = unknown
+
+
+export function useGetIssueTypesIssueTypesGet<TData = Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>,
+          TError,
+          Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetIssueTypesIssueTypesGet<TData = Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>,
+          TError,
+          Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetIssueTypesIssueTypesGet<TData = Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>, TError, TData>>, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get Issue Types
+ */
+
+export function useGetIssueTypesIssueTypesGet<TData = Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getIssueTypesIssueTypesGet>>, TError, TData>>, }
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetIssueTypesIssueTypesGetQueryOptions(options)
 
   const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

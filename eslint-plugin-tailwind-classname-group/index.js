@@ -168,6 +168,18 @@ function isCallToAllowedFn(expr, fns) {
   );
 }
 
+function uniqueStable(arr) {
+  const seen = new Set();
+  const out = [];
+  for (const x of arr) {
+    if (!seen.has(x)) {
+      seen.add(x);
+      out.push(x);
+    }
+  }
+  return out;
+}
+
 function extractFromCall(expr, sourceCode) {
   // Собираем все строковые аргументы (Literal, TemplateLiteral без выражений)
   const stringParts = [];
@@ -181,8 +193,13 @@ function extractFromCall(expr, sourceCode) {
       otherArgs.push(sourceCode.getText(a));
     }
   }
-  const classes = stringParts.join(" ").trim().split(/\s+/).filter(Boolean);
-  return { classes, otherArgs, callee: expr.callee.name };
+  const classes = stringParts
+    .join(" ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  const deduped = uniqueStable(classes);
+  return { classes: deduped, otherArgs, callee: expr.callee.name };
 }
 
 function hasImport(sourceCode, fn, from) {
@@ -289,9 +306,10 @@ export default {
             if (!txt) return;
 
             const list = txt.trim().split(/\s+/).filter(Boolean);
-            if (list.length < opts.minClasses) return;
+            const deduped = uniqueStable(list);
+            if (deduped.length < opts.minClasses) return;
 
-            const lines = bucketize(list);
+            const lines = bucketize(deduped);
             const args = lines.map((s) => `"${s}"`).join(", ");
             const replacement = `{${opts.functionName}(${args})}`;
 
@@ -313,6 +331,47 @@ export default {
                 return fixes;
               },
             });
+          },
+
+          // Новое: поддержка стилей внутри объектных литералов, например const styles = { main: clsx("...") }
+          Property(node) {
+            // Интересуют только простые значения-свойства вида key: <value>
+            const val = node.value;
+            if (!val) return;
+
+            const source = context.getSourceCode();
+
+            // a) Значение — вызов cn/clsx(...): проверяем и при необходимости перегруппируем
+            if (isCallToAllowedFn(val, opts.tailwindFunctions)) {
+              const { classes, otherArgs, callee } = extractFromCall(val, source);
+              if (classes.length < opts.minClasses) return;
+
+              const desiredStrings = bucketize(classes);
+
+              // Текущие строковые аргументы
+              const currentStrings = val.arguments
+                .filter((a) => a.type === "Literal" && typeof a.value === "string")
+                .map((a) => a.value.trim());
+
+              const needFix =
+                desiredStrings.length !== currentStrings.length ||
+                desiredStrings.some((s, i) => s !== currentStrings[i]);
+
+              if (needFix) {
+                const stringArgs = desiredStrings.map((s) => `"${s}"`);
+                const newArgs = [...stringArgs, ...otherArgs].join(", ");
+                const newCall = `${callee}(${newArgs})`;
+
+                context.report({
+                  node: val,
+                  messageId: "regroup",
+                  fix: (fixer) => fixer.replaceText(val, newCall),
+                });
+              }
+            }
+
+            // b) При желании можно конвертировать длинные строки в cn(...), но чтобы вне JSX не навязывать импорт,
+            //    оставляем как есть для минимальности изменения поведения
           },
         };
       },

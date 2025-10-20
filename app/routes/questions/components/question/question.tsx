@@ -19,6 +19,7 @@ import {
 import { TextOption } from "./text-option";
 import { ImageOption } from "./image-option";
 import { SoundWaves } from "~/shared/components/sound-waves/sound-waves";
+import { IssueButton } from "~/routes/questions/components/issue-button";
 
 type Props = {
   className?: string;
@@ -224,15 +225,20 @@ export function Question({
         <div
           className={clsx(
             "fixed right-0 bottom-0 left-0 z-50",
-            "flex flex-col items-stretch justify-end",
+            "flex flex-row items-center justify-end gap-4",
             "mt-8 p-4",
             "bg-slate-900",
-            "sm:static sm:items-end",
+            "sm:static",
           )}
         >
-          <Button disabled={isQuestionUpdating} onClick={handleApply}>
+          <Button
+            className="grow-1 sm:grow-0"
+            disabled={isQuestionUpdating}
+            onClick={handleApply}
+          >
             Ответить
           </Button>
+          <IssueButton question={question} />
         </div>
       </div>
     </div>

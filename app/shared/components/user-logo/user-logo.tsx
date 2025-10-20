@@ -1,8 +1,8 @@
-import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import { logout } from "~/shared/lib/auth";
 
 import { type UserOut } from "~/types/client-schemas";
 import { clsx } from "clsx";
+import { Popover } from "~/shared/components/popover/popover";
 
 type Props = {
   userData?: UserOut;
@@ -78,45 +78,25 @@ export const UserLogo = ({ userData, className }: Props) => {
     </>
   );
 
+  const button = () => (
+    <div
+      className={clsx(
+        "flex items-center justify-center",
+        "h-[40px] w-[40px]",
+        "text-gray-200",
+        "bg-slate-900",
+        "rounded-[12px]",
+        className,
+      )}
+    >
+      {initials}
+    </div>
+  );
+
   return (
     <>
-      <Popover className="hidden lg:block">
-        <PopoverButton
-          className={clsx(
-            "block",
-            "text-sm/6 font-semibold",
-            "cursor-pointer",
-            "focus:outline-none data-active:text-white data-focus:outline data-focus:outline-white data-hover:text-white",
-          )}
-        >
-          <div
-            className={clsx(
-              "flex items-center justify-center",
-              "h-[40px] w-[40px]",
-              "text-gray-200",
-              "bg-slate-900",
-              "rounded-[16px]",
-              className,
-            )}
-          >
-            {initials}
-          </div>
-        </PopoverButton>
-        <PopoverPanel
-          transition
-          anchor="bottom end"
-          className={clsx(
-            "flex-col",
-            "text-sm/6",
-            "bg-slate-900",
-            "divide-y divide-white/5 rounded-xl border-1 border-slate-700",
-            "transition duration-200 ease-in-out",
-            "flex, [--anchor-gap:--spacing(5)]",
-            "data-closed:-translate-y-1 data-closed:opacity-0",
-          )}
-        >
-          {content}
-        </PopoverPanel>
+      <Popover className="hidden lg:block" button={button}>
+        {content}
       </Popover>
       <div className="lg:hidden">{content}</div>
     </>

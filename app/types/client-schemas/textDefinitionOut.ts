@@ -8,7 +8,7 @@ import type { TextDefinitionOutAudio } from './textDefinitionOutAudio';
 
 export interface TextDefinitionOut {
   id: number;
-  type?: 'text';
+  type: 'text';
   text: string;
   audio?: TextDefinitionOutAudio;
 }
