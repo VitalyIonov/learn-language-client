@@ -38,7 +38,7 @@ export function SingleSelect<T extends string | number>({
   const selectedOption = options.find((opt) => opt.value === value);
 
   return (
-    <div className={clsx("w-64", className)}>
+    <div className={clsx("w-auto", className)}>
       {label && (
         <label className="mb-1 block text-sm font-medium text-slate-300">
           {label}
@@ -49,7 +49,7 @@ export function SingleSelect<T extends string | number>({
         <div className="relative">
           <ListboxButton
             className={clsx(
-              "px-3 py-2",
+              "px-3 py-3",
               "w-full",
               "text-left text-slate-200",
               "bg-slate-800",

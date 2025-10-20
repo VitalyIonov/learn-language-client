@@ -9,7 +9,7 @@ type Props = {
 
 export const FormFooter = ({ className, id, submitLabel }: Props) => (
   <div className={clsx("flex justify-end", className)}>
-    <Button type="submit" form={id}>
+    <Button className="h-12" type="submit" form={id}>
       {submitLabel}
     </Button>
   </div>

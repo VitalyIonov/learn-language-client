@@ -15,7 +15,7 @@ export const Textarea = ({
   ...inputProps
 }: Props) => {
   return (
-    <div className={clsx("w-64", className)}>
+    <div className={clsx("w-auto", className)}>
       {label && (
         <label
           htmlFor={id}
@@ -39,6 +39,7 @@ export const Textarea = ({
           hasError && "border-red-400 focus:ring-red-400",
           className,
         )}
+        rows={4}
       />
     </div>
   );

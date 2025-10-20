@@ -232,7 +232,7 @@ export function Question({
           )}
         >
           <Button
-            className="grow-1 sm:grow-0"
+            className="h-16 grow-1 sm:grow-0 lg:h-auto"
             disabled={isQuestionUpdating}
             onClick={handleApply}
           >

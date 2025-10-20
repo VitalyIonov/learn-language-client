@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { clsx } from "clsx";
-import { Popover, Button, Modal } from "~/shared/components";
+import { Button, Modal } from "~/shared/components";
 import { BugAntIcon } from "@heroicons/react/24/outline";
 import { useAddIssueIssuesPost } from "~/types/client-api";
 import type { QuestionOut } from "~/types/client-schemas";
@@ -39,33 +39,19 @@ export const IssueButton = ({ question }: Props) => {
     );
   };
 
-  const items = [{ title: "Сообщить об ошибке", action: handleIssueModalOpen }];
-
   return (
     <>
-      <Popover
-        button={({ open }) => (
-          <div className="h-full w-[24px]">
-            <BugAntIcon
-              className={clsx(
-                "h-full w-full transition-all duration-200 hover:scale-110 hover:text-slate-200",
-                {
-                  ["text-slate-600"]: !open,
-                  ["scale-110 text-slate-200"]: open,
-                },
-              )}
-            />
-          </div>
-        )}
+      <Button
+        className="h-[24px] w-[24px]"
+        uiType="ghost"
+        onClick={handleIssueModalOpen}
       >
-        <div>
-          {items.map(({ title, action }) => (
-            <Button key={title} uiType="ghost" onClick={action}>
-              {title}
-            </Button>
-          ))}
-        </div>
-      </Popover>
+        <BugAntIcon
+          className={clsx(
+            "h-full w-full text-slate-600 transition-all duration-200 hover:scale-110 hover:text-slate-200",
+          )}
+        />
+      </Button>
       <Modal
         open={isIssueModalOpened}
         onClose={() => setIsIssueModalOpened(false)}
