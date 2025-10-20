@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { clsx } from "clsx";
 import { Button, Modal } from "~/shared/components";
-import { BugAntIcon } from "@heroicons/react/24/outline";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useAddIssueIssuesPost } from "~/types/client-api";
 import type { QuestionOut } from "~/types/client-schemas";
 
@@ -42,11 +42,11 @@ export const IssueButton = ({ question }: Props) => {
   return (
     <>
       <Button
-        className="h-[24px] w-[24px]"
+        className="mr-2 ml-2 h-[36px] w-[36px] lg:mr-0 lg:h-[24px] lg:w-[24px]"
         uiType="ghost"
         onClick={handleIssueModalOpen}
       >
-        <BugAntIcon
+        <ExclamationCircleIcon
           className={clsx(
             "h-full w-full text-slate-600 transition-all duration-200 hover:scale-110 hover:text-slate-200",
           )}
