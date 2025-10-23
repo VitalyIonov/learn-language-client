@@ -13,8 +13,8 @@ type Props = {
 };
 
 const pages = [
-  { name: "Categories", href: "/" },
-  { name: "Statistics", href: "/statistics" },
+  { name: "Категории", href: "/" },
+  { name: "Статистика", href: "/statistics" },
 ];
 
 export function PageHeader({ userData }: Props) {

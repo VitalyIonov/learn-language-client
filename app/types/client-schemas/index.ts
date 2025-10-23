@@ -40,6 +40,7 @@ export * from './issueCreateStatusId';
 export * from './issueCreateText';
 export * from './issueCreateTypeId';
 export * from './issueOut';
+export * from './issueOutDecision';
 export * from './issueOutStatus';
 export * from './issueOutText';
 export * from './issueOutType';

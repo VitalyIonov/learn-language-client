@@ -5,12 +5,14 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { IssueOutText } from './issueOutText';
+import type { IssueOutDecision } from './issueOutDecision';
 import type { IssueOutStatus } from './issueOutStatus';
 import type { IssueOutType } from './issueOutType';
 
 export interface IssueOut {
   id: number;
   text?: IssueOutText;
+  decision?: IssueOutDecision;
   status?: IssueOutStatus;
   type?: IssueOutType;
   meaning: string;

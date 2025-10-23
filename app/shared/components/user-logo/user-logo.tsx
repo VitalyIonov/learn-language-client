@@ -36,7 +36,7 @@ export const UserLogo = ({ userData, className }: Props) => {
             )}
             href="/admin"
           >
-            <p>Dashboard</p>
+            <p>Панель администратора</p>
           </a>
         ) : null}
         <a
@@ -52,7 +52,7 @@ export const UserLogo = ({ userData, className }: Props) => {
           )}
           onClick={handleLogOutClick}
         >
-          <p>Log out</p>
+          <p>Выйти из системы</p>
         </a>
       </div>
       <div className="mt-12 p-0 lg:mt-0 lg:p-4">
