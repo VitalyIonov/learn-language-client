@@ -84,9 +84,9 @@ export function ImageOption({
           className={clsx(
             "absolute inset-0 z-20 rounded-xl border-4 transition-all duration-200",
             {
-              "border-emerald-400 shadow-lg shadow-emerald-400/25":
+              "border-emerald-400 bg-emerald-400/20 shadow-lg shadow-emerald-400/25":
                 lastResult === true && isSelected,
-              "border-red-400 shadow-lg shadow-red-400/25":
+              "border-red-400 bg-red-400/20 shadow-lg shadow-red-400/25":
                 lastResult === false && isSelected,
               "border-blue-400 shadow-lg shadow-blue-400/25":
                 lastResult === undefined && isSelected,

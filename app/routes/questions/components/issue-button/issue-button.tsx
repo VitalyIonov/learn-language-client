@@ -2,6 +2,7 @@ import { useState } from "react";
 import { clsx } from "clsx";
 import { Button, Modal } from "~/shared/components";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { useNotificationStore } from "~/shared/stores";
 import { useAddIssueIssuesPost } from "~/types/client-api";
 import type { QuestionOut } from "~/types/client-schemas";
 
@@ -15,6 +16,7 @@ type Props = {
 
 export const IssueButton = ({ question }: Props) => {
   const [isIssueModalOpened, setIsIssueModalOpened] = useState(false);
+  const { info: infoNotification } = useNotificationStore();
 
   const { mutateAsync: addIssue } = useAddIssueIssuesPost();
 
@@ -35,7 +37,12 @@ export const IssueButton = ({ question }: Props) => {
           ),
         },
       },
-      { onSuccess: () => setIsIssueModalOpened(false) },
+      {
+        onSuccess: () => {
+          setIsIssueModalOpened(false);
+          infoNotification("Сообщение отправлено", "Спасибо!");
+        },
+      },
     );
   };
 

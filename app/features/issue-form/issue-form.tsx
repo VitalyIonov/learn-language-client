@@ -25,6 +25,7 @@ function IssueForm({ id, defaultValues, onSubmit }: Props) {
         name="issueTypeId"
         label="Выберите тип обращения"
         control={control}
+        setValue={formMethods.setValue}
       />
       <TextareaField
         name="text"
