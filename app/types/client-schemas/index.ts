@@ -32,6 +32,7 @@ export * from './getIssueIssuesGetParams';
 export * from './hTTPValidationError';
 export * from './imageAssetOut';
 export * from './imageAssetOutHeight';
+export * from './imageAssetOutSizeBytes';
 export * from './imageAssetOutWidth';
 export * from './imageDefinitionOut';
 export * from './issueCreate';

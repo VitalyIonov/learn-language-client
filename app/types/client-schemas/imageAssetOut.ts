@@ -5,6 +5,7 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { AssetStatus } from './assetStatus';
+import type { ImageAssetOutSizeBytes } from './imageAssetOutSizeBytes';
 import type { ImageAssetOutWidth } from './imageAssetOutWidth';
 import type { ImageAssetOutHeight } from './imageAssetOutHeight';
 
@@ -12,7 +13,7 @@ export interface ImageAssetOut {
   id: number;
   status: AssetStatus;
   mimeType: string;
-  sizeBytes: number;
+  sizeBytes?: ImageAssetOutSizeBytes;
   alt: string;
   width?: ImageAssetOutWidth;
   height?: ImageAssetOutHeight;

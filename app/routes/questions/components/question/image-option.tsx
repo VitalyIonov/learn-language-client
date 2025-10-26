@@ -63,14 +63,13 @@ export function ImageOption({
       >
         {isLoading ? "..." : translatedText?.translation}
       </div>
-      <div className="relative h-full w-full overflow-hidden rounded-xl bg-gray-200">
+      <div className="relative h-full w-full overflow-hidden rounded-xl bg-gray-300">
         <img
           src={definition.image.url}
           alt="Вариант ответа"
           className={clsx(
             "object-cover",
             "h-full w-full",
-            "bg-gray-200",
             "scale-70",
             "transition-transform duration-200",
             "group-hover:scale-75",
