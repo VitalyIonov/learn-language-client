@@ -15,12 +15,7 @@ type Props = {
   context?: string;
 };
 
-export function TextOption({
-  definition,
-  isSelected,
-  lastResult,
-  context,
-}: Props) {
+export function TextOption({ definition, isSelected, lastResult }: Props) {
   const [translation, setTranslation] = useState<string | undefined>(undefined);
 
   const {
@@ -35,7 +30,7 @@ export function TextOption({
   } = usePlayAudio(definition?.audio?.url);
 
   const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
-    { text: definition.text, context },
+    { text: definition.text },
     { query: { enabled: isFlipped } },
   );
 

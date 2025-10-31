@@ -17,7 +17,6 @@ export default function Questions() {
   const categoryId = Number(id);
   const { data } = useReadCategoryCategoriesCategoryIdGet(categoryId);
   const initialLevel = data?.currentLevel;
-  const currentCategoryName = data?.name;
 
   const [currentLevelId, setCurrentLevelId] = useState<
     LevelOut["id"] | undefined
@@ -63,7 +62,6 @@ export default function Questions() {
                 className="lg:pr-24"
                 categoryId={categoryId}
                 levelId={currentLevel?.id}
-                currentCategoryName={currentCategoryName}
                 invalidateLevels={updateLevels}
               />
             )}

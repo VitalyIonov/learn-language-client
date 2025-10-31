@@ -25,7 +25,6 @@ type Props = {
   className?: string;
   categoryId?: CategoryOut["id"];
   levelId?: LevelOut["id"];
-  currentCategoryName?: CategoryOut["name"];
   invalidateLevels: (newLevel: LevelOut) => Promise<void>;
 };
 
@@ -33,7 +32,6 @@ export function Question({
   className,
   levelId,
   categoryId,
-  currentCategoryName,
   invalidateLevels,
 }: Props) {
   const [meaningTranslation, setMeaningTranslation] = useState<
@@ -58,7 +56,7 @@ export function Question({
 
   const { data: translatedMeaning, isLoading: isMeaningLoading } =
     useTranslateTextTranslateGet(
-      { text: question?.meaning?.name || "", context: currentCategoryName },
+      { text: question?.meaning?.name || "" },
       { query: { enabled: isMeaningFlipped && !!question?.meaning?.name } },
     );
   const { mutateAsync: generateQuestion } =
@@ -204,7 +202,6 @@ export function Question({
                   definition={definition}
                   isSelected={isSelected}
                   lastResult={lastResult}
-                  context={`${meaning?.name}, ${currentCategoryName}`}
                 />
               );
             }
@@ -216,7 +213,6 @@ export function Question({
                   definition={definition}
                   isSelected={isSelected}
                   lastResult={lastResult}
-                  context={`${meaning?.name}, ${currentCategoryName}`}
                 />
               );
             }
