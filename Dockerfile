@@ -3,10 +3,10 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm ci
+COPY .env.production ./
 COPY . .
 
 RUN npx react-router build
-
 
 FROM node:20-alpine AS prod
 WORKDIR /app
