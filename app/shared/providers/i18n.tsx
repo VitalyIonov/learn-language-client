@@ -17,7 +17,7 @@ export function I18nProvider({
     () => ({
       lang,
       messages,
-      t: createTranslator(messages),
+      getT: (prefix?: string) => createTranslator(messages, prefix),
     }),
     [lang, messages],
   );

@@ -1,35 +1,38 @@
 {
   "page": {
     "settings": {
-      "title": "Настройки"
+      "title": "Settings",
+      "fields": {
+        "mainLanguage": {
+          "label": "Interface language"
+        }
+      }
     },
     "home": {
-      "title": "Категории"
+      "title": "Categories"
     },
     "category": {
       "sections": {
         "currentLevel": {
-          "title": "Текущий уровень"
+          "title": "Current level"
         },
         "currentProgress": {
-          "title": "Текущий прогресс"
+          "title": "Current progress"
         }
+      },
+      "buttons": {
+        "startLearn": "Go to learn"
       }
     },
     "statistics": {
-      "title": "Статистика",
+      "title": "Statistics",
       "sections": {
-        "fullProgress ": {
-          "title": "Общий прогресс"
+        "fullProgress": {
+          "title": "Total progress"
         },
         "todayProgress": {
-          "title": "Прогресс за сегодня"
+          "title": "Today's progress"
         }
-      }
-    },
-    "questions": {
-      "question": {
-        "button": "Перейти к изучению"
       }
     }
   },

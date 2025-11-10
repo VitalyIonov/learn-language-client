@@ -7,7 +7,7 @@ import { useUpdateLanguageSettingsLangPatch } from "~/types/client-api";
 
 export default function Settings() {
   const revalidator = useRevalidator();
-  const { lang } = useI18n();
+  const { lang, t } = useI18n("page.settings");
   const { mutateAsync: updateLanguageSettings } =
     useUpdateLanguageSettingsLangPatch({
       mutation: { onSuccess: revalidator.revalidate },
@@ -21,9 +21,10 @@ export default function Settings() {
 
   return (
     <PageContent>
-      <PageTitle title="Настройки" />
+      <PageTitle title={t("title")} />
       <div className="grid grid-cols-1 grid-rows-[auto_auto] gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         <SingleSelect
+          label={t("fields.mainLanguage.label")}
           value={lang}
           onChange={handleLangChange}
           options={[

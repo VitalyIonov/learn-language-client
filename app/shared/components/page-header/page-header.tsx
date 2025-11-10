@@ -13,20 +13,13 @@ type Props = {
   userData?: UserOut;
 };
 
-const pages = [
-  { name: "Категории", href: "/" },
-  { name: "Статистика", href: "/statistics" },
-];
-
 export function PageHeader({ userData }: Props) {
-  const { messages, t } = useI18n();
+  const { t } = useI18n("pageHeader");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  console.log("t", t("pageHeader.menu.items.categories"), messages);
-
   const pages = [
-    { name: t("pageHeader.menu.items.categories"), href: "/" },
-    { name: t("pageHeader.menu.items.statistics"), href: "/statistics" },
+    { name: t("menu.items.categories"), href: "/" },
+    { name: t("menu.items.statistics"), href: "/statistics" },
   ];
 
   const handleItemClick = () => {

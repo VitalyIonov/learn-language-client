@@ -1,6 +1,7 @@
 import { BeakerIcon } from "@heroicons/react/24/outline";
 import { DataSection } from "~/shared/components/data-section/data-section";
 import { ProgressBar } from "~/shared/components/progress-bar/progress-bar";
+import { useI18n } from "~/shared/hooks/useI18n";
 
 type Props = {
   className?: string;
@@ -15,6 +16,7 @@ export const CurrentProgressSection = ({
   nextLevel,
   progress,
 }: Props) => {
+  const { t } = useI18n("page.category");
   return (
     <DataSection className={className}>
       <div className="flex h-full w-full flex-col justify-between gap-8 pb-4">
@@ -23,7 +25,7 @@ export const CurrentProgressSection = ({
             <BeakerIcon className="h-6 w-6 text-emerald-400" />
           </div>
           <h2 className="text-base font-semibold text-zinc-100 md:text-lg">
-            Текущий прогресс
+            {t("sections.currentProgress.title")}
           </h2>
         </div>
         <ProgressBar

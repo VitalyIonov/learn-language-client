@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const UserLogo = ({ userData, className }: Props) => {
-  const { t } = useI18n();
+  const { t } = useI18n("pageHeader.menu.items");
   const { mutate: logout } = useLogoutLogoutPost({
     mutation: { onSuccess: () => (window.location.href = "/admin/login") },
   });
@@ -42,7 +42,7 @@ export const UserLogo = ({ userData, className }: Props) => {
             )}
             href="/admin"
           >
-            <p>{t("pageHeader.menu.items.adminPanel")}</p>
+            <p>{t("adminPanel")}</p>
           </a>
         ) : null}
         <a
@@ -58,7 +58,7 @@ export const UserLogo = ({ userData, className }: Props) => {
           )}
           href="/settings"
         >
-          <p>{t("pageHeader.menu.items.settings")}</p>
+          <p>{t("settings")}</p>
         </a>
         <a
           className={clsx(
@@ -73,7 +73,7 @@ export const UserLogo = ({ userData, className }: Props) => {
           )}
           onClick={handleLogOutClick}
         >
-          <p>{t("pageHeader.menu.items.logout")}</p>
+          <p>{t("logout")}</p>
         </a>
       </div>
       <div className="mt-12 p-0 lg:mt-0 lg:p-4">

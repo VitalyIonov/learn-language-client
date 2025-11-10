@@ -14,9 +14,14 @@ export function getDeep(obj: any, path: string) {
     .reduce((acc, k) => (acc != null ? acc[k] : undefined), obj);
 }
 
-export function createTranslator(messages: Record<string, any>) {
+export function createTranslator(
+  messages: Record<string, any>,
+  prefix?: string,
+) {
   return (key: string, fallback?: string) => {
-    const v = getDeep(messages, key);
-    return v ?? fallback ?? key; // никогда не возвращаем undefined
+    const keyWithPrefix = prefix ? `${prefix}.${key}` : key;
+
+    const v = getDeep(messages, keyWithPrefix);
+    return v ?? fallback ?? keyWithPrefix;
   };
 }

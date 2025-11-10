@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import { DataSection } from "~/shared/components/data-section/data-section";
 import { AcademicCapIcon } from "@heroicons/react/24/outline";
+import { useI18n } from "~/shared/hooks/useI18n";
 
 type Props = {
   level: string;
@@ -8,6 +9,8 @@ type Props = {
 };
 
 export const CurrentLevelSection = ({ className, level }: Props) => {
+  const { t } = useI18n("page.category");
+
   return (
     <DataSection className={clsx(className, "p-0")}>
       <div className="relative h-full overflow-hidden">
@@ -27,7 +30,7 @@ export const CurrentLevelSection = ({ className, level }: Props) => {
               <AcademicCapIcon className="h-6 w-6 text-emerald-400" />
             </div>
             <h2 className="text-base font-semibold text-zinc-100 md:text-lg">
-              Текущий уровень
+              {t("sections.currentLevel.title")}
             </h2>
           </div>
 

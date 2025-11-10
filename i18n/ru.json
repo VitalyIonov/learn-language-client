@@ -1,7 +1,12 @@
 {
   "page": {
     "settings": {
-      "title": "Настройки"
+      "title": "Настройки",
+      "fields": {
+        "mainLanguage": {
+          "label": "Язык интерфейса"
+        }
+      }
     },
     "home": {
       "title": "Категории"
@@ -14,22 +19,20 @@
         "currentProgress": {
           "title": "Текущий прогресс"
         }
+      },
+      "buttons": {
+        "startLearn": "Перейти к изучению"
       }
     },
     "statistics": {
       "title": "Статистика",
       "sections": {
-        "fullProgress ": {
+        "fullProgress": {
           "title": "Общий прогресс"
         },
         "todayProgress": {
           "title": "Прогресс за сегодня"
         }
-      }
-    },
-    "questions": {
-      "question": {
-        "button": "Перейти к изучению"
       }
     }
   },

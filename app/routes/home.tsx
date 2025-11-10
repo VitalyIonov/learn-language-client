@@ -35,12 +35,12 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   const { data } = useReadCategoriesCategoriesGet();
-  const { t } = useI18n();
+  const { t } = useI18n("page.home");
 
   return (
     <div>
       <PageContent>
-        <PageTitle title="Категории" />
+        <PageTitle title={t("title")} />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
           {data?.items.map((category) => (
             <CategoryCard key={category.id} category={category} />

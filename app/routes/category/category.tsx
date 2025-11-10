@@ -10,8 +10,10 @@ import { CurrentLevelSection } from "~/routes/category/components/current-level-
 import { CurrentProgressSection } from "~/routes/category/components/current-progress-section/current-progress-section";
 
 import { PageTitle, PageContent } from "~/shared/components";
+import { useI18n } from "~/shared/hooks/useI18n";
 
 export default function Category() {
+  const { t } = useI18n("page.category");
   const { id } = useParams();
 
   const { data: categoryData } = useReadCategoryCategoriesCategoryIdGet(
@@ -70,7 +72,7 @@ export default function Category() {
             "lg:h-auto lg:w-auto lg:text-sm/6",
           )}
         >
-          <Link to="questions">Перейти к изучению</Link>
+          <Link to="questions">{t("buttons.startLearn")}</Link>
         </Button>
       </div>
     </PageContent>
