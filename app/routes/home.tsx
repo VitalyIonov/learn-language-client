@@ -2,6 +2,7 @@ import type { Route } from "./+types/home";
 import { PageContent, PageTitle } from "~/shared/components";
 import { useReadCategoriesCategoriesGet } from "~/types/client-api";
 import { CategoryCard } from "~/entities/category-card/category-card";
+import { useI18n } from "~/shared/hooks/useI18n";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -34,6 +35,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   const { data } = useReadCategoriesCategoriesGet();
+  const { t } = useI18n();
 
   return (
     <div>

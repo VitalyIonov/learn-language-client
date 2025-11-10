@@ -40,13 +40,14 @@ import type {
   QuestionUpdate,
   QuestionUpdateOut,
   ReadLevelsLevelsGetParams,
+  SettingsLangUpdate,
   TranslateOut,
   TranslateTextTranslateGetParams,
   UnlockLevelLevelsUnlockPostParams,
   UserOut
 } from './client-schemas';
 
-import { request } from '../shared/lib/apiClient/apiClient';
+import { clientRequest } from '../shared/lib/apiClient/apiClient';
 /**
  * @summary Read User
  */
@@ -56,7 +57,7 @@ export const readUserCurrentUserGet = (
 ) => {
       
       
-      return request<UserOut>(
+      return clientRequest<UserOut>(
       {url: `/current_user`, method: 'GET', signal
     },
       );
@@ -144,7 +145,7 @@ export const readCategoryCategoriesCategoryIdGet = (
 ) => {
       
       
-      return request<CategoryOut>(
+      return clientRequest<CategoryOut>(
       {url: `/categories/${categoryId}`, method: 'GET', signal
     },
       );
@@ -232,7 +233,7 @@ export const readCategoriesCategoriesGet = (
 ) => {
       
       
-      return request<CategoriesListResponse>(
+      return clientRequest<CategoriesListResponse>(
       {url: `/categories`, method: 'GET', signal
     },
       );
@@ -320,7 +321,7 @@ export const readLevelsLevelsGet = (
 ) => {
       
       
-      return request<LevelsListResponse>(
+      return clientRequest<LevelsListResponse>(
       {url: `/levels`, method: 'GET',
         params, signal
     },
@@ -409,7 +410,7 @@ export const unlockLevelLevelsUnlockPost = (
 ) => {
       
       
-      return request<CategoryProgressInfoOut>(
+      return clientRequest<CategoryProgressInfoOut>(
       {url: `/levels/unlock`, method: 'POST',
         params, signal
     },
@@ -473,7 +474,7 @@ export const translateTextTranslateGet = (
 ) => {
       
       
-      return request<TranslateOut>(
+      return clientRequest<TranslateOut>(
       {url: `/translate`, method: 'GET',
         params, signal
     },
@@ -562,7 +563,7 @@ export const generateQuestionQuestionsGeneratePost = (
 ) => {
       
       
-      return request<QuestionOut>(
+      return clientRequest<QuestionOut>(
       {url: `/questions/generate`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: questionGenerate, signal
@@ -627,7 +628,7 @@ export const updateQuestionEndpointQuestionsQuestionIdPatch = (
  ) => {
       
       
-      return request<QuestionUpdateOut>(
+      return clientRequest<QuestionUpdateOut>(
       {url: `/questions/${questionId}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: questionUpdate
@@ -692,7 +693,7 @@ export const getCategoryCurrentProgress = (
 ) => {
       
       
-      return request<LevelProgressByCategoryStatistic>(
+      return clientRequest<LevelProgressByCategoryStatistic>(
       {url: `/statistics/category-current-progress/${categoryId}`, method: 'GET', signal
     },
       );
@@ -780,7 +781,7 @@ export const getProgressByUser = (
 ) => {
       
       
-      return request<ProgressByUserStatistic>(
+      return clientRequest<ProgressByUserStatistic>(
       {url: `/statistics/progress/`, method: 'GET', signal
     },
       );
@@ -868,7 +869,7 @@ export const getTodayProgressByUser = (
 ) => {
       
       
-      return request<ProgressByUserStatistic>(
+      return clientRequest<ProgressByUserStatistic>(
       {url: `/statistics/today_progress/`, method: 'GET', signal
     },
       );
@@ -956,7 +957,7 @@ export const getIssueIssuesGet = (
 ) => {
       
       
-      return request<IssuesListResponse>(
+      return clientRequest<IssuesListResponse>(
       {url: `/issues`, method: 'GET', signal
     },
       );
@@ -1044,7 +1045,7 @@ export const addIssueIssuesPost = (
 ) => {
       
       
-      return request<IssueOut>(
+      return clientRequest<IssueOut>(
       {url: `/issues`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: issueCreate, signal
@@ -1109,7 +1110,7 @@ export const getIssueTypesIssueTypesGet = (
 ) => {
       
       
-      return request<IssueTypeListResponse>(
+      return clientRequest<IssueTypeListResponse>(
       {url: `/issue_types`, method: 'GET', signal
     },
       );
@@ -1184,3 +1185,70 @@ export function useGetIssueTypesIssueTypesGet<TData = Awaited<ReturnType<typeof 
 
   return query;
 }
+
+
+
+
+/**
+ * @summary Update Language
+ */
+export const updateLanguageSettingsLangPatch = (
+    settingsLangUpdate: SettingsLangUpdate,
+ ) => {
+      
+      
+      return clientRequest<boolean>(
+      {url: `/settings/lang`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: settingsLangUpdate
+    },
+      );
+    }
+  
+
+
+export const getUpdateLanguageSettingsLangPatchMutationOptions = <TError = HTTPValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateLanguageSettingsLangPatch>>, TError,{data: SettingsLangUpdate}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof updateLanguageSettingsLangPatch>>, TError,{data: SettingsLangUpdate}, TContext> => {
+
+const mutationKey = ['updateLanguageSettingsLangPatch'];
+const {mutation: mutationOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateLanguageSettingsLangPatch>>, {data: SettingsLangUpdate}> = (props) => {
+          const {data} = props ?? {};
+
+          return  updateLanguageSettingsLangPatch(data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateLanguageSettingsLangPatchMutationResult = NonNullable<Awaited<ReturnType<typeof updateLanguageSettingsLangPatch>>>
+    export type UpdateLanguageSettingsLangPatchMutationBody = SettingsLangUpdate
+    export type UpdateLanguageSettingsLangPatchMutationError = HTTPValidationError
+
+    /**
+ * @summary Update Language
+ */
+export const useUpdateLanguageSettingsLangPatch = <TError = HTTPValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateLanguageSettingsLangPatch>>, TError,{data: SettingsLangUpdate}, TContext>, }
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof updateLanguageSettingsLangPatch>>,
+        TError,
+        {data: SettingsLangUpdate},
+        TContext
+      > => {
+
+      const mutationOptions = getUpdateLanguageSettingsLangPatchMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }

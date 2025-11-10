@@ -6,6 +6,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
+  type LoaderFunctionArgs,
+  data,
 } from "react-router";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -13,8 +16,13 @@ import { PageLayout } from "~/page-layout";
 
 import { NotificationContainer } from "~/shared/components";
 import type { Route } from "./+types/root";
+import { I18nProvider } from "~/shared/providers/i18n";
+import { getLangFromCookie, normalizeLang } from "~/shared/utils/i18n";
 import "./app.css";
 import "./globals.css";
+
+const I18N_BASE = import.meta.env.VITE_I18N_BASE as string;
+const API_URL = import.meta.env.VITE_API_URL as string;
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -29,9 +37,67 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+export function headers({ loaderHeaders }: Route.HeadersArgs) {
+  return loaderHeaders;
+}
+
+async function fetchMessages(lang: string) {
+  const res = await fetch(`${I18N_BASE}/${lang}.json`, {
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Response("i18n load failed", { status: 500 });
+  return res.json();
+}
+
+async function fetchUser(request: Request) {
+  const cookie = request.headers.get("cookie") ?? "";
+  const headers: Record<string, string> = {};
+  if (cookie) headers.cookie = cookie;
+
+  const res = await fetch(`${API_URL}/client/current_user`, {
+    cache: "no-store",
+    headers,
+  });
+
+  if (!res.ok)
+    throw new Response("couldn't load the current user", { status: 500 });
+  return res.json();
+}
+
+function prepareCookieLang(lang: string) {
+  const base = `lang=${lang}; Path=/; Max-Age=31536000; SameSite=Lax; HttpOnly`;
+  return process.env.NODE_ENV === "production"
+    ? `${base}; Secure; Domain=.learn-language.es`
+    : base;
+}
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const cookieLang = getLangFromCookie(request.headers.get("cookie"));
+  let lang = normalizeLang(cookieLang);
+  const headers = new Headers();
+
+  if (!cookieLang) {
+    try {
+      const user = await fetchUser(request);
+
+      lang = normalizeLang(user?.lang);
+
+      headers.append("Set-Cookie", prepareCookieLang(lang));
+    } catch (error) {
+      console.error("Error fetching client info:", error);
+    }
+  }
+
+  const messages = await fetchMessages(lang);
+
+  return data({ lang, messages }, { headers });
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { lang } = useLoaderData<typeof loader>();
+
   return (
-    <html lang="en">
+    <html lang={lang}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -47,15 +113,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+const queryClient = new QueryClient({});
+
 export default function App() {
-  const queryClient = new QueryClient({});
+  const { lang, messages } = useLoaderData<typeof loader>();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <PageLayout>
-        <Outlet />
-        <NotificationContainer />
-      </PageLayout>
+      <I18nProvider lang={lang} messages={messages}>
+        <PageLayout>
+          <Outlet />
+          <NotificationContainer />
+        </PageLayout>
+      </I18nProvider>
     </QueryClientProvider>
   );
 }

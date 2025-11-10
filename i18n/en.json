@@ -1,0 +1,47 @@
+{
+  "page": {
+    "settings": {
+      "title": "Настройки"
+    },
+    "home": {
+      "title": "Категории"
+    },
+    "category": {
+      "sections": {
+        "currentLevel": {
+          "title": "Текущий уровень"
+        },
+        "currentProgress": {
+          "title": "Текущий прогресс"
+        }
+      }
+    },
+    "statistics": {
+      "title": "Статистика",
+      "sections": {
+        "fullProgress ": {
+          "title": "Общий прогресс"
+        },
+        "todayProgress": {
+          "title": "Прогресс за сегодня"
+        }
+      }
+    },
+    "questions": {
+      "question": {
+        "button": "Перейти к изучению"
+      }
+    }
+  },
+  "pageHeader": {
+    "menu": {
+      "items": {
+        "categories": "Categories",
+        "statistics": "Statistics",
+        "settings": "Settings",
+        "adminPanel": "Dashboard",
+        "logout": "Logout"
+      }
+    }
+  }
+}

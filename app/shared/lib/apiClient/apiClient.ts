@@ -1,45 +1,40 @@
-import axios from "axios";
+import axios, { type AxiosInstance } from "axios";
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
 
 import { getHeaders } from "~/shared/lib/apiClient/helpers/getHeaders";
-import { type ApiClientConfig } from "~/shared/lib/apiClient/types/ApiClient";
 import { logout } from "~/shared/lib/auth";
 
-const axiosClient = axios.create({
-  baseURL: process.env.VITE_API_URL,
-  headers: getHeaders(),
-});
+const API_ROOT = import.meta.env.VITE_API_URL as string;
 
-axiosClient.interceptors.request.use((config) => {
-  const token = typeof window !== "undefined" && localStorage.getItem("token");
+function createAxios(baseURL: string): AxiosInstance {
+  const instance = axios.create({
+    baseURL,
+    withCredentials: true,
+    headers: getHeaders(),
+  });
 
-  if (token) {
-    config.headers.set("Authorization", `Bearer ${token}`);
-  }
+  instance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error?.response?.status === 401) {
+        logout();
+      }
+      return Promise.reject(error);
+    },
+  );
 
-  return config;
-});
+  return instance;
+}
 
-axiosClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      logout();
-    }
-    return Promise.reject(error);
-  },
-);
+const clientAxios = createAxios(`${API_ROOT}/client`);
+const authAxios = createAxios(`${API_ROOT}/auth`);
 
-let defaultApiClientConfig: ApiClientConfig = {
-  customOptions: {},
-};
-
-export async function request<ResponseData, RequestData = never>(
+export async function clientRequest<ResponseData, RequestData = never>(
   axiosConfig: AxiosRequestConfig<RequestData>,
 ) {
   const preparedAxiosConfig = { ...axiosConfig };
 
-  const response = await axiosClient.request<
+  const response = await clientAxios.request<
     ResponseData,
     AxiosResponse<ResponseData>
   >(preparedAxiosConfig);
@@ -47,56 +42,44 @@ export async function request<ResponseData, RequestData = never>(
   return response.data;
 }
 
-async function get<ResponseData>(url: string, params?: URLSearchParams) {
-  return await request<ResponseData>({
-    method: "GET",
-    params,
-    url,
-  });
-}
-
-async function destroy<ResponseData>(url: string, params?: URLSearchParams) {
-  return await request<ResponseData>({
-    method: "DELETE",
-    params,
-    url,
-  });
-}
-
-async function post<ResponseData, RequestData>(url: string, data: RequestData) {
-  return await request<ResponseData, RequestData>({
-    method: "POST",
-    data,
-    url,
-  });
-}
-
-async function put<ResponseData, RequestData>(url: string, data: RequestData) {
-  return await request<ResponseData, RequestData>({
-    method: "PUT",
-    data,
-    url,
-  });
-}
-
-async function patch<ResponseData, RequestData>(
-  url: string,
-  data: RequestData,
+export async function authRequest<ResponseData, RequestData = never>(
+  axiosConfig: AxiosRequestConfig<RequestData>,
 ) {
-  return await request<ResponseData, RequestData>({
-    method: "PATCH",
-    data,
-    url,
-  });
-}
+  const preparedAxiosConfig = { ...axiosConfig };
 
-export const apiClient = {
-  init: (config: Partial<ApiClientConfig>) => {
-    defaultApiClientConfig = { ...defaultApiClientConfig, ...config };
-  },
-  get,
-  post,
-  put,
-  patch,
-  delete: destroy,
-};
+  const response = await authAxios.request<
+    ResponseData,
+    AxiosResponse<ResponseData>
+  >(preparedAxiosConfig);
+
+  return response.data;
+}
+//
+// const axiosClient = axios.create({
+//   baseURL: process.env.VITE_API_URL,
+//   withCredentials: true,
+//   headers: getHeaders(),
+// });
+//
+// axiosClient.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response?.status === 401) {
+//       logout();
+//     }
+//     return Promise.reject(error);
+//   },
+// );
+//
+// export async function request<ResponseData, RequestData = never>(
+//   axiosConfig: AxiosRequestConfig<RequestData>,
+// ) {
+//   const preparedAxiosConfig = { ...axiosConfig };
+//
+//   const response = await axiosClient.request<
+//     ResponseData,
+//     AxiosResponse<ResponseData>
+//   >(preparedAxiosConfig);
+//
+//   return response.data;
+// }

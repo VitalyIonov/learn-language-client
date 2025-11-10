@@ -5,6 +5,7 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import { UserLogo } from "~/shared/components/user-logo/user-logo";
+import { useI18n } from "~/shared/hooks/useI18n";
 
 import type { UserOut } from "~/types/client-schemas";
 
@@ -18,7 +19,15 @@ const pages = [
 ];
 
 export function PageHeader({ userData }: Props) {
+  const { messages, t } = useI18n();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  console.log("t", t("pageHeader.menu.items.categories"), messages);
+
+  const pages = [
+    { name: t("pageHeader.menu.items.categories"), href: "/" },
+    { name: t("pageHeader.menu.items.statistics"), href: "/statistics" },
+  ];
 
   const handleItemClick = () => {
     setMobileMenuOpen(false);

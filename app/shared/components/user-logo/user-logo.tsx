@@ -1,8 +1,8 @@
-import { logout } from "~/shared/lib/auth";
-
 import { type UserOut } from "~/types/client-schemas";
+import { useLogoutLogoutPost } from "~/types/auth-api";
 import { clsx } from "clsx";
 import { Popover } from "~/shared/components/popover/popover";
+import { useI18n } from "~/shared/hooks/useI18n";
 
 type Props = {
   userData?: UserOut;
@@ -10,6 +10,11 @@ type Props = {
 };
 
 export const UserLogo = ({ userData, className }: Props) => {
+  const { t } = useI18n();
+  const { mutate: logout } = useLogoutLogoutPost({
+    mutation: { onSuccess: () => (window.location.href = "/admin/login") },
+  });
+
   const [name, surname] = userData?.name?.split(" ") || " ";
   const initials =
     `${name.charAt(0)}${surname ? surname.charAt(0) : ""}`.toUpperCase();
@@ -27,16 +32,17 @@ export const UserLogo = ({ userData, className }: Props) => {
           <a
             className={clsx(
               "block",
-              "mb-2 px-3 py-4",
+              "px-3 py-4",
               "text-lg",
               "rounded-lg",
               "transition",
+              "cursor-pointer",
               "hover:bg-white/5",
               "lg:py-2 lg:text-base/7",
             )}
             href="/admin"
           >
-            <p>Панель администратора</p>
+            <p>{t("pageHeader.menu.items.adminPanel")}</p>
           </a>
         ) : null}
         <a
@@ -50,9 +56,24 @@ export const UserLogo = ({ userData, className }: Props) => {
             "hover:bg-white/5",
             "lg:py-2 lg:text-base/7",
           )}
+          href="/settings"
+        >
+          <p>{t("pageHeader.menu.items.settings")}</p>
+        </a>
+        <a
+          className={clsx(
+            "block",
+            "px-3 py-4",
+            "text-lg",
+            "rounded-lg",
+            "transition",
+            "cursor-pointer",
+            "hover:bg-white/5",
+            "lg:py-2 lg:text-base/7",
+          )}
           onClick={handleLogOutClick}
         >
-          <p>Выйти из системы</p>
+          <p>{t("pageHeader.menu.items.logout")}</p>
         </a>
       </div>
       <div className="mt-12 p-0 lg:mt-0 lg:p-4">

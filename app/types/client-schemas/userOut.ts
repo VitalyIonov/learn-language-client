@@ -11,5 +11,6 @@ export interface UserOut {
   id: number;
   email: string;
   name?: UserOutName;
+  lang: string;
   role: UserRole;
 }

@@ -73,6 +73,7 @@ export * from './questionUpdateOut';
 export * from './questionUpdateOutInfo';
 export * from './questionUpdateOutInfoAnyOf';
 export * from './readLevelsLevelsGetParams';
+export * from './settingsLangUpdate';
 export * from './tTSGenerate';
 export * from './tTSGenerateOut';
 export * from './tTSGenerateOutDurationSec';
