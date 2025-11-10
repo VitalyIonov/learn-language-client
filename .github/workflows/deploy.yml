@@ -37,7 +37,7 @@ jobs:
             ghcr.io/vitalyionov/learn-language-client:${{ github.sha }}
           build-args: |
             BASENAME=/client
-            VITE_API_URL=/api/v1/client
+            VITE_API_URL=/api/v1
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
