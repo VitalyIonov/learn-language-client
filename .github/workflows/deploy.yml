@@ -51,12 +51,24 @@ jobs:
             CLIENT_IMAGE_TAG=${{ github.sha }} docker compose up -d client --no-deps --force-recreate
             docker system prune -f
 
-      - name: Upload i18n to Cloudflare R2
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: r2 object sync ./i18n r2://${{ vars.R2_BUCKET }}/i18n
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip
+          curl -sL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
+          unzip -q awscliv2.zip
+          sudo ./aws/install
+
+      - name: Sync i18n to Cloudflare R2 (S3 API)
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          R2_ENDPOINT: https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
+        run: |
+          aws s3 sync ./i18n s3://${{ vars.R2_BUCKET }}/i18n \
+            --endpoint-url "$R2_ENDPOINT" \
+            --delete
 
       - name: Purge CDN cache (everything)
         run: |
