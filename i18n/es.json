@@ -1,0 +1,50 @@
+{
+  "page": {
+    "settings": {
+      "title": "Настройки",
+      "fields": {
+        "mainLanguage": {
+          "label": "Язык интерфейса"
+        }
+      }
+    },
+    "home": {
+      "title": "Категории"
+    },
+    "category": {
+      "sections": {
+        "currentLevel": {
+          "title": "Текущий уровень"
+        },
+        "currentProgress": {
+          "title": "Текущий прогресс"
+        }
+      },
+      "buttons": {
+        "startLearn": "Перейти к изучению"
+      }
+    },
+    "statistics": {
+      "title": "Статистика",
+      "sections": {
+        "fullProgress": {
+          "title": "Общий прогресс"
+        },
+        "todayProgress": {
+          "title": "Прогресс за сегодня"
+        }
+      }
+    }
+  },
+  "pageHeader": {
+    "menu": {
+      "items": {
+        "categories": "Категории",
+        "statistics": "Статистика",
+        "settings": "Настройки",
+        "adminPanel": "Панель администратора",
+        "logout": "Выйти из системы"
+      }
+    }
+  }
+}
