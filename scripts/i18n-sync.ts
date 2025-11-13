@@ -11,7 +11,7 @@ interface JSONObject {
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const ROOT = process.cwd();
-const LOCALES_DIR = path.join(ROOT, "locales-test");
+const LOCALES_DIR = path.join(ROOT, "i18n");
 const HASHES_DIR = path.join(LOCALES_DIR, "hashes");
 
 const EN_PATH = path.join(LOCALES_DIR, "en.json");
