@@ -4,8 +4,8 @@ export function getLangFromCookie(cookieHeader?: string | null) {
 }
 
 export function normalizeLang(raw?: string | null) {
-  const short = (raw ?? "").toLowerCase().split(",")[0]?.split("-")[0] || "ru";
-  return ["en", "ru", "es"].includes(short) ? short : "ru";
+  const short = (raw ?? "").toLowerCase().split(",")[0]?.split("-")[0] || "en";
+  return ["en", "ru", "es", "fr", "it"].includes(short) ? short : "en";
 }
 
 export function getDeep(obj: any, path: string) {
