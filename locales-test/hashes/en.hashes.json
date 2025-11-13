@@ -1,0 +1,62 @@
+{
+  "page.settings.title": {
+    "key_hash": "c05a6fb8a81d7d5ccc05aa6fc45d8bc677343ca8758205123528d4e6aa6bc883",
+    "text_hash": "2a1227a3057962af3d91ade78fbe951ada1785b051bfa17665eca9ab0e1227e1"
+  },
+  "page.settings.fields.mainLanguage.label": {
+    "key_hash": "eb8c8675d340bdf5766f0a8b8c0fc5ac363daa719601a94938d1c04ed82006b7",
+    "text_hash": "8027f432a7fb7c273a1a0fde87de4212b6738673e1d06213c02b5a191eaf8ab4"
+  },
+  "page.home.title": {
+    "key_hash": "f4929b7445d57fe29a4b75b532c28061ea9cbed860de81a5655357b7bc4d3ae3",
+    "text_hash": "b8b1d894c683725260dcd78f8ed64f979331a1ab61fc8311e9ccfc300fd5de20"
+  },
+  "page.category.sections.currentLevel.title": {
+    "key_hash": "0d0bb3c3f67bd95aa57ea8cea667313eb4d12ffe8f5c1f15d27bf9593a9b6cfd",
+    "text_hash": "5918a52c57299daa61e7ac59566e2e560fbdb7ec9ebf0b0ea938878fa8c33754"
+  },
+  "page.category.sections.currentProgress.title": {
+    "key_hash": "be3fed803e47a00cc722220c428664b02b7e031f876208d941f8fba8bf7a787b",
+    "text_hash": "46814fcae9deb6e40c808446f8c0e5c22a957d9fbd61c5ed02049fe609d99070"
+  },
+  "page.category.buttons.startLearn": {
+    "key_hash": "974a0f4799cf50c41ca79681383b369eda0f0670cae4116e0cee045d9040bc50",
+    "text_hash": "b4cb5d85431c261fb9fc3ceefa79b3da81a6db0f18f0ca31e20e172844297d24"
+  },
+  "page.statistics.title": {
+    "key_hash": "dc71ea4de178235d2a0430c3fdaf7cc01b22e747f3af2045e46dd1d39abe64d4",
+    "text_hash": "a656107e99c71dea1ba101ea816e3886370b68ca9f9ac8e5b2d79c6ffddd70a1"
+  },
+  "page.statistics.sections.fullProgress.title": {
+    "key_hash": "1fa9880e76bca886886ea0618e95965b4acd7b4ad5b5d25cfd75b22887911489",
+    "text_hash": "eb7bc40bf0cf2ff7beac4821a3038c60856a45e4a3aa78af747a246c7f90664d"
+  },
+  "page.statistics.sections.todayProgress.title": {
+    "key_hash": "f8fb4ce785190902757d289d0465bba954d5575f833d33daaaf02a59e71c2204",
+    "text_hash": "14ff52de6fa55a9e3c63cf35eccec056095d7a9059176c8de58e4fbfc806a64a"
+  },
+  "pageHeader.menu.items.categories": {
+    "key_hash": "6893586b2ac39724f6b859259d7bc2d2487b4577627ee68295bf6683d8ff0305",
+    "text_hash": "b8b1d894c683725260dcd78f8ed64f979331a1ab61fc8311e9ccfc300fd5de20"
+  },
+  "pageHeader.menu.items.statistics": {
+    "key_hash": "c046d27f81fd6e8daca35ffd674cbc96ec0aff22ca65765c76405e452114b277",
+    "text_hash": "a656107e99c71dea1ba101ea816e3886370b68ca9f9ac8e5b2d79c6ffddd70a1"
+  },
+  "pageHeader.menu.items.settings": {
+    "key_hash": "69f3a3c0b81a45e7f8217d12a3f159328af92cc7ae3b6e7a904d841b9800a061",
+    "text_hash": "74a883a037bc227f91891ab654a753d3a99f31ab06ae5b5d2b6e594a692b41f8"
+  },
+  "pageHeader.menu.items.adminPanel": {
+    "key_hash": "baee71fd2a34eda6b1aa0eb0a850d3bf88cfbca29da9056d383cfeab8438d3e6",
+    "text_hash": "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa"
+  },
+  "pageHeader.menu.items.logout": {
+    "key_hash": "ef87692006eb800acffdfc78dc349cdfbd63cb3495931b650326d6181e2555d4",
+    "text_hash": "d0527e4b3d658351dae74be7b10c7531a7ac98493c6b257ab62774853bcc74b2"
+  },
+  "test": {
+    "key_hash": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+    "text_hash": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+  }
+}
