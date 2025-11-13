@@ -1,37 +1,37 @@
 {
   "page": {
     "settings": {
-      "title": "Настройки",
+      "title": "Configuración",
       "fields": {
         "mainLanguage": {
-          "label": "Язык интерфейса"
+          "label": "Idioma de la interfaz"
         }
       }
     },
     "home": {
-      "title": "Категории"
+      "title": "Categorías"
     },
     "category": {
       "sections": {
         "currentLevel": {
-          "title": "Текущий уровень"
+          "title": "Nivel actual"
         },
         "currentProgress": {
-          "title": "Текущий прогресс"
+          "title": "Progreso actual"
         }
       },
       "buttons": {
-        "startLearn": "Перейти к изучению"
+        "startLearn": "Ir a aprender"
       }
     },
     "statistics": {
-      "title": "Статистика",
+      "title": "Estadísticas",
       "sections": {
         "fullProgress": {
-          "title": "Общий прогресс"
+          "title": "Progreso total"
         },
         "todayProgress": {
-          "title": "Прогресс за сегодня"
+          "title": "El progreso de hoy"
         }
       }
     }
@@ -39,11 +39,11 @@
   "pageHeader": {
     "menu": {
       "items": {
-        "categories": "Категории",
-        "statistics": "Статистика",
-        "settings": "Настройки",
-        "adminPanel": "Панель администратора",
-        "logout": "Выйти из системы"
+        "categories": "Categorías",
+        "statistics": "Estadísticas",
+        "settings": "Configuración",
+        "adminPanel": "Tablero",
+        "logout": "Cerrar sesión"
       }
     }
   }
