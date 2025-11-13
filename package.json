@@ -7,7 +7,8 @@
     "build": "react-router build",
     "dev": "npm run typegen && react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "i18n:sync": "tsx scripts/i18n-sync.ts"
   },
   "dependencies": {
     "@headlessui/react": "2.2.7",
