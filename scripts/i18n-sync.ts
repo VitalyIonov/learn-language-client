@@ -10,14 +10,23 @@ interface JSONObject {
 
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
+const LOCALES = ["ru", "es", "fr", "it"] as const;
+const LOCALES_MAPPING = {
+  ru: "Russian",
+  es: "Spanish",
+  fr: "French",
+  it: "Italian",
+};
+
 const ROOT = process.cwd();
 const LOCALES_DIR = path.join(ROOT, "i18n");
-const HASHES_DIR = path.join(LOCALES_DIR, "hashes");
 
 const EN_PATH = path.join(LOCALES_DIR, "en.json");
-const RU_PATH = path.join(LOCALES_DIR, "ru.json");
-const ES_PATH = path.join(LOCALES_DIR, "es.json");
+const HASHES_DIR = path.join(LOCALES_DIR, "hashes");
 const EN_HASHES_PATH = path.join(HASHES_DIR, "en.hashes.json");
+
+type LocaleCode = keyof typeof LOCALES_MAPPING;
+type LanguageName = (typeof LOCALES_MAPPING)[LocaleCode];
 
 function readJSON<T = any>(p: string, fallback: T): T {
   if (!fs.existsSync(p)) return fallback;
@@ -33,7 +42,6 @@ function sha256(s: string) {
   return crypto.createHash("sha256").update(s, "utf8").digest("hex");
 }
 
-// --- простая "плоская" проекция: только объекты, без массивов ---
 function flatten(obj: JSONObject, prefix = ""): Record<string, string> {
   const out: Record<string, string> = {};
   for (const [k, v] of Object.entries(obj || {})) {
@@ -65,8 +73,7 @@ function unflatten(flat: Record<string, string>): JSONObject {
   return root;
 }
 
-// простой перевод одной строки
-async function translate(text: string, targetLang: "Russian" | "Spanish") {
+async function translate(text: string, targetLang: LanguageName) {
   const resp = await client.chat.completions.create({
     model: "gpt-4o-mini",
     temperature: 0.2,
@@ -96,14 +103,18 @@ async function main() {
   }
 
   const enTree = readJSON<JSONObject>(EN_PATH, {});
-  const ruTree = readJSON<JSONObject>(RU_PATH, {});
-  const esTree = readJSON<JSONObject>(ES_PATH, {});
   const enFlat = flatten(enTree);
-  const ruFlat = flatten(ruTree);
-  const esFlat = flatten(esTree);
 
-  // структура хэшей максимально простая:
-  // { [keyPath]: { key_hash, text_hash } }
+  const flattedTrees = LOCALES.reduce(
+    (acc, locale) => {
+      acc[locale] = flatten(
+        readJSON(path.join(LOCALES_DIR, `${locale}.json`), {}),
+      );
+      return acc;
+    },
+    {} as Record<(typeof LOCALES)[number], Record<string, string>>,
+  );
+
   const hashes = readJSON<
     Record<string, { key_hash: string; text_hash: string }>
   >(EN_HASHES_PATH, {});
@@ -122,23 +133,21 @@ async function main() {
       hashes[key] = { key_hash, text_hash };
     }
 
-    // RU
-    if (ruFlat[key] === undefined || textChanged) {
-      ruFlat[key] = await translate(enText, "Russian");
-      changed = true;
-    }
-    // ES
-    if (esFlat[key] === undefined || textChanged) {
-      esFlat[key] = await translate(enText, "Spanish");
-      changed = true;
+    for (const locale of LOCALES) {
+      const flat = flattedTrees[locale];
+      if (flat[key] === undefined || textChanged) {
+        flat[key] = await translate(enText, LOCALES_MAPPING[locale]);
+        changed = true;
+      }
     }
   }
 
   if (changed) {
-    writeJSON(RU_PATH, unflatten(ruFlat));
-    writeJSON(ES_PATH, unflatten(esFlat));
+    LOCALES.forEach((locale) => {
+      const filePath = path.join(LOCALES_DIR, `${locale}.json`);
+      writeJSON(filePath, unflatten(flattedTrees[locale]));
+    });
   }
-  // Хэши всегда синхронизируем с en.json
   writeJSON(EN_HASHES_PATH, hashes);
 }
 
