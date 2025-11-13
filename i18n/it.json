@@ -1,0 +1,50 @@
+{
+  "page": {
+    "settings": {
+      "title": "Impostazioni 123",
+      "fields": {
+        "mainLanguage": {
+          "label": "Lingua dell'interfaccia"
+        }
+      }
+    },
+    "home": {
+      "title": "Categorie"
+    },
+    "category": {
+      "sections": {
+        "currentLevel": {
+          "title": "Livello attuale"
+        },
+        "currentProgress": {
+          "title": "Progresso attuale"
+        }
+      },
+      "buttons": {
+        "startLearn": "Vai a imparare"
+      }
+    },
+    "statistics": {
+      "title": "Statistiche",
+      "sections": {
+        "fullProgress": {
+          "title": "Progresso totale"
+        },
+        "todayProgress": {
+          "title": "Progresso di oggi"
+        }
+      }
+    }
+  },
+  "pageHeader": {
+    "menu": {
+      "items": {
+        "categories": "Categorie",
+        "statistics": "Statistiche",
+        "settings": "Impostazioni",
+        "adminPanel": "Cruscotto",
+        "logout": "Disconnetti"
+      }
+    }
+  }
+}
