@@ -30,6 +30,9 @@ export default function Settings() {
           options={[
             { value: "ru", label: "Русский" },
             { value: "en", label: "English" },
+            { value: "es", label: "Español" },
+            { value: "fr", label: "Français" },
+            { value: "it", label: "Italiano" },
           ]}
         />
       </div>
