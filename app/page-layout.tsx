@@ -1,14 +1,14 @@
 import React from "react";
 
 import { PageHeader } from "~/shared/components/page-header/page-header";
-import { useReadUserCurrentUserGet } from "~/types/client-api";
+import { useGetCurrentUser } from "~/types/client-api";
 
 type Props = {
   children?: React.ReactNode;
 };
 
 export const PageLayout = ({ children }: Props) => {
-  const { data } = useReadUserCurrentUserGet();
+  const { data } = useGetCurrentUser();
 
   return (
     <div>

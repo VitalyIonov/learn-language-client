@@ -1,9 +1,10 @@
 import type { Route } from "./+types/home";
 import { PageContent, PageTitle } from "~/shared/components";
-import { useReadCategoriesCategoriesGet } from "~/types/client-api";
+import { useGetCategoriesList } from "~/types/client-api";
 import { CategoryCard } from "~/entities/category-card/category-card";
 import { useI18n } from "~/shared/hooks/useI18n";
 
+// eslint-disable-next-line no-empty-pattern
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Learn Language – Изучай языки легко" },
@@ -34,7 +35,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const { data } = useReadCategoriesCategoriesGet();
+  const { data } = useGetCategoriesList();
   const { t } = useI18n("page.home");
 
   return (

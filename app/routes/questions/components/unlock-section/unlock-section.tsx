@@ -1,6 +1,6 @@
 import { Button } from "~/shared/components";
 import type { LevelOut } from "~/types/client-schemas";
-import { useUnlockLevelLevelsUnlockPost } from "~/types/client-api";
+import { useLevelUnlock } from "~/types/client-api";
 import { useNotificationStore } from "~/shared/stores";
 
 type Props = {
@@ -14,7 +14,7 @@ export const UnlockSection = ({
   categoryId,
   onUnlockSuccess,
 }: Props) => {
-  const { mutateAsync: unlockLevel } = useUnlockLevelLevelsUnlockPost();
+  const { mutateAsync: unlockLevel } = useLevelUnlock();
   const { success } = useNotificationStore();
 
   const handleUnlock = async () => {

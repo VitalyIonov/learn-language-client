@@ -3,8 +3,8 @@ import { Button } from "@headlessui/react";
 import { useParams, Link } from "react-router";
 
 import {
-  useReadCategoryCategoriesCategoryIdGet,
-  useGetCategoryCurrentProgress,
+  useGetCategory,
+  useGetStatisticsCategoryCurrentProgress,
 } from "~/types/client-api";
 import { CurrentLevelSection } from "~/routes/category/components/current-level-section/current-level-section";
 import { CurrentProgressSection } from "~/routes/category/components/current-progress-section/current-progress-section";
@@ -16,13 +16,10 @@ export default function Category() {
   const { t } = useI18n("page.category");
   const { id } = useParams();
 
-  const { data: categoryData } = useReadCategoryCategoriesCategoryIdGet(
-    Number(id),
-  );
+  const { data: categoryData } = useGetCategory(Number(id));
 
-  const { data: categoryCurrentProgress } = useGetCategoryCurrentProgress(
-    Number(id),
-  );
+  const { data: categoryCurrentProgress } =
+    useGetStatisticsCategoryCurrentProgress(Number(id));
 
   return (
     <PageContent>

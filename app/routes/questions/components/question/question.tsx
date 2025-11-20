@@ -12,9 +12,9 @@ import {
   type LevelOut,
 } from "~/types/client-schemas";
 import {
-  useTranslateTextTranslateGet,
-  useGenerateQuestionQuestionsGeneratePost,
-  useUpdateQuestionEndpointQuestionsQuestionIdPatch,
+  useGetTranslate,
+  useGenerateQuestion,
+  useUpdateQuestion,
 } from "~/types/client-api";
 import { TextOption } from "./text-option";
 import { ImageOption } from "./image-option";
@@ -55,14 +55,12 @@ export function Question({
   } = usePlayAudio(question?.meaning?.audio?.url);
 
   const { data: translatedMeaning, isLoading: isMeaningLoading } =
-    useTranslateTextTranslateGet(
+    useGetTranslate(
       { text: question?.meaning?.name || "" },
       { query: { enabled: isMeaningFlipped && !!question?.meaning?.name } },
     );
-  const { mutateAsync: generateQuestion } =
-    useGenerateQuestionQuestionsGeneratePost();
-  const { mutateAsync: makeAnswer } =
-    useUpdateQuestionEndpointQuestionsQuestionIdPatch();
+  const { mutateAsync: generateQuestion } = useGenerateQuestion();
+  const { mutateAsync: makeAnswer } = useUpdateQuestion();
 
   useEffect(() => {
     setMeaningTranslation(translatedMeaning?.translation);

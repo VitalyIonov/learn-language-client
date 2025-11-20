@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 import { Button, Modal } from "~/shared/components";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useNotificationStore } from "~/shared/stores";
-import { useAddIssueIssuesPost } from "~/types/client-api";
+import { useCreateIssue } from "~/types/client-api";
 import type { QuestionOut } from "~/types/client-schemas";
 
 import { IssueForm, type Schema } from "~/features/issue-form/issue-form";
@@ -18,7 +18,7 @@ export const IssueButton = ({ question }: Props) => {
   const [isIssueModalOpened, setIsIssueModalOpened] = useState(false);
   const { info: infoNotification } = useNotificationStore();
 
-  const { mutateAsync: addIssue } = useAddIssueIssuesPost();
+  const { mutateAsync: addIssue } = useCreateIssue();
 
   const handleIssueModalOpen = () => {
     setIsIssueModalOpened(true);

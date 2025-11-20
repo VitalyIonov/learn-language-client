@@ -5,14 +5,14 @@ import { useI18n } from "~/shared/hooks/useI18n";
 
 import { PageTitle, PageContent } from "~/shared/components";
 import {
-  useGetProgressByUser,
-  useGetTodayProgressByUser,
+  useGetStatisticsProgress,
+  useGetStatisticsTodayProgress,
 } from "~/types/client-api";
 
 export default function Statistics() {
   const { t } = useI18n("page.statistics");
-  const { data: allProgressData } = useGetProgressByUser();
-  const { data: todayProgressData } = useGetTodayProgressByUser();
+  const { data: allProgressData } = useGetStatisticsProgress();
+  const { data: todayProgressData } = useGetStatisticsTodayProgress();
 
   return (
     <PageContent>

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import type { Control, FieldValues, Path } from "react-hook-form";
 
 import { SingleSelectField } from "~/shared/components/form/single-select-field";
-import { useGetIssueTypesIssueTypesGet } from "~/types/client-api";
+import { useGetIssueTypesList } from "~/types/client-api";
 
 type Props<FormValues extends FieldValues> = {
   name: Path<FormValues>;
@@ -20,7 +20,7 @@ export function IssueTypeField<FormValues extends FieldValues>({
   label,
   setValue,
 }: Props<FormValues>) {
-  const { data: issueTypes } = useGetIssueTypesIssueTypesGet();
+  const { data: issueTypes } = useGetIssueTypesList();
 
   const preparedItems = issueTypes?.items.map(({ name, id }) => ({
     value: id,

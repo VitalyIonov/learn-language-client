@@ -4,7 +4,7 @@ import { clsx } from "clsx";
 import { useState, useEffect } from "react";
 import { useFlipAnimation } from "~/shared/hooks/use-flip-animation";
 import { usePlayAudio } from "~/shared/hooks/use-play-audio";
-import { useTranslateTextTranslateGet } from "~/types/client-api";
+import { useGetTranslate } from "~/types/client-api";
 import type { TextDefinitionOut } from "~/types/client-schemas";
 import { SoundWaves } from "~/shared/components/sound-waves/sound-waves";
 
@@ -29,7 +29,7 @@ export function TextOption({ definition, isSelected, lastResult }: Props) {
     ...restAudioEvents
   } = usePlayAudio(definition?.audio?.url);
 
-  const { data: translatedText, isLoading } = useTranslateTextTranslateGet(
+  const { data: translatedText, isLoading } = useGetTranslate(
     { text: definition.text },
     { query: { enabled: isFlipped } },
   );

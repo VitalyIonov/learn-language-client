@@ -29,7 +29,7 @@ function createAxios(baseURL: string): AxiosInstance {
 const clientAxios = createAxios(`${API_ROOT}/client`);
 const authAxios = createAxios(`${API_ROOT}/auth`);
 
-export async function clientRequest<ResponseData, RequestData = never>(
+export async function clientRequest<ResponseData, RequestData = unknown>(
   axiosConfig: AxiosRequestConfig<RequestData>,
 ) {
   const preparedAxiosConfig = { ...axiosConfig };
@@ -42,7 +42,7 @@ export async function clientRequest<ResponseData, RequestData = never>(
   return response.data;
 }
 
-export async function authRequest<ResponseData, RequestData = never>(
+export async function authRequest<ResponseData, RequestData = unknown>(
   axiosConfig: AxiosRequestConfig<RequestData>,
 ) {
   const preparedAxiosConfig = { ...axiosConfig };
@@ -54,32 +54,3 @@ export async function authRequest<ResponseData, RequestData = never>(
 
   return response.data;
 }
-//
-// const axiosClient = axios.create({
-//   baseURL: process.env.VITE_API_URL,
-//   withCredentials: true,
-//   headers: getHeaders(),
-// });
-//
-// axiosClient.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if (error.response?.status === 401) {
-//       logout();
-//     }
-//     return Promise.reject(error);
-//   },
-// );
-//
-// export async function request<ResponseData, RequestData = never>(
-//   axiosConfig: AxiosRequestConfig<RequestData>,
-// ) {
-//   const preparedAxiosConfig = { ...axiosConfig };
-//
-//   const response = await axiosClient.request<
-//     ResponseData,
-//     AxiosResponse<ResponseData>
-//   >(preparedAxiosConfig);
-//
-//   return response.data;
-// }
