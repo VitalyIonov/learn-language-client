@@ -6,7 +6,4 @@
  */
 import type { TargetLanguageCode } from './targetLanguageCode';
 
-export interface TargetLanguageOut {
-  code: TargetLanguageCode;
-  displayName: string;
-}
+export type SettingsInterfaceLangUpdateTargetLanguage = TargetLanguageCode | null;

@@ -5,7 +5,9 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { SettingsInterfaceLangUpdateInterfaceLang } from './settingsInterfaceLangUpdateInterfaceLang';
+import type { SettingsInterfaceLangUpdateTargetLanguage } from './settingsInterfaceLangUpdateTargetLanguage';
 
 export interface SettingsInterfaceLangUpdate {
   interfaceLang: SettingsInterfaceLangUpdateInterfaceLang;
+  targetLanguage?: SettingsInterfaceLangUpdateTargetLanguage;
 }
