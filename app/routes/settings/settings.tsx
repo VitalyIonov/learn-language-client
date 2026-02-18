@@ -4,6 +4,7 @@ import { PageTitle, PageContent } from "~/shared/components";
 import { SingleSelect } from "~/shared/components/single-select";
 import { useI18n } from "~/shared/hooks/useI18n";
 import { useUpdateSettingsInterfaceLanguage } from "~/types/client-api";
+import { TargetLanguageSelect } from "./components/target-language-select/target-language-select";
 import { type SettingsInterfaceLangUpdateInterfaceLang } from "~/types/client-schemas";
 
 export default function Settings() {
@@ -38,6 +39,7 @@ export default function Settings() {
             { value: "it", label: "Italiano" },
           ]}
         />
+        <TargetLanguageSelect />
       </div>
     </PageContent>
   );

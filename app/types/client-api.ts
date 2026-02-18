@@ -43,6 +43,7 @@ import type {
   QuestionUpdate,
   QuestionUpdateOut,
   SettingsInterfaceLangUpdate,
+  TargetLanguageListResponse,
   TranslateOut,
   UserOut
 } from './client-schemas';
@@ -1252,3 +1253,88 @@ export const useUpdateSettingsInterfaceLanguage = <TError = HTTPValidationError,
 
       return useMutation(mutationOptions , queryClient);
     }
+    
+/**
+ * @summary Get Target Languages
+ */
+export const getTargetLanguagesList = (
+    
+ signal?: AbortSignal
+) => {
+      
+      
+      return clientRequest<TargetLanguageListResponse>(
+      {url: `/target-languages`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getGetTargetLanguagesListQueryKey = () => {
+    return [`/target-languages`] as const;
+    }
+
+    
+export const getGetTargetLanguagesListQueryOptions = <TData = Awaited<ReturnType<typeof getTargetLanguagesList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getTargetLanguagesList>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetTargetLanguagesListQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getTargetLanguagesList>>> = ({ signal }) => getTargetLanguagesList(signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getTargetLanguagesList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetTargetLanguagesListQueryResult = NonNullable<Awaited<ReturnType<typeof getTargetLanguagesList>>>
+export type GetTargetLanguagesListQueryError = unknown
+
+
+export function useGetTargetLanguagesList<TData = Awaited<ReturnType<typeof getTargetLanguagesList>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getTargetLanguagesList>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getTargetLanguagesList>>,
+          TError,
+          Awaited<ReturnType<typeof getTargetLanguagesList>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetTargetLanguagesList<TData = Awaited<ReturnType<typeof getTargetLanguagesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getTargetLanguagesList>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getTargetLanguagesList>>,
+          TError,
+          Awaited<ReturnType<typeof getTargetLanguagesList>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetTargetLanguagesList<TData = Awaited<ReturnType<typeof getTargetLanguagesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getTargetLanguagesList>>, TError, TData>>, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get Target Languages
+ */
+
+export function useGetTargetLanguagesList<TData = Awaited<ReturnType<typeof getTargetLanguagesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getTargetLanguagesList>>, TError, TData>>, }
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetTargetLanguagesListQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
