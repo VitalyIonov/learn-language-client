@@ -5,6 +5,7 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { UserOutName } from './userOutName';
+import type { InterfaceLanguageCode } from './interfaceLanguageCode';
 import type { TargetLanguageCode } from './targetLanguageCode';
 import type { UserRole } from './userRole';
 
@@ -12,7 +13,7 @@ export interface UserOut {
   id: number;
   email: string;
   name?: UserOutName;
-  interfaceLang: string;
+  interfaceLang: InterfaceLanguageCode;
   targetLanguage: TargetLanguageCode;
   role: UserRole;
 }

@@ -6,4 +6,7 @@
  */
 import type { InterfaceLanguageCode } from './interfaceLanguageCode';
 
-export type SettingsTargetLanguageUpdateInterfaceLang = InterfaceLanguageCode | null;
+export interface InterfaceLanguageOut {
+  code: InterfaceLanguageCode;
+  displayName: string;
+}

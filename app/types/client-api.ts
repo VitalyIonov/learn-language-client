@@ -30,6 +30,7 @@ import type {
   GetLevelsListParams,
   GetTranslateParams,
   HTTPValidationError,
+  InterfaceLanguageListResponse,
   IssueCreate,
   IssueOut,
   IssueTypeListResponse,
@@ -1396,6 +1397,94 @@ export function useGetTargetLanguagesList<TData = Awaited<ReturnType<typeof getT
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getGetTargetLanguagesListQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Get Interface Languages
+ */
+export const getInterfaceLanguagesList = (
+    
+ signal?: AbortSignal
+) => {
+      
+      
+      return clientRequest<InterfaceLanguageListResponse>(
+      {url: `/interface-languages`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getGetInterfaceLanguagesListQueryKey = () => {
+    return [`/interface-languages`] as const;
+    }
+
+    
+export const getGetInterfaceLanguagesListQueryOptions = <TData = Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetInterfaceLanguagesListQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getInterfaceLanguagesList>>> = ({ signal }) => getInterfaceLanguagesList(signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetInterfaceLanguagesListQueryResult = NonNullable<Awaited<ReturnType<typeof getInterfaceLanguagesList>>>
+export type GetInterfaceLanguagesListQueryError = unknown
+
+
+export function useGetInterfaceLanguagesList<TData = Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getInterfaceLanguagesList>>,
+          TError,
+          Awaited<ReturnType<typeof getInterfaceLanguagesList>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetInterfaceLanguagesList<TData = Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getInterfaceLanguagesList>>,
+          TError,
+          Awaited<ReturnType<typeof getInterfaceLanguagesList>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetInterfaceLanguagesList<TData = Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError, TData>>, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get Interface Languages
+ */
+
+export function useGetInterfaceLanguagesList<TData = Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError, TData>>, }
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetInterfaceLanguagesListQueryOptions(options)
 
   const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

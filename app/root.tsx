@@ -73,6 +73,7 @@ function prepareCookieLang(lang: string) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const cookieLang = getLangFromCookie(request.headers.get("cookie"));
+
   let lang = normalizeLang(cookieLang);
   const headers = new Headers();
 
@@ -88,7 +89,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     }
   }
 
-  const messages = await fetchMessages(lang);
+  const messages = await fetchMessages(lang.toLowerCase());
 
   return data({ lang, messages }, { headers });
 }
