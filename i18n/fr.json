@@ -5,6 +5,9 @@
       "fields": {
         "mainLanguage": {
           "label": "Langue de l'interface"
+        },
+        "targetLanguage": {
+          "label": "Langue cible"
         }
       }
     },

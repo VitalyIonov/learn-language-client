@@ -54,5 +54,9 @@
   "pageHeader.menu.items.logout": {
     "key_hash": "ef87692006eb800acffdfc78dc349cdfbd63cb3495931b650326d6181e2555d4",
     "text_hash": "d0527e4b3d658351dae74be7b10c7531a7ac98493c6b257ab62774853bcc74b2"
+  },
+  "page.settings.fields.targetLanguage.label": {
+    "key_hash": "d36f46ec457be06dacd23210f7e1c0785952e978682e164e62e98f24d8dfc613",
+    "text_hash": "ea252b75a5db40e81681ac6fdf1b6cccf6a51d19820aa8eef8cf9015ebec4a9a"
   }
 }
