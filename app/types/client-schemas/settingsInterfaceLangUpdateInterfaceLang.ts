@@ -5,11 +5,11 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export type SettingsLangUpdateLang = typeof SettingsLangUpdateLang[keyof typeof SettingsLangUpdateLang];
+export type SettingsInterfaceLangUpdateInterfaceLang = typeof SettingsInterfaceLangUpdateInterfaceLang[keyof typeof SettingsInterfaceLangUpdateInterfaceLang];
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const SettingsLangUpdateLang = {
+export const SettingsInterfaceLangUpdateInterfaceLang = {
   en: 'en',
   ru: 'ru',
   es: 'es',

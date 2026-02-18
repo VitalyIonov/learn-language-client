@@ -1,5 +1,5 @@
 export function getLangFromCookie(cookieHeader?: string | null) {
-  const m = /(?:^|;\s*)lang=([^;]+)/.exec(cookieHeader ?? "");
+  const m = /(?:^|;\s*)interface_lang=([^;]+)/.exec(cookieHeader ?? "");
   return m ? decodeURIComponent(m[1]) : undefined;
 }
 

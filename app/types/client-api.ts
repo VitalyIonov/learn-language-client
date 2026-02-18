@@ -42,7 +42,7 @@ import type {
   QuestionOut,
   QuestionUpdate,
   QuestionUpdateOut,
-  SettingsLangUpdate,
+  SettingsInterfaceLangUpdate,
   TranslateOut,
   UserOut
 } from './client-schemas';
@@ -1192,26 +1192,26 @@ export function useGetIssueTypesList<TData = Awaited<ReturnType<typeof getIssueT
 /**
  * @summary Update Language
  */
-export const updateSettingsLanguage = (
-    settingsLangUpdate: SettingsLangUpdate,
+export const updateSettingsInterfaceLanguage = (
+    settingsInterfaceLangUpdate: SettingsInterfaceLangUpdate,
  ) => {
       
       
       return clientRequest<boolean>(
-      {url: `/settings/lang`, method: 'PATCH',
+      {url: `/settings/interface-lang`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
-      data: settingsLangUpdate
+      data: settingsInterfaceLangUpdate
     },
       );
     }
   
 
 
-export const getUpdateSettingsLanguageMutationOptions = <TError = HTTPValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSettingsLanguage>>, TError,{data: SettingsLangUpdate}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof updateSettingsLanguage>>, TError,{data: SettingsLangUpdate}, TContext> => {
+export const getUpdateSettingsInterfaceLanguageMutationOptions = <TError = HTTPValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSettingsInterfaceLanguage>>, TError,{data: SettingsInterfaceLangUpdate}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof updateSettingsInterfaceLanguage>>, TError,{data: SettingsInterfaceLangUpdate}, TContext> => {
 
-const mutationKey = ['updateSettingsLanguage'];
+const mutationKey = ['updateSettingsInterfaceLanguage'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -1221,10 +1221,10 @@ const {mutation: mutationOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateSettingsLanguage>>, {data: SettingsLangUpdate}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateSettingsInterfaceLanguage>>, {data: SettingsInterfaceLangUpdate}> = (props) => {
           const {data} = props ?? {};
 
-          return  updateSettingsLanguage(data,)
+          return  updateSettingsInterfaceLanguage(data,)
         }
 
         
@@ -1232,23 +1232,23 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type UpdateSettingsLanguageMutationResult = NonNullable<Awaited<ReturnType<typeof updateSettingsLanguage>>>
-    export type UpdateSettingsLanguageMutationBody = SettingsLangUpdate
-    export type UpdateSettingsLanguageMutationError = HTTPValidationError
+    export type UpdateSettingsInterfaceLanguageMutationResult = NonNullable<Awaited<ReturnType<typeof updateSettingsInterfaceLanguage>>>
+    export type UpdateSettingsInterfaceLanguageMutationBody = SettingsInterfaceLangUpdate
+    export type UpdateSettingsInterfaceLanguageMutationError = HTTPValidationError
 
     /**
  * @summary Update Language
  */
-export const useUpdateSettingsLanguage = <TError = HTTPValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSettingsLanguage>>, TError,{data: SettingsLangUpdate}, TContext>, }
+export const useUpdateSettingsInterfaceLanguage = <TError = HTTPValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSettingsInterfaceLanguage>>, TError,{data: SettingsInterfaceLangUpdate}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof updateSettingsLanguage>>,
+        Awaited<ReturnType<typeof updateSettingsInterfaceLanguage>>,
         TError,
-        {data: SettingsLangUpdate},
+        {data: SettingsInterfaceLangUpdate},
         TContext
       > => {
 
-      const mutationOptions = getUpdateSettingsLanguageMutationOptions(options);
+      const mutationOptions = getUpdateSettingsInterfaceLanguageMutationOptions(options);
 
       return useMutation(mutationOptions , queryClient);
     }
