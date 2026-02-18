@@ -65,7 +65,7 @@ async function fetchUser(request: Request) {
 }
 
 function prepareCookieLang(lang: string) {
-  const base = `lang=${lang}; Path=/; Max-Age=31536000; SameSite=Lax; HttpOnly`;
+  const base = `interface_lang=${lang}; Path=/; Max-Age=31536000; SameSite=Lax; HttpOnly`;
   return process.env.NODE_ENV === "production"
     ? `${base}; Secure; Domain=.learn-language.es`
     : base;
@@ -73,6 +73,7 @@ function prepareCookieLang(lang: string) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const cookieLang = getLangFromCookie(request.headers.get("cookie"));
+
   let lang = normalizeLang(cookieLang);
   const headers = new Headers();
 
@@ -80,7 +81,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     try {
       const user = await fetchUser(request);
 
-      lang = normalizeLang(user?.lang);
+      lang = normalizeLang(user?.interfaceLang);
 
       headers.append("Set-Cookie", prepareCookieLang(lang));
     } catch (error) {
@@ -88,7 +89,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     }
   }
 
-  const messages = await fetchMessages(lang);
+  const messages = await fetchMessages(lang.toLowerCase());
 
   return data({ lang, messages }, { headers });
 }

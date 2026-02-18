@@ -30,6 +30,7 @@ import type {
   GetLevelsListParams,
   GetTranslateParams,
   HTTPValidationError,
+  InterfaceLanguageListResponse,
   IssueCreate,
   IssueOut,
   IssueTypeListResponse,
@@ -42,7 +43,9 @@ import type {
   QuestionOut,
   QuestionUpdate,
   QuestionUpdateOut,
-  SettingsLangUpdate,
+  SettingsInterfaceLangUpdate,
+  SettingsTargetLanguageUpdate,
+  TargetLanguageListResponse,
   TranslateOut,
   UserOut
 } from './client-schemas';
@@ -1190,28 +1193,28 @@ export function useGetIssueTypesList<TData = Awaited<ReturnType<typeof getIssueT
 
 
 /**
- * @summary Update Language
+ * @summary Update Interface Language
  */
-export const updateSettingsLanguage = (
-    settingsLangUpdate: SettingsLangUpdate,
+export const updateSettingsInterfaceLanguage = (
+    settingsInterfaceLangUpdate: SettingsInterfaceLangUpdate,
  ) => {
       
       
       return clientRequest<boolean>(
-      {url: `/settings/lang`, method: 'PATCH',
+      {url: `/settings/interface-lang`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
-      data: settingsLangUpdate
+      data: settingsInterfaceLangUpdate
     },
       );
     }
   
 
 
-export const getUpdateSettingsLanguageMutationOptions = <TError = HTTPValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSettingsLanguage>>, TError,{data: SettingsLangUpdate}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof updateSettingsLanguage>>, TError,{data: SettingsLangUpdate}, TContext> => {
+export const getUpdateSettingsInterfaceLanguageMutationOptions = <TError = HTTPValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSettingsInterfaceLanguage>>, TError,{data: SettingsInterfaceLangUpdate}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof updateSettingsInterfaceLanguage>>, TError,{data: SettingsInterfaceLangUpdate}, TContext> => {
 
-const mutationKey = ['updateSettingsLanguage'];
+const mutationKey = ['updateSettingsInterfaceLanguage'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -1221,10 +1224,10 @@ const {mutation: mutationOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateSettingsLanguage>>, {data: SettingsLangUpdate}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateSettingsInterfaceLanguage>>, {data: SettingsInterfaceLangUpdate}> = (props) => {
           const {data} = props ?? {};
 
-          return  updateSettingsLanguage(data,)
+          return  updateSettingsInterfaceLanguage(data,)
         }
 
         
@@ -1232,23 +1235,260 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type UpdateSettingsLanguageMutationResult = NonNullable<Awaited<ReturnType<typeof updateSettingsLanguage>>>
-    export type UpdateSettingsLanguageMutationBody = SettingsLangUpdate
-    export type UpdateSettingsLanguageMutationError = HTTPValidationError
+    export type UpdateSettingsInterfaceLanguageMutationResult = NonNullable<Awaited<ReturnType<typeof updateSettingsInterfaceLanguage>>>
+    export type UpdateSettingsInterfaceLanguageMutationBody = SettingsInterfaceLangUpdate
+    export type UpdateSettingsInterfaceLanguageMutationError = HTTPValidationError
 
     /**
- * @summary Update Language
+ * @summary Update Interface Language
  */
-export const useUpdateSettingsLanguage = <TError = HTTPValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSettingsLanguage>>, TError,{data: SettingsLangUpdate}, TContext>, }
+export const useUpdateSettingsInterfaceLanguage = <TError = HTTPValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSettingsInterfaceLanguage>>, TError,{data: SettingsInterfaceLangUpdate}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof updateSettingsLanguage>>,
+        Awaited<ReturnType<typeof updateSettingsInterfaceLanguage>>,
         TError,
-        {data: SettingsLangUpdate},
+        {data: SettingsInterfaceLangUpdate},
         TContext
       > => {
 
-      const mutationOptions = getUpdateSettingsLanguageMutationOptions(options);
+      const mutationOptions = getUpdateSettingsInterfaceLanguageMutationOptions(options);
 
       return useMutation(mutationOptions , queryClient);
     }
+    
+/**
+ * @summary Update Target Language
+ */
+export const updateSettingsTargetLanguage = (
+    settingsTargetLanguageUpdate: SettingsTargetLanguageUpdate,
+ ) => {
+      
+      
+      return clientRequest<boolean>(
+      {url: `/settings/target-language`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: settingsTargetLanguageUpdate
+    },
+      );
+    }
+  
+
+
+export const getUpdateSettingsTargetLanguageMutationOptions = <TError = HTTPValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSettingsTargetLanguage>>, TError,{data: SettingsTargetLanguageUpdate}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof updateSettingsTargetLanguage>>, TError,{data: SettingsTargetLanguageUpdate}, TContext> => {
+
+const mutationKey = ['updateSettingsTargetLanguage'];
+const {mutation: mutationOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateSettingsTargetLanguage>>, {data: SettingsTargetLanguageUpdate}> = (props) => {
+          const {data} = props ?? {};
+
+          return  updateSettingsTargetLanguage(data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateSettingsTargetLanguageMutationResult = NonNullable<Awaited<ReturnType<typeof updateSettingsTargetLanguage>>>
+    export type UpdateSettingsTargetLanguageMutationBody = SettingsTargetLanguageUpdate
+    export type UpdateSettingsTargetLanguageMutationError = HTTPValidationError
+
+    /**
+ * @summary Update Target Language
+ */
+export const useUpdateSettingsTargetLanguage = <TError = HTTPValidationError,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSettingsTargetLanguage>>, TError,{data: SettingsTargetLanguageUpdate}, TContext>, }
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof updateSettingsTargetLanguage>>,
+        TError,
+        {data: SettingsTargetLanguageUpdate},
+        TContext
+      > => {
+
+      const mutationOptions = getUpdateSettingsTargetLanguageMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    
+/**
+ * @summary Get Target Languages
+ */
+export const getTargetLanguagesList = (
+    
+ signal?: AbortSignal
+) => {
+      
+      
+      return clientRequest<TargetLanguageListResponse>(
+      {url: `/target-languages`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getGetTargetLanguagesListQueryKey = () => {
+    return [`/target-languages`] as const;
+    }
+
+    
+export const getGetTargetLanguagesListQueryOptions = <TData = Awaited<ReturnType<typeof getTargetLanguagesList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getTargetLanguagesList>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetTargetLanguagesListQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getTargetLanguagesList>>> = ({ signal }) => getTargetLanguagesList(signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getTargetLanguagesList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetTargetLanguagesListQueryResult = NonNullable<Awaited<ReturnType<typeof getTargetLanguagesList>>>
+export type GetTargetLanguagesListQueryError = unknown
+
+
+export function useGetTargetLanguagesList<TData = Awaited<ReturnType<typeof getTargetLanguagesList>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getTargetLanguagesList>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getTargetLanguagesList>>,
+          TError,
+          Awaited<ReturnType<typeof getTargetLanguagesList>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetTargetLanguagesList<TData = Awaited<ReturnType<typeof getTargetLanguagesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getTargetLanguagesList>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getTargetLanguagesList>>,
+          TError,
+          Awaited<ReturnType<typeof getTargetLanguagesList>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetTargetLanguagesList<TData = Awaited<ReturnType<typeof getTargetLanguagesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getTargetLanguagesList>>, TError, TData>>, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get Target Languages
+ */
+
+export function useGetTargetLanguagesList<TData = Awaited<ReturnType<typeof getTargetLanguagesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getTargetLanguagesList>>, TError, TData>>, }
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetTargetLanguagesListQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Get Interface Languages
+ */
+export const getInterfaceLanguagesList = (
+    
+ signal?: AbortSignal
+) => {
+      
+      
+      return clientRequest<InterfaceLanguageListResponse>(
+      {url: `/interface-languages`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getGetInterfaceLanguagesListQueryKey = () => {
+    return [`/interface-languages`] as const;
+    }
+
+    
+export const getGetInterfaceLanguagesListQueryOptions = <TData = Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetInterfaceLanguagesListQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getInterfaceLanguagesList>>> = ({ signal }) => getInterfaceLanguagesList(signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetInterfaceLanguagesListQueryResult = NonNullable<Awaited<ReturnType<typeof getInterfaceLanguagesList>>>
+export type GetInterfaceLanguagesListQueryError = unknown
+
+
+export function useGetInterfaceLanguagesList<TData = Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getInterfaceLanguagesList>>,
+          TError,
+          Awaited<ReturnType<typeof getInterfaceLanguagesList>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetInterfaceLanguagesList<TData = Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getInterfaceLanguagesList>>,
+          TError,
+          Awaited<ReturnType<typeof getInterfaceLanguagesList>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetInterfaceLanguagesList<TData = Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError, TData>>, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get Interface Languages
+ */
+
+export function useGetInterfaceLanguagesList<TData = Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getInterfaceLanguagesList>>, TError, TData>>, }
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetInterfaceLanguagesListQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
