@@ -4,14 +4,12 @@ import type { LevelOut } from "~/types/client-schemas";
 
 type Props = {
   isActive?: boolean;
-  isLocked?: LevelOut["isLocked"];
   level?: LevelOut;
   onClick?: (newLevel: LevelOut) => void;
 };
 
 export const NextTab = ({
   isActive = true,
-  isLocked,
   level,
   onClick,
 }: Props) => {
@@ -44,20 +42,18 @@ export const NextTab = ({
             {
               "bg-gradient-to-br from-emerald-400 via-blue-400 to-purple-500 text-white shadow-lg":
                 isActive,
-              "bg-zinc-700 text-zinc-300": !isActive && !isLocked,
-              "bg-zinc-800 text-zinc-600": isLocked,
+              "bg-zinc-700 text-zinc-300": !isActive,
             },
           )}
         >
-          {!isLocked ? level.alias : "🔒"}
+          {level.alias}
         </div>
         <div className="block">
           <div className="min-w-0 flex-1">
             <p
               className={clsx("text-sm font-semibold", {
                 "text-white": isActive,
-                "text-zinc-300": !isActive && !isLocked,
-                "text-zinc-600": isLocked,
+                "text-zinc-300": !isActive,
               })}
             >
               {level.alias}
@@ -65,8 +61,7 @@ export const NextTab = ({
             <p
               className={clsx("truncate text-xs", {
                 "text-emerald-200": isActive,
-                "text-zinc-400": !isActive && !isLocked,
-                "text-zinc-600": isLocked,
+                "text-zinc-400": !isActive,
               })}
             >
               {level.name}

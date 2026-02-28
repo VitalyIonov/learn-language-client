@@ -14,7 +14,7 @@ export const LevelTab = ({ level, isSelected, onClick }: Props) => {
     return null;
   }
 
-  const { name, alias, isLocked } = level;
+  const { name, alias } = level;
 
   return (
     <Tab
@@ -31,9 +31,7 @@ export const LevelTab = ({ level, isSelected, onClick }: Props) => {
           "border border-emerald-400/30 bg-gradient-to-r from-emerald-500/20 via-blue-500/20 to-purple-600/20 text-white shadow-lg":
             isSelected,
           "border border-zinc-700/50 bg-zinc-800/50 text-zinc-300 hover:bg-zinc-700/50 hover:text-white":
-            !isSelected && !isLocked,
-          "cursor-not-allowed border border-zinc-800/30 bg-zinc-900/30 text-zinc-600":
-            isLocked,
+            !isSelected,
         },
       )}
     >
@@ -47,22 +45,18 @@ export const LevelTab = ({ level, isSelected, onClick }: Props) => {
             {
               "bg-gradient-to-br from-emerald-400 via-blue-400 to-purple-500 text-white shadow-lg":
                 isSelected,
-              "bg-zinc-700 text-zinc-300": !isSelected && !isLocked,
-              "bg-zinc-800 text-zinc-600": isLocked,
+              "bg-zinc-700 text-zinc-300": !isSelected,
             },
           )}
         >
-          {!isLocked ? alias : "🔒"}
+          {alias}
         </div>
-        <div
-          className={clsx({ block: isLocked, "hidden lg:block": !isLocked })}
-        >
+        <div className="hidden lg:block">
           <div className="min-w-0 flex-1">
             <p
               className={clsx("text-sm font-semibold", {
                 "text-white": isSelected,
-                "text-zinc-300": !isSelected && !isLocked,
-                "text-zinc-600": isLocked,
+                "text-zinc-300": !isSelected,
               })}
             >
               {alias}
@@ -70,8 +64,7 @@ export const LevelTab = ({ level, isSelected, onClick }: Props) => {
             <p
               className={clsx("truncate text-xs", {
                 "text-emerald-200": isSelected,
-                "text-zinc-400": !isSelected && !isLocked,
-                "text-zinc-600": isLocked,
+                "text-zinc-400": !isSelected,
               })}
             >
               {name}

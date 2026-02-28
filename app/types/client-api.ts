@@ -26,7 +26,6 @@ import type {
 import type {
   CategoriesListResponse,
   CategoryOut,
-  CategoryProgressInfoOut,
   GetLevelsListParams,
   GetTranslateParams,
   HTTPValidationError,
@@ -36,7 +35,6 @@ import type {
   IssueTypeListResponse,
   IssuesListResponse,
   LevelProgressByCategoryStatistic,
-  LevelUnlockParams,
   LevelsListResponse,
   ProgressByUserStatistic,
   QuestionGenerate,
@@ -404,70 +402,6 @@ export function useGetLevelsList<TData = Awaited<ReturnType<typeof getLevelsList
 
 
 
-/**
- * @summary Unlock Level
- */
-export const levelUnlock = (
-    params: LevelUnlockParams,
- signal?: AbortSignal
-) => {
-      
-      
-      return clientRequest<CategoryProgressInfoOut>(
-      {url: `/levels/unlock`, method: 'POST',
-        params, signal
-    },
-      );
-    }
-  
-
-
-export const getLevelUnlockMutationOptions = <TError = HTTPValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof levelUnlock>>, TError,{params: LevelUnlockParams}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof levelUnlock>>, TError,{params: LevelUnlockParams}, TContext> => {
-
-const mutationKey = ['levelUnlock'];
-const {mutation: mutationOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof levelUnlock>>, {params: LevelUnlockParams}> = (props) => {
-          const {params} = props ?? {};
-
-          return  levelUnlock(params,)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type LevelUnlockMutationResult = NonNullable<Awaited<ReturnType<typeof levelUnlock>>>
-    
-    export type LevelUnlockMutationError = HTTPValidationError
-
-    /**
- * @summary Unlock Level
- */
-export const useLevelUnlock = <TError = HTTPValidationError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof levelUnlock>>, TError,{params: LevelUnlockParams}, TContext>, }
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof levelUnlock>>,
-        TError,
-        {params: LevelUnlockParams},
-        TContext
-      > => {
-
-      const mutationOptions = getLevelUnlockMutationOptions(options);
-
-      return useMutation(mutationOptions , queryClient);
-    }
-    
 /**
  * @summary Translate Text
  */

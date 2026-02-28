@@ -4,12 +4,13 @@
  * client API
  * OpenAPI spec version: 0.1.0
  */
-import type { LevelOutIsLocked } from './levelOutIsLocked';
 
 export interface LevelOut {
   id: number;
   name: string;
   alias: string;
   value: number;
-  isLocked?: LevelOutIsLocked;
+  currentScore: number;
+  maxScore: number;
+  isActive: boolean;
 }

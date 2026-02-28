@@ -33,8 +33,8 @@ export default function Category() {
           "lg:grid-cols-3 lg:gap-8",
         )}
       >
-        {categoryData ? (
-          <CurrentLevelSection level={categoryData?.currentLevel.alias || ""} />
+        {categoryCurrentProgress ? (
+          <CurrentLevelSection level={categoryCurrentProgress.currentLevel} />
         ) : null}
         {categoryCurrentProgress ? (
           <CurrentProgressSection

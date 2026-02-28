@@ -4,8 +4,8 @@
  * client API
  * OpenAPI spec version: 0.1.0
  */
-import type { AppSchemasClientLevelLevelOut } from './appSchemasClientLevelLevelOut';
+import type { LevelOut } from './levelOut';
 
 export interface LevelsListResponse {
-  items: AppSchemasClientLevelLevelOut[];
+  items: LevelOut[];
 }

@@ -6,8 +6,6 @@ import { LevelTab } from "~/routes/questions/components/level-tabs/level-tab";
 import { CurrentTab } from "~/routes/questions/components/level-tabs/current-tab";
 import { type LevelsListResponse, type LevelOut } from "~/types/client-schemas";
 
-import { prepareLevels } from "~/routes/questions/utils/levels";
-
 interface LevelTabsProps {
   levelsData?: LevelsListResponse;
   currentLevel?: LevelOut;
@@ -27,7 +25,10 @@ export const LevelTabs = ({
     onCurrentLevelChange(newLevel.id);
   };
 
-  const { unlockedLevels, nextLevel } = prepareLevels(levelsData?.items);
+  const levels = levelsData?.items ?? [];
+  const nextLevel =
+    currentLevel &&
+    levels.find((level) => level.value > currentLevel.value) || null;
 
   return (
     <div
@@ -50,7 +51,6 @@ export const LevelTabs = ({
         >
           <Accordion.Trigger className="justify-between">
             <CurrentTab
-              isLocked={currentLevel?.isLocked}
               name={currentLevel?.name}
               alias={currentLevel?.alias}
             />
@@ -71,7 +71,7 @@ export const LevelTabs = ({
               )}
             >
               <Accordion.Content className="accordion-slide-right accordion-slide-down flex flex-shrink-0 flex-row gap-2 lg:flex-col">
-                {unlockedLevels.map((level) => (
+                {levels.map((level) => (
                   <LevelTab
                     key={level.id}
                     isSelected={level.id === currentLevel?.id}

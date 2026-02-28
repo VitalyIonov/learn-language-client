@@ -4,10 +4,8 @@
  * client API
  * OpenAPI spec version: 0.1.0
  */
-import type { LevelOutBase } from './levelOutBase';
 
 export interface CategoryOut {
   id: number;
   name: string;
-  currentLevel: LevelOutBase;
 }
