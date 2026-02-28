@@ -5,9 +5,9 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface AppSchemasAdminLevelLevelOut {
-  id: number;
-  name: string;
-  alias: string;
-  value: number;
-}
+export type GetLevelsByScoreParams = {
+/**
+ * Category ID
+ */
+category_id: number;
+};

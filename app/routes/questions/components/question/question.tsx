@@ -5,12 +5,7 @@ import { Button } from "~/shared/components";
 import { useCallbackDebounce } from "~/shared/hooks/use-callback-debounce";
 import { usePlayAudio } from "~/shared/hooks/use-play-audio";
 import { useFlipAnimation } from "~/shared/hooks/use-flip-animation";
-import { useNotificationStore } from "~/shared/stores";
-import {
-  type CategoryOut,
-  type QuestionOut,
-  type LevelOut,
-} from "~/types/client-schemas";
+import { type CategoryOut, type QuestionOut } from "~/types/client-schemas";
 import {
   useGetTranslate,
   useGenerateQuestion,
@@ -24,8 +19,8 @@ import { IssueButton } from "~/routes/questions/components/issue-button";
 type Props = {
   className?: string;
   categoryId?: CategoryOut["id"];
-  levelId?: LevelOut["id"];
-  invalidateLevels: (newLevel: LevelOut) => Promise<void>;
+  levelId?: number;
+  invalidateLevels: () => Promise<unknown>;
 };
 
 export function Question({
@@ -66,22 +61,21 @@ export function Question({
     setMeaningTranslation(translatedMeaning?.translation);
   }, [translatedMeaning]);
 
-  const { custom: customNotification } = useNotificationStore();
-
   const handleTouchStart = () => {
     onMeaningTouchStart();
     onMeaningPlayAudioTouchStart();
   };
 
   const fetchQuestion = useCallback(async () => {
-    const question = await generateQuestion({
-      data: {
-        categoryId: Number(categoryId),
-        levelId: Number(levelId),
+    await generateQuestion(
+      {
+        data: {
+          categoryId: Number(categoryId),
+          levelId: Number(levelId),
+        },
       },
-    });
-
-    setQuestion(question);
+      { onSuccess: (data) => setQuestion(data) },
+    );
   }, [categoryId, levelId, generateQuestion]);
 
   const { trigger: updateQuestion, isTriggered: isQuestionUpdating } =
@@ -89,11 +83,6 @@ export function Question({
       callback: fetchQuestion,
       debounce: 1600,
     });
-
-  const { trigger: updateLevels } = useCallbackDebounce({
-    callback: invalidateLevels,
-    debounce: 2000,
-  });
 
   useEffect(() => {
     setSelected(undefined);
@@ -114,24 +103,8 @@ export function Question({
       });
 
       setLastResult(result.isCorrect);
-
-      if (result?.info?.type === "level_up") {
-        customNotification(
-          "level-up",
-          "Поздравляем!",
-          `Ваш новый уровень - ${result?.info?.new_level.alias}`,
-        );
-
-        updateLevels(result?.info?.new_level);
-      } else if (result?.info?.type === "category_finish") {
-        customNotification(
-          "category-finished",
-          "Поздравляем!",
-          `Вы полностью завершили текущую категорию`,
-        );
-      } else {
-        updateQuestion();
-      }
+      await invalidateLevels();
+      updateQuestion();
     }
   };
 

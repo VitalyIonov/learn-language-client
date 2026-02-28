@@ -4,34 +4,24 @@ import { useParams } from "react-router";
 
 import { LevelTabs } from "~/routes/questions/components/level-tabs";
 import { Question } from "~/routes/questions/components/question/question";
-import { UnlockSection } from "~/routes/questions/components/unlock-section/unlock-section";
 import { PageContent } from "~/shared/components";
-import { useGetCategory, useGetLevelsList } from "~/types/client-api";
-import type { LevelOut } from "~/types/client-schemas";
+import { useGetLevelsList } from "~/types/client-api";
 
 export default function Questions() {
   const { id } = useParams();
   const categoryId = Number(id);
-  const { data } = useGetCategory(categoryId);
-  const initialLevel = data?.currentLevel;
 
-  const [currentLevelId, setCurrentLevelId] = useState<
-    LevelOut["id"] | undefined
-  >(initialLevel?.id);
+  const [currentLevelId, setCurrentLevelId] = useState<number>();
 
   const { data: levelsData, refetch: invalidateLevels } = useGetLevelsList({
     category_id: categoryId,
   });
 
-  const updateLevels = async (newLevel: LevelOut) => {
-    await invalidateLevels().then(() => {
-      setCurrentLevelId(newLevel.id);
-    });
-  };
+  const activeLevel = levelsData?.items.find(({ isActive }) => isActive);
 
   useEffect(() => {
-    setCurrentLevelId(initialLevel?.id);
-  }, [initialLevel]);
+    setCurrentLevelId(activeLevel?.id);
+  }, [activeLevel?.id]);
 
   const currentLevel = levelsData?.items.find(
     ({ id }) => id === currentLevelId,
@@ -47,20 +37,12 @@ export default function Questions() {
             onCurrentLevelChange={setCurrentLevelId}
           />
           <div className="flex min-w-0 flex-1 items-center">
-            {currentLevel?.isLocked ? (
-              <UnlockSection
-                level={currentLevel}
-                categoryId={categoryId}
-                onUnlockSuccess={invalidateLevels}
-              />
-            ) : (
-              <Question
-                className="lg:pr-24"
-                categoryId={categoryId}
-                levelId={currentLevel?.id}
-                invalidateLevels={updateLevels}
-              />
-            )}
+            <Question
+              className="lg:pr-24"
+              categoryId={categoryId}
+              levelId={currentLevel?.id}
+              invalidateLevels={invalidateLevels}
+            />
           </div>
         </div>
       </div>

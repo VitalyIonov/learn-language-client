@@ -5,7 +5,7 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface AppSchemasClientLevelLevelOut {
+export interface LevelScoreOut {
   id: number;
   name: string;
   alias: string;
