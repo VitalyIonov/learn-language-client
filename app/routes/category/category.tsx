@@ -2,10 +2,8 @@ import { clsx } from "clsx";
 import { Button } from "@headlessui/react";
 import { useParams, Link } from "react-router";
 
-import {
-  useGetCategory,
-  useGetStatisticsCategoryCurrentProgress,
-} from "~/types/client-api";
+import { getActiveLevel, getNextLevel } from "~/shared/utils/levels";
+import { useGetCategory, useGetLevelsList } from "~/types/client-api";
 import { CurrentLevelSection } from "~/routes/category/components/current-level-section/current-level-section";
 import { CurrentProgressSection } from "~/routes/category/components/current-progress-section/current-progress-section";
 
@@ -18,8 +16,15 @@ export default function Category() {
 
   const { data: categoryData } = useGetCategory(Number(id));
 
-  const { data: categoryCurrentProgress } =
-    useGetStatisticsCategoryCurrentProgress(Number(id));
+  const { data: levelsData } = useGetLevelsList({ category_id: Number(id) });
+
+  const levels = levelsData?.items ?? [];
+  const activeLevel = getActiveLevel(levels);
+  const nextLevel = getNextLevel(levels, activeLevel);
+  const progress =
+    activeLevel && activeLevel.maxScore > 0
+      ? (activeLevel.currentScore / activeLevel.maxScore) * 100
+      : 0;
 
   return (
     <PageContent>
@@ -33,15 +38,15 @@ export default function Category() {
           "lg:grid-cols-3 lg:gap-8",
         )}
       >
-        {categoryCurrentProgress ? (
-          <CurrentLevelSection level={categoryCurrentProgress.currentLevel} />
+        {activeLevel ? (
+          <CurrentLevelSection level={activeLevel.alias} />
         ) : null}
-        {categoryCurrentProgress ? (
+        {activeLevel ? (
           <CurrentProgressSection
             className="col-span-1 lg:col-span-2"
-            progress={categoryCurrentProgress?.progress || 0}
-            currentLevel={categoryCurrentProgress?.currentLevel}
-            nextLevel={categoryCurrentProgress?.nextLevel}
+            progress={progress}
+            currentLevel={activeLevel.alias}
+            nextLevel={nextLevel?.alias}
           />
         ) : null}
       </div>

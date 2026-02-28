@@ -4,6 +4,7 @@ import { clsx } from "clsx";
 
 import { LevelTab } from "~/routes/questions/components/level-tabs/level-tab";
 import { CurrentTab } from "~/routes/questions/components/level-tabs/current-tab";
+import { getNextLevel } from "~/shared/utils/levels";
 import { type LevelsListResponse, type LevelOut } from "~/types/client-schemas";
 
 interface LevelTabsProps {
@@ -26,9 +27,7 @@ export const LevelTabs = ({
   };
 
   const levels = levelsData?.items ?? [];
-  const nextLevel =
-    currentLevel &&
-    levels.find((level) => level.value > currentLevel.value) || null;
+  const nextLevel = getNextLevel(levels, currentLevel);
 
   return (
     <div

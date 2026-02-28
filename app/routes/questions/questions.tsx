@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { LevelTabs } from "~/routes/questions/components/level-tabs";
 import { Question } from "~/routes/questions/components/question/question";
 import { PageContent } from "~/shared/components";
+import { getActiveLevel } from "~/shared/utils/levels";
 import { useGetLevelsList } from "~/types/client-api";
 
 export default function Questions() {
@@ -17,7 +18,7 @@ export default function Questions() {
     category_id: categoryId,
   });
 
-  const activeLevel = levelsData?.items.find(({ isActive }) => isActive);
+  const activeLevel = getActiveLevel(levelsData?.items ?? []);
 
   useEffect(() => {
     setCurrentLevelId(activeLevel?.id);
