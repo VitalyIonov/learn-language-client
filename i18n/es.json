@@ -35,6 +35,9 @@
         },
         "todayProgress": {
           "title": "El progreso de hoy"
+        },
+        "categoriesProgress": {
+          "title": "Progreso por categorías"
         }
       }
     }
