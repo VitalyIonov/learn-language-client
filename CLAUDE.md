@@ -74,6 +74,9 @@ react-hook-form + zod + @hookform/resolvers. Custom `Form` component wraps `Form
 - **Imports**: Use `~/` alias for all `app/` imports (e.g., `import { Button } from "~/shared/components"`).
 - **Tailwind classes**: When 8+ classes, group with `clsx(...)`. Custom ESLint plugin (`tw-classname-group/prefer-cn`) enforces this with auto-fix. Use `cn()` from `~/shared/lib/utils` when merging is needed.
 - **Notifications**: `useNotificationStore()` from `~/shared/stores` — `.success()`, `.error()`, `.warning()`, `.info()`, `.custom()`. Special types `"level-up"` and `"category-finished"` render animated notifications.
+- **FSD file placement**: Утилиты, константы, хелперы и прочий код размещать строго по FSD. `shared/` — только базовый код без бизнес-логики. Код с бизнес-логикой, специфичный для страницы, кладётся в `routes/<route>/utils/`. В `shared/utils/` — только то, что реально переиспользуется между несколькими роутами.
+- **Extract logic immediately**: Вычислительную логику сразу выносить в утилиту, не инлайнить в компонент.
+- **null vs undefined**: `null` — когда отсутствие значения присваивается намеренно (например, "результат не найден"). `undefined` — когда значение не определено или не инициализировано.
 
 ## Environment Variables
 
