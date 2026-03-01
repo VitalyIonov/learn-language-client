@@ -16,7 +16,7 @@ export const CategoriesProgressSection = ({ className, categories }: Props) => {
   return (
     <DataSection className={className}>
       <h2>{t("sections.categoriesProgress.title")}</h2>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-5">
         {categories.map((category) => {
           const percent =
             category.maxScore > 0
@@ -33,14 +33,14 @@ export const CategoriesProgressSection = ({ className, categories }: Props) => {
                   {percent}%
                 </span>
               </div>
-              <div className="h-2 w-full rounded-full bg-zinc-700">
+              <div className="relative h-2 w-full overflow-hidden rounded-full bg-zinc-700">
                 <div
                   className={clsx(
-                    "h-full rounded-full",
+                    "absolute inset-0",
                     "bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-500",
-                    "opacity-50 transition-[width] duration-500 ease-out",
+                    "opacity-80 transition-[clip-path] duration-500 ease-out",
                   )}
-                  style={{ width: `${percent}%` }}
+                  style={{ clipPath: `inset(0 ${100 - percent}% 0 0)` }}
                 />
               </div>
             </div>
