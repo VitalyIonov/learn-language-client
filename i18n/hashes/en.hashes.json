@@ -58,5 +58,9 @@
   "page.settings.fields.targetLanguage.label": {
     "key_hash": "d36f46ec457be06dacd23210f7e1c0785952e978682e164e62e98f24d8dfc613",
     "text_hash": "1069f9128e48b841fe5a01e3e083272d2ccec1b309806eff4c73f104c96e5b67"
+  },
+  "page.statistics.sections.categoriesProgress.title": {
+    "key_hash": "674362744b93c88437fd682d00906a0729b9d3d9d1663fb502037dcf8f899e93",
+    "text_hash": "9f08f1d844c0d26d3e5beae780d61718dc88b08dbe09d64dc540779d07402c6f"
   }
 }
