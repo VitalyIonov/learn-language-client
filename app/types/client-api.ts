@@ -25,6 +25,7 @@ import type {
 
 import type {
   CategoriesListResponse,
+  CategoriesProgressListResponse,
   CategoryOut,
   GetLevelsListParams,
   GetTranslateParams,
@@ -34,7 +35,6 @@ import type {
   IssueOut,
   IssueTypeListResponse,
   IssuesListResponse,
-  LevelProgressByCategoryStatistic,
   LevelsListResponse,
   ProgressByUserStatistic,
   QuestionGenerate,
@@ -622,94 +622,6 @@ export const useUpdateQuestion = <TError = HTTPValidationError,
     }
     
 /**
- * @summary Get Category Current Progress
- */
-export const getStatisticsCategoryCurrentProgress = (
-    categoryId: number,
- signal?: AbortSignal
-) => {
-      
-      
-      return clientRequest<LevelProgressByCategoryStatistic>(
-      {url: `/statistics/category-current-progress/${categoryId}`, method: 'GET', signal
-    },
-      );
-    }
-  
-
-export const getGetStatisticsCategoryCurrentProgressQueryKey = (categoryId: number,) => {
-    return [`/statistics/category-current-progress/${categoryId}`] as const;
-    }
-
-    
-export const getGetStatisticsCategoryCurrentProgressQueryOptions = <TData = Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>, TError = HTTPValidationError>(categoryId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>, TError, TData>>, }
-) => {
-
-const {query: queryOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetStatisticsCategoryCurrentProgressQueryKey(categoryId);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>> = ({ signal }) => getStatisticsCategoryCurrentProgress(categoryId, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(categoryId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type GetStatisticsCategoryCurrentProgressQueryResult = NonNullable<Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>>
-export type GetStatisticsCategoryCurrentProgressQueryError = HTTPValidationError
-
-
-export function useGetStatisticsCategoryCurrentProgress<TData = Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>, TError = HTTPValidationError>(
- categoryId: number, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>,
-          TError,
-          Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>
-        > , 'initialData'
-      >, }
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetStatisticsCategoryCurrentProgress<TData = Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>, TError = HTTPValidationError>(
- categoryId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>,
-          TError,
-          Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>
-        > , 'initialData'
-      >, }
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetStatisticsCategoryCurrentProgress<TData = Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>, TError = HTTPValidationError>(
- categoryId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>, TError, TData>>, }
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Get Category Current Progress
- */
-
-export function useGetStatisticsCategoryCurrentProgress<TData = Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>, TError = HTTPValidationError>(
- categoryId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsCategoryCurrentProgress>>, TError, TData>>, }
- , queryClient?: QueryClient 
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getGetStatisticsCategoryCurrentProgressQueryOptions(categoryId,options)
-
-  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
-
-/**
  * @summary Get Progress By User
  */
 export const getStatisticsProgress = (
@@ -874,6 +786,94 @@ export function useGetStatisticsTodayProgress<TData = Awaited<ReturnType<typeof 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getGetStatisticsTodayProgressQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Get Categories Progress
+ */
+export const getStatisticsCategoriesProgress = (
+    
+ signal?: AbortSignal
+) => {
+      
+      
+      return clientRequest<CategoriesProgressListResponse>(
+      {url: `/statistics/categories-progress/`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getGetStatisticsCategoriesProgressQueryKey = () => {
+    return [`/statistics/categories-progress/`] as const;
+    }
+
+    
+export const getGetStatisticsCategoriesProgressQueryOptions = <TData = Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetStatisticsCategoriesProgressQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>> = ({ signal }) => getStatisticsCategoriesProgress(signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetStatisticsCategoriesProgressQueryResult = NonNullable<Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>>
+export type GetStatisticsCategoriesProgressQueryError = unknown
+
+
+export function useGetStatisticsCategoriesProgress<TData = Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>,
+          TError,
+          Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetStatisticsCategoriesProgress<TData = Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>,
+          TError,
+          Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetStatisticsCategoriesProgress<TData = Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>, TError, TData>>, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get Categories Progress
+ */
+
+export function useGetStatisticsCategoriesProgress<TData = Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsCategoriesProgress>>, TError, TData>>, }
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetStatisticsCategoriesProgressQueryOptions(options)
 
   const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
