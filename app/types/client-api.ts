@@ -44,6 +44,7 @@ import type {
   SettingsInterfaceLangUpdate,
   SettingsTargetLanguageUpdate,
   TargetLanguageListResponse,
+  TodayScoreStatistic,
   TranslateOut,
   UserOut
 } from './client-schemas';
@@ -786,6 +787,94 @@ export function useGetStatisticsTodayProgress<TData = Awaited<ReturnType<typeof 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getGetStatisticsTodayProgressQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Get Today Score By User
+ */
+export const getStatisticsTodayScore = (
+    
+ signal?: AbortSignal
+) => {
+      
+      
+      return clientRequest<TodayScoreStatistic>(
+      {url: `/statistics/today_score/`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getGetStatisticsTodayScoreQueryKey = () => {
+    return [`/statistics/today_score/`] as const;
+    }
+
+    
+export const getGetStatisticsTodayScoreQueryOptions = <TData = Awaited<ReturnType<typeof getStatisticsTodayScore>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsTodayScore>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetStatisticsTodayScoreQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getStatisticsTodayScore>>> = ({ signal }) => getStatisticsTodayScore(signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getStatisticsTodayScore>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetStatisticsTodayScoreQueryResult = NonNullable<Awaited<ReturnType<typeof getStatisticsTodayScore>>>
+export type GetStatisticsTodayScoreQueryError = unknown
+
+
+export function useGetStatisticsTodayScore<TData = Awaited<ReturnType<typeof getStatisticsTodayScore>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsTodayScore>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getStatisticsTodayScore>>,
+          TError,
+          Awaited<ReturnType<typeof getStatisticsTodayScore>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetStatisticsTodayScore<TData = Awaited<ReturnType<typeof getStatisticsTodayScore>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsTodayScore>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getStatisticsTodayScore>>,
+          TError,
+          Awaited<ReturnType<typeof getStatisticsTodayScore>>
+        > , 'initialData'
+      >, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetStatisticsTodayScore<TData = Awaited<ReturnType<typeof getStatisticsTodayScore>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsTodayScore>>, TError, TData>>, }
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get Today Score By User
+ */
+
+export function useGetStatisticsTodayScore<TData = Awaited<ReturnType<typeof getStatisticsTodayScore>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getStatisticsTodayScore>>, TError, TData>>, }
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetStatisticsTodayScoreQueryOptions(options)
 
   const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

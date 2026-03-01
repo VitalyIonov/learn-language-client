@@ -97,6 +97,7 @@ export * from './targetLanguageListResponse';
 export * from './targetLanguageOut';
 export * from './textDefinitionOut';
 export * from './textDefinitionOutAudio';
+export * from './todayScoreStatistic';
 export * from './translateOut';
 export * from './translateTextTranslateGetParams';
 export * from './unlockLevelLevelsUnlockLevelIdGetParams';
