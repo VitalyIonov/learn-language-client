@@ -1,4 +1,4 @@
-import { clsx } from "clsx";
+import { cn } from "~/shared/lib/utils";
 
 type Props = {
   title: string;
@@ -8,7 +8,7 @@ type Props = {
 export const PageTitle = ({ title, className }: Props) => {
   return (
     <h1
-      className={clsx(
+      className={cn(
         "mb-12 text-lg font-bold tracking-tight text-slate-200 lg:mb-24 lg:text-3xl",
         className,
       )}

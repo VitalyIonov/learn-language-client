@@ -20,15 +20,9 @@ type Props = {
   className?: string;
   categoryId?: CategoryOut["id"];
   levelId?: number;
-  invalidateLevels: () => Promise<unknown>;
 };
 
-export function Question({
-  className,
-  levelId,
-  categoryId,
-  invalidateLevels,
-}: Props) {
+export function Question({ className, levelId, categoryId }: Props) {
   const [meaningTranslation, setMeaningTranslation] = useState<
     string | undefined
   >(undefined);
@@ -103,7 +97,6 @@ export function Question({
       });
 
       setLastResult(result.isCorrect);
-      await invalidateLevels();
       updateQuestion();
     }
   };

@@ -16,7 +16,7 @@ export default function Questions() {
 
   const [currentLevelId, setCurrentLevelId] = useState<number>();
 
-  const { data: levelsData, refetch: invalidateLevels } = useGetLevelsList({
+  const { data: levelsData } = useGetLevelsList({
     category_id: categoryId,
   });
 
@@ -45,7 +45,6 @@ export default function Questions() {
               className="lg:pr-24"
               categoryId={categoryId}
               levelId={currentLevel?.id}
-              invalidateLevels={invalidateLevels}
             />
           </div>
         </div>
