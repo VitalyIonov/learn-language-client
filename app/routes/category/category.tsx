@@ -2,10 +2,8 @@ import { clsx } from "clsx";
 import { Button } from "@headlessui/react";
 import { useParams, Link } from "react-router";
 
-import { getActiveLevel, getNextLevel } from "~/shared/utils/levels";
 import { useGetCategory, useGetLevelsList } from "~/types/client-api";
-import { CurrentLevelSection } from "~/routes/category/components/current-level-section/current-level-section";
-import { CurrentProgressSection } from "~/routes/category/components/current-progress-section/current-progress-section";
+import { LevelsGrid } from "~/routes/category/components/levels-grid/levels-grid";
 
 import { PageTitle, PageContent } from "~/shared/components";
 import { useI18n } from "~/shared/hooks/useI18n";
@@ -15,41 +13,14 @@ export default function Category() {
   const { id } = useParams();
 
   const { data: categoryData } = useGetCategory(Number(id));
-
   const { data: levelsData } = useGetLevelsList({ category_id: Number(id) });
 
   const levels = levelsData?.items ?? [];
-  const activeLevel = getActiveLevel(levels);
-  const nextLevel = getNextLevel(levels, activeLevel);
-  const progress =
-    activeLevel && activeLevel.maxScore > 0
-      ? (activeLevel.currentScore / activeLevel.maxScore) * 100
-      : 0;
 
   return (
     <PageContent>
       <PageTitle title={categoryData?.name || ""} />
-      <div
-        className={clsx(
-          "grid grid-cols-1 gap-6",
-          "mb-24",
-          "sm:mb-0",
-          "md:grid-cols-2",
-          "lg:grid-cols-3 lg:gap-8",
-        )}
-      >
-        {activeLevel ? (
-          <CurrentLevelSection level={activeLevel.alias} />
-        ) : null}
-        {activeLevel ? (
-          <CurrentProgressSection
-            className="col-span-1 lg:col-span-2"
-            progress={progress}
-            currentLevel={activeLevel.alias}
-            nextLevel={nextLevel?.alias}
-          />
-        ) : null}
-      </div>
+      <LevelsGrid levels={levels} className="mb-24 sm:mb-0" />
       <div
         className={clsx(
           "fixed right-0 bottom-0 left-0",
