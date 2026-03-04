@@ -62,5 +62,9 @@
   "page.statistics.sections.categoriesProgress.title": {
     "key_hash": "674362744b93c88437fd682d00906a0729b9d3d9d1663fb502037dcf8f899e93",
     "text_hash": "9f08f1d844c0d26d3e5beae780d61718dc88b08dbe09d64dc540779d07402c6f"
+  },
+  "page.category.sections.levels.title": {
+    "key_hash": "8c307f0fd958d2f9d6b7fde97f06486390856f673e492f5582e7dd1510291b1d",
+    "text_hash": "b14821319ef8b550471f105625a6fad3291012fc6e1d01210b025bf3fd613aa3"
   }
 }

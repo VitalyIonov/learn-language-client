@@ -21,6 +21,9 @@
         },
         "currentProgress": {
           "title": "Progreso actual"
+        },
+        "levels": {
+          "title": "Niveles"
         }
       },
       "buttons": {
