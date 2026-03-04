@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 
 import { LevelTabs } from "~/routes/questions/components/level-tabs";
 import { Question } from "~/routes/questions/components/question/question";
@@ -11,6 +11,8 @@ import { useGetLevelsList } from "~/types/client-api";
 export default function Questions() {
   const { id } = useParams();
   const categoryId = Number(id);
+  const [searchParams] = useSearchParams();
+  const levelIdFromUrl = searchParams.get("levelId");
 
   const [currentLevelId, setCurrentLevelId] = useState<number>();
 
@@ -21,7 +23,8 @@ export default function Questions() {
   const activeLevel = getActiveLevel(levelsData?.items ?? []);
 
   useEffect(() => {
-    setCurrentLevelId(activeLevel?.id);
+    const initialId = levelIdFromUrl ? Number(levelIdFromUrl) : activeLevel?.id;
+    setCurrentLevelId(initialId);
   }, [activeLevel?.id]);
 
   const currentLevel = levelsData?.items.find(

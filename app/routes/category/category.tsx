@@ -1,7 +1,8 @@
 import { clsx } from "clsx";
-import { Button } from "@headlessui/react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 
+import { getActiveLevel } from "~/shared/utils/levels";
 import { useGetCategory, useGetLevelsList } from "~/types/client-api";
 import { LevelsGrid } from "~/routes/category/components/levels-grid/levels-grid";
 
@@ -16,37 +17,72 @@ export default function Category() {
   const { data: levelsData } = useGetLevelsList({ category_id: Number(id) });
 
   const levels = levelsData?.items ?? [];
+  const activeLevel = getActiveLevel(levels);
+
+  const [selectedLevelId, setSelectedLevelId] = useState<number>();
+
+  useEffect(() => {
+    setSelectedLevelId(activeLevel?.id);
+  }, [activeLevel?.id]);
+
+  const questionsUrl = selectedLevelId
+    ? `questions?levelId=${selectedLevelId}`
+    : "questions";
 
   return (
     <PageContent>
-      <PageTitle title={categoryData?.name || ""} />
-      <LevelsGrid levels={levels} className="mb-24 sm:mb-0" />
+      <div className="mb-12 flex items-center justify-between lg:mb-24">
+        <PageTitle
+          title={categoryData?.name || ""}
+          className="mb-0 lg:mb-0"
+        />
+        <Link
+          to={questionsUrl}
+          className={clsx(
+            "hidden",
+            "items-center justify-center gap-2",
+            "rounded-md px-3 py-1.5",
+            "text-sm/6 font-semibold text-white",
+            "bg-indigo-700 shadow-inner",
+            "cursor-pointer",
+            "hover:bg-indigo-800",
+            "focus:outline focus:outline-white",
+            "sm:inline-flex",
+          )}
+        >
+          {t("buttons.startLearn")}
+        </Link>
+      </div>
+      <LevelsGrid
+        levels={levels}
+        selectedLevelId={selectedLevelId}
+        onSelectLevel={setSelectedLevelId}
+        className="mb-24 sm:mb-0"
+      />
       <div
         className={clsx(
           "fixed right-0 bottom-0 left-0",
           "flex justify-center",
-          "mt-8 p-4",
+          "p-4",
           "bg-slate-900",
-          "sm:static sm:justify-end",
+          "sm:hidden",
         )}
       >
-        <Button
+        <Link
+          to={questionsUrl}
           className={clsx(
             "inline-flex",
-            "flex items-center justify-center gap-2",
+            "items-center justify-center gap-2",
             "px-3 py-1.5",
             "h-16 w-full",
             "text-base font-semibold text-white",
             "bg-indigo-700",
             "rounded-md",
             "shadow-inner",
-            "cursor-pointer",
-            "focus:not-data-focus:outline-none data-disabled:cursor-not-allowed data-disabled:bg-slate-500 data-focus:outline data-focus:outline-white data-hover:bg-indigo-800 data-open:bg-gray-700",
-            "lg:h-auto lg:w-auto lg:text-sm/6",
           )}
         >
-          <Link to="questions">{t("buttons.startLearn")}</Link>
-        </Button>
+          {t("buttons.startLearn")}
+        </Link>
       </div>
     </PageContent>
   );
