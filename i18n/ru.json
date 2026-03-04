@@ -21,6 +21,9 @@
         },
         "currentProgress": {
           "title": "Текущий прогресс"
+        },
+        "levels": {
+          "title": "Уровни"
         }
       },
       "buttons": {
