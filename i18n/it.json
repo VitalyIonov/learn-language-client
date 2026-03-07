@@ -55,5 +55,13 @@
         "logout": "Disconnetti"
       }
     }
+  },
+  "issueTypes": {
+    "TYPO": "Errore di battitura",
+    "AMBIGUITY": "Ambiguità",
+    "WRONG_TRANSLATION": "Traduzione errata",
+    "POOR_AUDIO": "Audio scadente",
+    "DISLIKE": "Semplicemente non mi piace.",
+    "OTHER": "Altro"
   }
 }

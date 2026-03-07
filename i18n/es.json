@@ -55,5 +55,13 @@
         "logout": "Cerrar sesión"
       }
     }
+  },
+  "issueTypes": {
+    "TYPO": "Error tipográfico",
+    "AMBIGUITY": "Ambigüedad",
+    "WRONG_TRANSLATION": "Traducción incorrecta",
+    "POOR_AUDIO": "Audio deficiente",
+    "DISLIKE": "Simplemente no me gusta.",
+    "OTHER": "Otro"
   }
 }
