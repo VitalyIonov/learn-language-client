@@ -45,6 +45,14 @@
       }
     }
   },
+  "issueTypes": {
+    "TYPO": "Typo",
+    "AMBIGUITY": "Ambiguity",
+    "WRONG_TRANSLATION": "Wrong translation",
+    "POOR_AUDIO": "Poor audio",
+    "DISLIKE": "Just don't like it",
+    "OTHER": "Other"
+  },
   "pageHeader": {
     "menu": {
       "items": {

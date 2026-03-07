@@ -10,22 +10,22 @@ import {
   SingleSelect,
 } from "~/shared/components/single-select";
 
-type Props<FormValues extends FieldValues> = {
+type Props<FormValues extends FieldValues, T extends string | number = number> = {
   name: Path<FormValues>;
   label: string;
-  options: SelectOption<number>[];
+  options: SelectOption<T>[];
   control: Control<FormValues>;
 
   placeholder?: string;
 };
 
-export function SingleSelectField<FormValues extends FieldValues>({
+export function SingleSelectField<FormValues extends FieldValues, T extends string | number = number>({
   control,
   name,
   options,
   placeholder,
   label,
-}: Props<FormValues>) {
+}: Props<FormValues, T>) {
   return (
     <FormField
       control={control}

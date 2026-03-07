@@ -5,12 +5,13 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { IssueCreateText } from './issueCreateText';
+import type { IssueTypeName } from './issueTypeName';
 import type { IssueCreateStatusId } from './issueCreateStatusId';
 import type { IssueCreateReporterId } from './issueCreateReporterId';
 
 export interface IssueCreate {
   text?: IssueCreateText;
-  typeId: number;
+  type: IssueTypeName;
   statusId?: IssueCreateStatusId;
   reporterId?: IssueCreateReporterId;
   questionId: number;

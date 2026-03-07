@@ -7,14 +7,14 @@
 import type { IssueOutText } from './issueOutText';
 import type { IssueOutDecision } from './issueOutDecision';
 import type { IssueOutStatus } from './issueOutStatus';
-import type { IssueOutType } from './issueOutType';
+import type { IssueTypeName } from './issueTypeName';
 
 export interface IssueOut {
   id: number;
   text?: IssueOutText;
   decision?: IssueOutDecision;
   status?: IssueOutStatus;
-  type?: IssueOutType;
+  type: IssueTypeName;
   meaning: string;
   definitions: string[];
 }

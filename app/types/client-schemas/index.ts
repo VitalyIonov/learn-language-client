@@ -55,6 +55,7 @@ export * from './issueOutText';
 export * from './issueOutType';
 export * from './issueStatusOut';
 export * from './issueTypeListResponse';
+export * from './issueTypeName';
 export * from './issueTypeOut';
 export * from './issuesListResponse';
 export * from './levelOut';

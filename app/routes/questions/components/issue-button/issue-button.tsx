@@ -24,12 +24,12 @@ export const IssueButton = ({ question }: Props) => {
     setIsIssueModalOpened(true);
   };
 
-  const handleIssueCreate = async ({ text, issueTypeId }: Schema) => {
+  const handleIssueCreate = async ({ text, issueType }: Schema) => {
     await addIssue(
       {
         data: {
           text,
-          typeId: issueTypeId,
+          type: issueType,
           questionId: question.id,
           meaning: question.meaning?.name,
           definitions: question.definitions.map((item) =>

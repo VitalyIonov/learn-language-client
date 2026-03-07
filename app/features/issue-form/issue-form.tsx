@@ -22,7 +22,7 @@ function IssueForm({ id, defaultValues, onSubmit }: Props) {
   return (
     <Form methods={formMethods} onSubmit={onSubmit} id={id}>
       <IssueTypeField
-        name="issueTypeId"
+        name="issueType"
         label="Выберите тип обращения"
         control={control}
         setValue={formMethods.setValue}

@@ -4,8 +4,8 @@
  * client API
  * OpenAPI spec version: 0.1.0
  */
+import type { IssueTypeName } from './issueTypeName';
 
 export interface IssueTypeOut {
-  id: number;
-  name: string;
+  name: IssueTypeName;
 }
