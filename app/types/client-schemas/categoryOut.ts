@@ -4,8 +4,10 @@
  * client API
  * OpenAPI spec version: 0.1.0
  */
+import type { TargetLanguageCode } from './targetLanguageCode';
 
 export interface CategoryOut {
   id: number;
   name: string;
+  language: TargetLanguageCode;
 }

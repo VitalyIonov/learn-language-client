@@ -53,6 +53,7 @@ export * from './issueOutDecision';
 export * from './issueOutStatus';
 export * from './issueOutText';
 export * from './issueOutType';
+export * from './issueStatusName';
 export * from './issueStatusOut';
 export * from './issueTypeListResponse';
 export * from './issueTypeName';

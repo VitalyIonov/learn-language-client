@@ -4,12 +4,14 @@
  * client API
  * OpenAPI spec version: 0.1.0
  */
+import type { TargetLanguageCode } from './targetLanguageCode';
 
 export interface LevelOut {
   id: number;
   name: string;
   alias: string;
   value: number;
+  language: TargetLanguageCode;
   currentScore: number;
   maxScore: number;
   isActive: boolean;

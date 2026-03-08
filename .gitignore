@@ -1,9 +1,29 @@
-.DS_Store
-/node_modules/
+# Dependencies
+node_modules/
+
+# Build
+build/
+dist/
 
 # React Router
-/.react-router/
-/build/
-/dist
+.react-router/
 
+# Environment
 .env
+.env.local
+.env.production
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*

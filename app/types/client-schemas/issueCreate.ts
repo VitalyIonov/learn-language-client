@@ -6,13 +6,11 @@
  */
 import type { IssueCreateText } from './issueCreateText';
 import type { IssueTypeName } from './issueTypeName';
-import type { IssueCreateStatusId } from './issueCreateStatusId';
 import type { IssueCreateReporterId } from './issueCreateReporterId';
 
 export interface IssueCreate {
   text?: IssueCreateText;
   type: IssueTypeName;
-  statusId?: IssueCreateStatusId;
   reporterId?: IssueCreateReporterId;
   questionId: number;
   meaning: string;

@@ -10,7 +10,8 @@ export default defineConfig(({ mode }) => {
     base: "/",
     plugins: [tailwindcss(), reactRouter(), tsconfigPaths(), devtoolsJson()],
     define: {
-      "process.env.VITE_API_URL": JSON.stringify(env.VITE_API_URL),
+      "import.meta.env.VITE_API_URL": JSON.stringify(env.VITE_API_URL),
+      "import.meta.env.VITE_I18N_BASE_ROOT": JSON.stringify(env.VITE_I18N_BASE_ROOT),
     },
     server: {
       host: true,

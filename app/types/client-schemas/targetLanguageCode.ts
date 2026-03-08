@@ -12,4 +12,5 @@ export type TargetLanguageCode = typeof TargetLanguageCode[keyof typeof TargetLa
 export const TargetLanguageCode = {
   EN: 'EN',
   ES: 'ES',
+  RU: 'RU',
 } as const;

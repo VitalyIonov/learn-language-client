@@ -4,10 +4,12 @@
  * client API
  * OpenAPI spec version: 0.1.0
  */
+import type { TargetLanguageCode } from './targetLanguageCode';
 import type { CategoryOutBaseImage } from './categoryOutBaseImage';
 
 export interface CategoryOutBase {
   id: number;
   name: string;
+  language: TargetLanguageCode;
   image?: CategoryOutBaseImage;
 }

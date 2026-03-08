@@ -4,10 +4,12 @@
  * client API
  * OpenAPI spec version: 0.1.0
  */
+import type { TargetLanguageCode } from './targetLanguageCode';
 
 export interface LevelOutBase {
   id: number;
   name: string;
   alias: string;
   value: number;
+  language: TargetLanguageCode;
 }
