@@ -66,5 +66,29 @@
   "page.category.sections.levels.title": {
     "key_hash": "8c307f0fd958d2f9d6b7fde97f06486390856f673e492f5582e7dd1510291b1d",
     "text_hash": "1467c903df92f1804934b5bf5930e4c3529af6d5eee0d7beef39ea6b694d9fc2"
+  },
+  "issueTypes.TYPO": {
+    "key_hash": "9ef9ed773f53fd5671d4a201a95cfb4dc616688ad0870d9945f4a7d28f493f25",
+    "text_hash": "43090245457884c74046c1200666b04f3ad50b85e90ea73b8c5093ed769f72c3"
+  },
+  "issueTypes.AMBIGUITY": {
+    "key_hash": "4e399d8d8750039568c20346e4ec2948f5b73271683db1cd617e5dff5290f150",
+    "text_hash": "a02b38e8fc75e3d9d813800c0f209545acafdc78da561cb8649ae9ac869242a3"
+  },
+  "issueTypes.WRONG_TRANSLATION": {
+    "key_hash": "08230ecb14ba45371dc53a0f354f55a32e23bf6b47a2e628db4aaea599b080ca",
+    "text_hash": "e99cc9abfcd55c5e37d13d9743722dd422e31b4eb97ccaf94074c52203cf57e0"
+  },
+  "issueTypes.POOR_AUDIO": {
+    "key_hash": "12bd9efffb04dbb8cd56843c83c18f76d9c9fe6f7e9c4c055fd107df5ca9f7e1",
+    "text_hash": "6f0299a9197e275729206ec586c6b6148d3558e66b0b985173932561f00f6fb6"
+  },
+  "issueTypes.DISLIKE": {
+    "key_hash": "cec5cd4e1ca7d240ddf5537e6cbd1dcf18a691cc9613f11593a310299787dd2c",
+    "text_hash": "bf512ff5d0425da925312ae55e57b9571eb0f6125e0abe2d9b5a3f914242b98d"
+  },
+  "issueTypes.OTHER": {
+    "key_hash": "9bf3bef0f4c8b4a5ab28265318377fdd09725a035cd638434a4b6e91d2ed5a11",
+    "text_hash": "f97e9da0e3b879f0a9df979ae260a5f7e1371edb127c1862d4f861981166cdc1"
   }
 }
