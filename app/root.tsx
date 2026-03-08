@@ -21,7 +21,7 @@ import { getLangFromCookie, normalizeLang } from "~/shared/utils/i18n";
 import "./app.css";
 import "./globals.css";
 
-const I18N_BASE = import.meta.env.VITE_I18N_BASE_ROOT as string;
+const I18N_BASE = import.meta.env.VITE_I18N_BASE as string;
 const API_URL = import.meta.env.VITE_API_URL as string;
 
 export const links: Route.LinksFunction = () => [
