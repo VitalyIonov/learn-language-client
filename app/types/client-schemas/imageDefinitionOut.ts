@@ -10,6 +10,7 @@ import type { ImageAssetOut } from './imageAssetOut';
 export interface ImageDefinitionOut {
   id: number;
   type: 'image';
+  text: string;
   language: TargetLanguageCode;
   imageId: number;
   image: ImageAssetOut;

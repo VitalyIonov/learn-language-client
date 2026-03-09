@@ -22,7 +22,11 @@ export function ImageOption({ definition, isSelected, lastResult }: Props) {
   const { data: user } = useGetCurrentUser();
 
   const { data: translatedText, isLoading } = useGetTranslate(
-    { text: definition.image.alt, lang_from: definition.language, lang_to: user?.interfaceLang ?? "" },
+    {
+      text: definition.text,
+      lang_from: definition.language,
+      lang_to: user?.interfaceLang ?? "",
+    },
     { query: { enabled: isFlipped && !!user } },
   );
 
