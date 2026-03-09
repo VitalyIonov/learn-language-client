@@ -1,6 +1,6 @@
-import type { AppSchemasClientLevelLevelOut } from "~/types/client-schemas";
+import type { LevelOut } from "~/types/client-schemas";
 
-type Level = AppSchemasClientLevelLevelOut;
+type Level = LevelOut;
 
 export const getActiveLevel = (levels: Level[]): Level | undefined =>
   levels.find((level) => level.isActive);

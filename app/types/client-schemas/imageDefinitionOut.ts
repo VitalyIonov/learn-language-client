@@ -4,11 +4,13 @@
  * client API
  * OpenAPI spec version: 0.1.0
  */
+import type { TargetLanguageCode } from './targetLanguageCode';
 import type { ImageAssetOut } from './imageAssetOut';
 
 export interface ImageDefinitionOut {
   id: number;
   type: 'image';
+  language: TargetLanguageCode;
   imageId: number;
   image: ImageAssetOut;
 }

@@ -8,6 +8,7 @@ import { useFlipAnimation } from "~/shared/hooks/use-flip-animation";
 import { type CategoryOut, type QuestionOut } from "~/types/client-schemas";
 import {
   useGetTranslate,
+  useGetCurrentUser,
   useGenerateQuestion,
   useUpdateQuestion,
 } from "~/types/client-api";
@@ -43,10 +44,12 @@ export function Question({ className, levelId, categoryId }: Props) {
     ...restAudioEvents
   } = usePlayAudio(question?.meaning?.audio?.url);
 
+  const { data: user } = useGetCurrentUser();
+
   const { data: translatedMeaning, isLoading: isMeaningLoading } =
     useGetTranslate(
-      { text: question?.meaning?.name || "" },
-      { query: { enabled: isMeaningFlipped && !!question?.meaning?.name } },
+      { text: question?.meaning?.name || "", lang_from: question?.meaning?.language ?? "", lang_to: user?.interfaceLang ?? "" },
+      { query: { enabled: isMeaningFlipped && !!question?.meaning?.name && !!user } },
     );
   const { mutateAsync: generateQuestion } = useGenerateQuestion();
   const { mutateAsync: makeAnswer } = useUpdateQuestion();

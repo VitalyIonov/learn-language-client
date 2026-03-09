@@ -1,9 +1,9 @@
 import { clsx } from "clsx";
 import { DataSection } from "~/shared/components/data-section/data-section";
-import type { AppSchemasClientLevelLevelOut } from "~/types/client-schemas";
+import type { LevelOut } from "~/types/client-schemas";
 
 type Props = {
-  level: AppSchemasClientLevelLevelOut;
+  level: LevelOut;
   isSelected: boolean;
   onSelect: () => void;
 };

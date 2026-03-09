@@ -3,7 +3,7 @@ import { Radio } from "@headlessui/react";
 import { clsx } from "clsx";
 import { useFlipAnimation } from "~/shared/hooks/use-flip-animation";
 import type { ImageDefinitionOut } from "~/types/client-schemas";
-import { useGetTranslate } from "~/types/client-api";
+import { useGetTranslate, useGetCurrentUser } from "~/types/client-api";
 
 type Props = {
   definition: ImageDefinitionOut;
@@ -19,9 +19,11 @@ export function ImageOption({ definition, isSelected, lastResult }: Props) {
     Boolean(translation),
   );
 
+  const { data: user } = useGetCurrentUser();
+
   const { data: translatedText, isLoading } = useGetTranslate(
-    { text: definition.image.alt },
-    { query: { enabled: isFlipped } },
+    { text: definition.image.alt, lang_from: definition.language, lang_to: user?.interfaceLang ?? "" },
+    { query: { enabled: isFlipped && !!user } },
   );
 
   useEffect(() => {

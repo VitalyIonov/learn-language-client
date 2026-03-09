@@ -1,9 +1,9 @@
 import { useI18n } from "~/shared/hooks/useI18n";
-import type { AppSchemasClientLevelLevelOut } from "~/types/client-schemas";
+import type { LevelOut } from "~/types/client-schemas";
 import { LevelCard } from "~/routes/category/components/levels-grid/level-card";
 
 type Props = {
-  levels: AppSchemasClientLevelLevelOut[];
+  levels: LevelOut[];
   selectedLevelId: number | undefined;
   onSelectLevel: (levelId: number) => void;
   className?: string;

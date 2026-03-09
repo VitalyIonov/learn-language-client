@@ -10,4 +10,12 @@ export type GetTranslateParams = {
  * text to translate
  */
 text: string;
+/**
+ * source language code
+ */
+lang_from: string;
+/**
+ * target language code
+ */
+lang_to: string;
 };
