@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { TabGroup, TabList } from "@headlessui/react";
 import * as Accordion from "@radix-ui/react-accordion";
 import { clsx } from "clsx";
@@ -18,6 +19,9 @@ export const LevelTabs = ({
   levelsData,
   onCurrentLevelChange,
 }: LevelTabsProps) => {
+  const [accordionValue, setAccordionValue] = useState("");
+  const isAccordionOpen = accordionValue === "levels";
+
   const currentLevelIndex = levelsData?.items.findIndex(
     (level) => level.id === currentLevel?.id,
   );
@@ -42,17 +46,16 @@ export const LevelTabs = ({
       <Accordion.Root
         type="single"
         collapsible
+        value={accordionValue}
+        onValueChange={setAccordionValue}
         className="[&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar]:w-0"
       >
         <Accordion.Item
           className="group flex flex-row gap-2 lg:flex-col"
-          value="currentLevel"
+          value="levels"
         >
           <Accordion.Trigger className="justify-between">
-            <CurrentTab
-              name={currentLevel?.name}
-              alias={currentLevel?.alias}
-            />
+            <CurrentTab name={currentLevel?.name} alias={currentLevel?.alias} />
           </Accordion.Trigger>
           <TabGroup
             vertical
@@ -79,9 +82,9 @@ export const LevelTabs = ({
                   />
                 ))}
               </Accordion.Content>
-              {nextLevel ? (
+              {nextLevel && !isAccordionOpen ? (
                 <LevelTab
-                  key={nextLevel.id}
+                  key={`${nextLevel.id}-next`}
                   level={nextLevel}
                   isSelected={nextLevel.id === currentLevel?.id}
                   onClick={handleLevelSelect}
