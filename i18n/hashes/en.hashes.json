@@ -113,19 +113,19 @@
   },
   "definitionGroup.instructions.VERB": {
     "key_hash": "99c2dc03da6a02236b7e13e290c768a1c4d7fb0ee2baeab91d56408a68bbcfc6",
-    "text_hash": "560652ee6c74687137414ab8416eda72d2f181b062f8b7af8aabe6445aac76d3"
+    "text_hash": "731d524cd8e16a6f1cc89924c669d1effaae5abeeac9f87050f30c50a0045f7a"
   },
   "definitionGroup.instructions.NOUN": {
     "key_hash": "90330fcae2ab5fbc5c505f713cca305054fe79f437ea60a8f618a77007161635",
-    "text_hash": "7215ef5f2fab1c417324f125e63598cb7bfc3e9050757778b6c41637985d1aeb"
+    "text_hash": "ac735cbef10fb25b63703e2e0bbe034c55a46ba208b9255c451be101dbc6af15"
   },
   "definitionGroup.instructions.DESCRIPTION": {
     "key_hash": "9bf40fb1caa12d48f31022bfca46a492f02dcf5b7618d988add50702db11422e",
-    "text_hash": "d4d168986748e5560f9cb44a395851b0c1b6466d516cb6800871328218cdcff2"
+    "text_hash": "1c4c7d0dc6b6d359829d960893ede7dd22e9553e912043fa08a1ceba57d3b113"
   },
   "definitionGroup.instructions.PHRASE": {
     "key_hash": "dc70a37200fce4cf98585d8f513c630db7b0f861e7137c81e33178e7354132b0",
-    "text_hash": "46262d7634d825f646351617b19c828ed8772c5330b6b04949f10c0292b72f18"
+    "text_hash": "76252fa28d0a416ef628c71c4b458196ce5d7c4ab3b6c7bd98599d5d365241e4"
   },
   "definitionGroup.instructions.ILLUSTRATION": {
     "key_hash": "0e777fd08bdd95ebf12adf3620adcd0a2cc13eda5d4772bee59c5e0966ac4a6d",

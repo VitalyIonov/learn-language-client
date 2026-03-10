@@ -73,10 +73,10 @@
       "ILLUSTRATION": "Illustration"
     },
     "instructions": {
-      "VERB": "Choisissez le verbe correct",
-      "NOUN": "Choisissez le nom correct",
-      "DESCRIPTION": "Choisissez la description correcte",
-      "PHRASE": "Choisissez la phrase correcte",
+      "VERB": "Choisissez le verbe approprié",
+      "NOUN": "Choisissez le nom approprié",
+      "DESCRIPTION": "Choisissez la description appropriée",
+      "PHRASE": "Choisissez la phrase appropriée",
       "ILLUSTRATION": "Choisissez l'illustration correcte"
     }
   }

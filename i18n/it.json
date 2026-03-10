@@ -73,10 +73,10 @@
       "ILLUSTRATION": "Illustrazione"
     },
     "instructions": {
-      "VERB": "Scegli il verbo corretto",
-      "NOUN": "Scegli il sostantivo corretto",
-      "DESCRIPTION": "Scegli la descrizione corretta",
-      "PHRASE": "Scegli la frase corretta",
+      "VERB": "Scegli il verbo appropriato",
+      "NOUN": "Scegli il sostantivo appropriato",
+      "DESCRIPTION": "Scegli la descrizione appropriata",
+      "PHRASE": "Scegli la frase appropriata",
       "ILLUSTRATION": "Scegli l'illustrazione corretta"
     }
   }
