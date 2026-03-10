@@ -63,5 +63,21 @@
     "POOR_AUDIO": "Audio de mauvaise qualité",
     "DISLIKE": "Je n'aime tout simplement pas ça.",
     "OTHER": "Autre"
+  },
+  "definitionGroup": {
+    "labels": {
+      "VERB": "Verbe",
+      "NOUN": "Nom",
+      "DESCRIPTION": "Description",
+      "PHRASE": "Phrase",
+      "ILLUSTRATION": "Illustration"
+    },
+    "instructions": {
+      "VERB": "Choisissez le verbe correct",
+      "NOUN": "Choisissez le nom correct",
+      "DESCRIPTION": "Choisissez la description correcte",
+      "PHRASE": "Choisissez la phrase correcte",
+      "ILLUSTRATION": "Choisissez l'illustration correcte"
+    }
   }
 }

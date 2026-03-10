@@ -63,5 +63,21 @@
     "POOR_AUDIO": "Audio scadente",
     "DISLIKE": "Semplicemente non mi piace.",
     "OTHER": "Altro"
+  },
+  "definitionGroup": {
+    "labels": {
+      "VERB": "Verbo",
+      "NOUN": "Sostantivo",
+      "DESCRIPTION": "Descrizione",
+      "PHRASE": "Frase",
+      "ILLUSTRATION": "Illustrazione"
+    },
+    "instructions": {
+      "VERB": "Scegli il verbo corretto",
+      "NOUN": "Scegli il sostantivo corretto",
+      "DESCRIPTION": "Scegli la descrizione corretta",
+      "PHRASE": "Scegli la frase corretta",
+      "ILLUSTRATION": "Scegli l'illustrazione corretta"
+    }
   }
 }

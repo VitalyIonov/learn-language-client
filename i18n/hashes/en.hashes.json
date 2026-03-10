@@ -90,5 +90,45 @@
   "issueTypes.OTHER": {
     "key_hash": "9bf3bef0f4c8b4a5ab28265318377fdd09725a035cd638434a4b6e91d2ed5a11",
     "text_hash": "f97e9da0e3b879f0a9df979ae260a5f7e1371edb127c1862d4f861981166cdc1"
+  },
+  "definitionGroup.labels.VERB": {
+    "key_hash": "70d0c35c3abfab220b32f74ba5622b77c1fb049834cba2a17fc6927660db9059",
+    "text_hash": "4405911001ce921421527486758e45e9213792d21f84ec1cbf075f2327eca2de"
+  },
+  "definitionGroup.labels.NOUN": {
+    "key_hash": "074449461dbd263ba32ca63f609761c3f64481836a4eae60c03e04d67d1c467b",
+    "text_hash": "1263f8820673262a93eea5f33bf5e2705abbda7745d7a88041d9285064db5232"
+  },
+  "definitionGroup.labels.DESCRIPTION": {
+    "key_hash": "21168832e11a90c021a9d31a34428049e688d657462b4bb9d0589c18d5fb2d0b",
+    "text_hash": "526e0087cc3f254d9f86f6c7d8e23d954c4dfda2b312efc29194ae8a860106ba"
+  },
+  "definitionGroup.labels.PHRASE": {
+    "key_hash": "08dacb65eca69dacf23232b5491bc7535e9bf30db22bdb6b0d76de9b0a6eac91",
+    "text_hash": "159410b8c9be321a89f79bc5a7ac24040ef0a5e9fe8badf415817729b41c5b71"
+  },
+  "definitionGroup.labels.ILLUSTRATION": {
+    "key_hash": "eb9d52f8ab442bef4924edc253b8d7b34f6d9c4dc6542892dcdae73e019b362e",
+    "text_hash": "c659a0d0edc26cd3f94c4cd097b65ffd1bd0fbcaa291fbb09604749dc2c5122c"
+  },
+  "definitionGroup.instructions.VERB": {
+    "key_hash": "99c2dc03da6a02236b7e13e290c768a1c4d7fb0ee2baeab91d56408a68bbcfc6",
+    "text_hash": "560652ee6c74687137414ab8416eda72d2f181b062f8b7af8aabe6445aac76d3"
+  },
+  "definitionGroup.instructions.NOUN": {
+    "key_hash": "90330fcae2ab5fbc5c505f713cca305054fe79f437ea60a8f618a77007161635",
+    "text_hash": "7215ef5f2fab1c417324f125e63598cb7bfc3e9050757778b6c41637985d1aeb"
+  },
+  "definitionGroup.instructions.DESCRIPTION": {
+    "key_hash": "9bf40fb1caa12d48f31022bfca46a492f02dcf5b7618d988add50702db11422e",
+    "text_hash": "d4d168986748e5560f9cb44a395851b0c1b6466d516cb6800871328218cdcff2"
+  },
+  "definitionGroup.instructions.PHRASE": {
+    "key_hash": "dc70a37200fce4cf98585d8f513c630db7b0f861e7137c81e33178e7354132b0",
+    "text_hash": "46262d7634d825f646351617b19c828ed8772c5330b6b04949f10c0292b72f18"
+  },
+  "definitionGroup.instructions.ILLUSTRATION": {
+    "key_hash": "0e777fd08bdd95ebf12adf3620adcd0a2cc13eda5d4772bee59c5e0966ac4a6d",
+    "text_hash": "3cc038a08eed745a46c9eebf093b7c8d9d75d49249e8b40cd65ed8b0639eff0a"
   }
 }
