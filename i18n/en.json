@@ -45,6 +45,22 @@
       }
     }
   },
+  "definitionGroup": {
+    "labels": {
+      "VERB": "Verb",
+      "NOUN": "Noun",
+      "DESCRIPTION": "Description",
+      "PHRASE": "Phrase",
+      "ILLUSTRATION": "Illustration"
+    },
+    "instructions": {
+      "VERB": "Choose the correct verb",
+      "NOUN": "Choose the correct noun",
+      "DESCRIPTION": "Choose the correct description",
+      "PHRASE": "Choose the correct phrase",
+      "ILLUSTRATION": "Choose the correct illustration"
+    }
+  },
   "issueTypes": {
     "TYPO": "Typo",
     "AMBIGUITY": "Ambiguity",

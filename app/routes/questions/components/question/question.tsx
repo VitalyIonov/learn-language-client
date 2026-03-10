@@ -16,6 +16,7 @@ import { TextOption } from "./text-option";
 import { ImageOption } from "./image-option";
 import { SoundWaves } from "~/shared/components/sound-waves/sound-waves";
 import { IssueButton } from "~/routes/questions/components/issue-button";
+import { DefinitionGroupHint } from "./definition-group-hint";
 
 type Props = {
   className?: string;
@@ -108,7 +109,7 @@ export function Question({ className, levelId, categoryId }: Props) {
     return null;
   }
 
-  const { meaning, definitions, type } = question;
+  const { meaning, definitions, type, definitionGroup } = question;
 
   return (
     <div className={clsx("w-full lg:px-4", className)}>
@@ -148,6 +149,7 @@ export function Question({ className, levelId, categoryId }: Props) {
             <div className="h-4 w-4 shrink-0" />
           </SoundWaves>
         </div>
+        <DefinitionGroupHint group={definitionGroup} />
         <RadioGroup
           key={question.id}
           value={selected}

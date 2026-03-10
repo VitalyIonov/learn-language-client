@@ -26,6 +26,7 @@ export * from './categoryOutBase';
 export * from './categoryOutBaseImage';
 export * from './categoryProgressInfoOut';
 export * from './categoryProgressOut';
+export * from './definitionGroup';
 export * from './definitionOut';
 export * from './definitionOutCategory';
 export * from './definitionOutLevel';

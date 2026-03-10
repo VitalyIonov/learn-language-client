@@ -5,12 +5,14 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { QuestionTypeName } from './questionTypeName';
+import type { DefinitionGroup } from './definitionGroup';
 import type { MeaningOut } from './meaningOut';
 import type { QuestionOutDefinitionsItem } from './questionOutDefinitionsItem';
 
 export interface QuestionOut {
   id: number;
   type: QuestionTypeName;
+  definitionGroup: DefinitionGroup;
   meaning: MeaningOut;
   definitions: QuestionOutDefinitionsItem[];
 }
