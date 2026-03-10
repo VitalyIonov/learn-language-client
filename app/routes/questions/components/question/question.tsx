@@ -15,8 +15,8 @@ import {
 import { TextOption } from "./text-option";
 import { ImageOption } from "./image-option";
 import { SoundWaves } from "~/shared/components/sound-waves/sound-waves";
+import { useI18n } from "~/shared/hooks/useI18n";
 import { IssueButton } from "~/routes/questions/components/issue-button";
-import { DefinitionGroupHint } from "./definition-group-hint";
 
 type Props = {
   className?: string;
@@ -25,6 +25,7 @@ type Props = {
 };
 
 export function Question({ className, levelId, categoryId }: Props) {
+  const { t: tGroup } = useI18n("definitionGroup");
   const [meaningTranslation, setMeaningTranslation] = useState<
     string | undefined
   >(undefined);
@@ -49,8 +50,16 @@ export function Question({ className, levelId, categoryId }: Props) {
 
   const { data: translatedMeaning, isLoading: isMeaningLoading } =
     useGetTranslate(
-      { text: question?.meaning?.name || "", lang_from: question?.meaning?.language ?? "", lang_to: user?.interfaceLang ?? "" },
-      { query: { enabled: isMeaningFlipped && !!question?.meaning?.name && !!user } },
+      {
+        text: question?.meaning?.name || "",
+        lang_from: question?.meaning?.language ?? "",
+        lang_to: user?.interfaceLang ?? "",
+      },
+      {
+        query: {
+          enabled: isMeaningFlipped && !!question?.meaning?.name && !!user,
+        },
+      },
     );
   const { mutateAsync: generateQuestion } = useGenerateQuestion();
   const { mutateAsync: makeAnswer } = useUpdateQuestion();
@@ -114,42 +123,46 @@ export function Question({ className, levelId, categoryId }: Props) {
   return (
     <div className={clsx("w-full lg:px-4", className)}>
       <div className="mx-auto">
-        <div className="mr-4 mb-12 ml-4 flex items-center justify-between gap-6">
-          <h1
-            className={clsx(
-              "relative",
-              "mb-0",
-              "text-2xl leading-none font-bold text-gray-100",
-              "cursor-pointer select-none",
-              "lg:text-3xl",
-            )}
-            onDoubleClick={onMeaningDoubleClick}
-            onClick={onMeaningClick}
-            onTouchStart={handleTouchStart}
-            {...restAudioEvents}
-          >
-            <span
-              className={clsx("absolute", {
-                "opacity-100": isMeaningFlipped,
-                "pointer-events-none opacity-0": !isMeaningFlipped,
-              })}
+        <div className={clsx("mx-4 mb-12", "rounded-xl")}>
+          <div className="flex items-center justify-between gap-6">
+            <h1
+              className={clsx(
+                "relative",
+                "mb-0",
+                "text-2xl leading-none font-bold text-gray-100",
+                "cursor-pointer select-none",
+                "lg:text-3xl",
+              )}
+              onDoubleClick={onMeaningDoubleClick}
+              onClick={onMeaningClick}
+              onTouchStart={handleTouchStart}
+              {...restAudioEvents}
             >
-              {isMeaningLoading ? "" : translatedMeaning?.translation}...
-            </span>
-            <span
-              className={clsx({
-                "opacity-100": !isMeaningFlipped,
-                "pointer-events-none opacity-0": isMeaningFlipped,
-              })}
-            >
-              {meaning?.name}...
-            </span>
-          </h1>
-          <SoundWaves className="h-4 w-4 shrink-0" active={isPlaying}>
-            <div className="h-4 w-4 shrink-0" />
-          </SoundWaves>
+              <span
+                className={clsx("absolute", {
+                  "opacity-100": isMeaningFlipped,
+                  "pointer-events-none opacity-0": !isMeaningFlipped,
+                })}
+              >
+                {isMeaningLoading ? "" : translatedMeaning?.translation}...
+              </span>
+              <span
+                className={clsx({
+                  "opacity-100": !isMeaningFlipped,
+                  "pointer-events-none opacity-0": isMeaningFlipped,
+                })}
+              >
+                {meaning?.name}...
+              </span>
+            </h1>
+            <SoundWaves className="h-4 w-4 shrink-0" active={isPlaying}>
+              <div className="h-4 w-4 shrink-0" />
+            </SoundWaves>
+          </div>
+          <p className="mt-3 text-sm text-gray-400">
+            {tGroup(`instructions.${definitionGroup}`)}
+          </p>
         </div>
-        <DefinitionGroupHint group={definitionGroup} />
         <RadioGroup
           key={question.id}
           value={selected}
