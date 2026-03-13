@@ -12,4 +12,6 @@ export interface CategoryOutBase {
   name: string;
   language: TargetLanguageCode;
   image?: CategoryOutBaseImage;
+  currentScore: number;
+  maxScore: number;
 }

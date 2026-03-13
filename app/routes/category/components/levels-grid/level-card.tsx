@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
 import { DataSection } from "~/shared/components/data-section/data-section";
+import { ScoreBar } from "~/shared/components/score-bar/score-bar";
 import type { LevelOut } from "~/types/client-schemas";
 
 type Props = {
@@ -36,19 +37,7 @@ export const LevelCard = ({ level, isSelected, onSelect }: Props) => {
         <span className="text-sm text-zinc-400 tabular-nums">{percent}%</span>
       </div>
       <span className="text-sm text-zinc-400">{level.name}</span>
-      <div className="relative h-2 w-full overflow-hidden rounded-full bg-zinc-700">
-        <div
-          className={clsx(
-            "absolute inset-0",
-            "bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-500",
-            "opacity-80 transition-[clip-path] duration-500 ease-out",
-          )}
-          style={{ clipPath: `inset(0 ${100 - percent}% 0 0)` }}
-        />
-      </div>
-      <span className="text-xs text-zinc-500 tabular-nums">
-        {level.currentScore} / {level.maxScore}
-      </span>
+      <ScoreBar currentScore={level.currentScore} maxScore={level.maxScore} />
     </DataSection>
   );
 };

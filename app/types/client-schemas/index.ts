@@ -46,6 +46,7 @@ export * from './interfaceLanguageListResponse';
 export * from './interfaceLanguageOut';
 export * from './issueCreate';
 export * from './issueCreateReporterId';
+export * from './issueCreateStatus';
 export * from './issueCreateStatusId';
 export * from './issueCreateText';
 export * from './issueCreateTypeId';
