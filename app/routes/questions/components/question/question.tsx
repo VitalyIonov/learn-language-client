@@ -128,7 +128,7 @@ export function Question({ className, levelId, categoryId }: Props) {
             <h1
               className={clsx(
                 "relative",
-                "mb-0",
+                "mb-0 w-full",
                 "text-2xl leading-none font-bold text-gray-100",
                 "cursor-pointer select-none",
                 "lg:text-3xl",
