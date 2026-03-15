@@ -18,4 +18,8 @@ lang_from: string;
  * target language code
  */
 lang_to: string;
+/**
+ * optional context for better translation
+ */
+context?: string | null;
 };

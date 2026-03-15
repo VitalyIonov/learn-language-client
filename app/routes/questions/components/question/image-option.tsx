@@ -12,7 +12,7 @@ type Props = {
   context?: string;
 };
 
-export function ImageOption({ definition, isSelected, lastResult }: Props) {
+export function ImageOption({ definition, isSelected, lastResult, context }: Props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [translation, setTranslation] = useState<string | undefined>(undefined);
   const { isFlipped, onDoubleClick, onClick, onTouchStart } = useFlipAnimation(
@@ -26,6 +26,7 @@ export function ImageOption({ definition, isSelected, lastResult }: Props) {
       text: definition.text,
       lang_from: definition.language,
       lang_to: user?.interfaceLang ?? "",
+      context,
     },
     { query: { enabled: isFlipped && !!user } },
   );

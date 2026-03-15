@@ -15,7 +15,7 @@ type Props = {
   context?: string;
 };
 
-export function TextOption({ definition, isSelected, lastResult }: Props) {
+export function TextOption({ definition, isSelected, lastResult, context }: Props) {
   const [translation, setTranslation] = useState<string | undefined>(undefined);
 
   const {
@@ -32,7 +32,7 @@ export function TextOption({ definition, isSelected, lastResult }: Props) {
   const { data: user } = useGetCurrentUser();
 
   const { data: translatedText, isLoading } = useGetTranslate(
-    { text: definition.text, lang_from: definition.language, lang_to: user?.interfaceLang ?? "" },
+    { text: definition.text, lang_from: definition.language, lang_to: user?.interfaceLang ?? "", context },
     { query: { enabled: isFlipped && !!user } },
   );
 

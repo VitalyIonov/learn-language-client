@@ -9,6 +9,7 @@ import { type CategoryOut, type QuestionOut } from "~/types/client-schemas";
 import {
   useGetTranslate,
   useGetCurrentUser,
+  useGetCategory,
   useGenerateQuestion,
   useUpdateQuestion,
 } from "~/types/client-api";
@@ -47,6 +48,7 @@ export function Question({ className, levelId, categoryId }: Props) {
   } = usePlayAudio(question?.meaning?.audio?.url);
 
   const { data: user } = useGetCurrentUser();
+  const { data: category } = useGetCategory(Number(categoryId));
 
   const { data: translatedMeaning, isLoading: isMeaningLoading } =
     useGetTranslate(
@@ -54,6 +56,7 @@ export function Question({ className, levelId, categoryId }: Props) {
         text: question?.meaning?.name || "",
         lang_from: question?.meaning?.language ?? "",
         lang_to: user?.interfaceLang ?? "",
+        context: category?.name,
       },
       {
         query: {
@@ -119,6 +122,7 @@ export function Question({ className, levelId, categoryId }: Props) {
   }
 
   const { meaning, definitions, type, definitionGroup } = question;
+  const definitionContext = `${category?.name}, ${meaning?.name}`;
 
   return (
     <div className={clsx("w-full lg:px-4", className)}>
@@ -184,6 +188,7 @@ export function Question({ className, levelId, categoryId }: Props) {
                   definition={definition}
                   isSelected={isSelected}
                   lastResult={lastResult}
+                  context={definitionContext}
                 />
               );
             }
@@ -195,6 +200,7 @@ export function Question({ className, levelId, categoryId }: Props) {
                   definition={definition}
                   isSelected={isSelected}
                   lastResult={lastResult}
+                  context={definitionContext}
                 />
               );
             }
