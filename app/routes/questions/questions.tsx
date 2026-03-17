@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { useState, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useParams, useSearchParams } from "react-router";
 
 import { LevelTabs } from "~/routes/questions/components/level-tabs";
@@ -11,10 +11,8 @@ import { useGetLevelsList } from "~/types/client-api";
 export default function Questions() {
   const { id } = useParams();
   const categoryId = Number(id);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const levelIdFromUrl = searchParams.get("levelId");
-
-  const [currentLevelId, setCurrentLevelId] = useState<number>();
 
   const { data: levelsData } = useGetLevelsList({
     category_id: categoryId,
@@ -23,12 +21,22 @@ export default function Questions() {
   const activeLevel = getActiveLevel(levelsData?.items ?? []);
 
   useEffect(() => {
-    const initialId = levelIdFromUrl ? Number(levelIdFromUrl) : activeLevel?.id;
-    setCurrentLevelId(initialId);
-  }, [activeLevel?.id]);
+    if (!levelIdFromUrl && activeLevel?.id) {
+      setSearchParams({ levelId: String(activeLevel.id) }, { replace: true });
+    }
+  }, [activeLevel?.id, levelIdFromUrl, setSearchParams]);
+
+  const currentLevelId = levelIdFromUrl ? Number(levelIdFromUrl) : activeLevel?.id;
 
   const currentLevel = levelsData?.items.find(
     ({ id }) => id === currentLevelId,
+  );
+
+  const handleLevelChange = useCallback(
+    (id: number) => {
+      setSearchParams({ levelId: String(id) });
+    },
+    [setSearchParams],
   );
 
   return (
@@ -38,7 +46,7 @@ export default function Questions() {
           <LevelTabs
             currentLevel={currentLevel}
             levelsData={levelsData}
-            onCurrentLevelChange={setCurrentLevelId}
+            onCurrentLevelChange={handleLevelChange}
           />
           <div className="flex min-w-0 flex-1 items-center">
             <Question
