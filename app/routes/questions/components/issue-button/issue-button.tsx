@@ -18,7 +18,7 @@ export const IssueButton = ({ question }: Props) => {
   const [isIssueModalOpened, setIsIssueModalOpened] = useState(false);
   const { info: infoNotification } = useNotificationStore();
 
-  const { mutateAsync: addIssue } = useCreateIssue();
+  const { mutateAsync: addIssue, isPending } = useCreateIssue();
 
   const handleIssueModalOpen = () => {
     setIsIssueModalOpened(true);
@@ -64,7 +64,7 @@ export const IssueButton = ({ question }: Props) => {
         onClose={() => setIsIssueModalOpened(false)}
         title="Сообщить об ошибке"
       >
-        <IssueForm id={FORM_ID} onSubmit={handleIssueCreate} />
+        <IssueForm id={FORM_ID} onSubmit={handleIssueCreate} isSubmitting={isPending} />
       </Modal>
     </>
   );

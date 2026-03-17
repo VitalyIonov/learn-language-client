@@ -10,9 +10,10 @@ type Props = {
   id: string;
   defaultValues?: Schema;
   onSubmit: (data: Schema) => void;
+  isSubmitting?: boolean;
 };
 
-function IssueForm({ id, defaultValues, onSubmit }: Props) {
+function IssueForm({ id, defaultValues, onSubmit, isSubmitting }: Props) {
   const { formMethods, control } = useIssueForm({ defaultValues });
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function IssueForm({ id, defaultValues, onSubmit }: Props) {
         label="Укажите детали (опционально)"
         control={control}
       />
-      <FormFooter className="mt-4" id={id} submitLabel="Отправить" />
+      <FormFooter className="mt-4" id={id} submitLabel="Отправить" disabled={isSubmitting} />
     </Form>
   );
 }

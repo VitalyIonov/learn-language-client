@@ -5,11 +5,12 @@ type Props = {
   submitLabel: string;
   id: string;
   className?: string;
+  disabled?: boolean;
 };
 
-export const FormFooter = ({ className, id, submitLabel }: Props) => (
+export const FormFooter = ({ className, id, submitLabel, disabled }: Props) => (
   <div className={clsx("flex justify-end", className)}>
-    <Button className="h-12" type="submit" form={id}>
+    <Button className="h-12" type="submit" form={id} disabled={disabled}>
       {submitLabel}
     </Button>
   </div>
