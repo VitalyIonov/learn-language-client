@@ -13,9 +13,10 @@ type Props = {
   isSelected: boolean;
   lastResult?: boolean;
   context?: string;
+  isAnswering?: boolean;
 };
 
-export function TextOption({ definition, isSelected, lastResult, context }: Props) {
+export function TextOption({ definition, isSelected, lastResult, context, isAnswering }: Props) {
   const [translation, setTranslation] = useState<string | undefined>(undefined);
 
   const {
@@ -64,6 +65,7 @@ export function TextOption({ definition, isSelected, lastResult, context }: Prop
           ["bg-emerald-300 text-slate-800"]: lastResult === true && isSelected,
           ["bg-red-400 text-slate-800"]: lastResult === false && isSelected,
           ["bg-white/10"]: lastResult === undefined && isSelected,
+          ["animate-pulse"]: isAnswering && isSelected,
         },
       )}
       onTouchStart={handleTouchStart}

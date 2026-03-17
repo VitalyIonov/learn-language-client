@@ -10,9 +10,10 @@ type Props = {
   isSelected: boolean;
   lastResult?: boolean;
   context?: string;
+  isAnswering?: boolean;
 };
 
-export function ImageOption({ definition, isSelected, lastResult, context }: Props) {
+export function ImageOption({ definition, isSelected, lastResult, context, isAnswering }: Props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [translation, setTranslation] = useState<string | undefined>(undefined);
   const { isFlipped, onDoubleClick, onClick, onTouchStart } = useFlipAnimation(
@@ -41,7 +42,7 @@ export function ImageOption({ definition, isSelected, lastResult, context }: Pro
       value={definition.id}
       className={clsx(
         "group relative cursor-pointer transition-all duration-200 focus:not-data-focus:outline-none",
-        { "animate-pulse": !isLoaded },
+        { "animate-pulse": !isLoaded || (isAnswering && isSelected) },
       )}
       onDoubleClick={onDoubleClick}
       onClick={onClick}

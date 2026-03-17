@@ -65,7 +65,7 @@ export function Question({ className, levelId, categoryId }: Props) {
       },
     );
   const { mutateAsync: generateQuestion } = useGenerateQuestion();
-  const { mutateAsync: makeAnswer } = useUpdateQuestion();
+  const { mutateAsync: makeAnswer, isPending: isAnswering } = useUpdateQuestion();
 
   useEffect(() => {
     setMeaningTranslation(translatedMeaning?.translation);
@@ -171,6 +171,7 @@ export function Question({ className, levelId, categoryId }: Props) {
           key={question.id}
           value={selected}
           onChange={setSelected}
+          disabled={isAnswering || isQuestionUpdating}
           aria-label="Server size"
           className={clsx("mb-24 sm:mb-0", {
             ["mb-2 space-y-2"]: type === "text",
@@ -189,6 +190,7 @@ export function Question({ className, levelId, categoryId }: Props) {
                   isSelected={isSelected}
                   lastResult={lastResult}
                   context={definitionContext}
+                  isAnswering={isAnswering}
                 />
               );
             }
@@ -201,6 +203,7 @@ export function Question({ className, levelId, categoryId }: Props) {
                   isSelected={isSelected}
                   lastResult={lastResult}
                   context={definitionContext}
+                  isAnswering={isAnswering}
                 />
               );
             }
@@ -217,7 +220,7 @@ export function Question({ className, levelId, categoryId }: Props) {
         >
           <Button
             className="h-16 grow-1 sm:grow-0 lg:h-auto"
-            disabled={isQuestionUpdating}
+            disabled={isAnswering || isQuestionUpdating}
             onClick={handleApply}
           >
             Ответить
